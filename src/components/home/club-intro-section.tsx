@@ -10,7 +10,10 @@ export function ClubIntroSection({
   eventsOverview,
 }: ClubIntroSectionProps) {
   return (
-    <section aria-labelledby="club-overview-title" className="grid gap-4">
+    <section
+      aria-labelledby="club-overview-title"
+      className="grid gap-4 md:grid-cols-2"
+    >
       <Card className="border-primary/20 bg-[linear-gradient(160deg,color-mix(in_oklab,var(--color-card)_94%,var(--color-primary)),var(--color-card))]">
         <CardHeader>
           <CardTitle

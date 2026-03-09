@@ -31,7 +31,10 @@ export function StatsSection({ stats }: StatsSectionProps) {
         description="A quick snapshot of our community and activity this term."
         className="space-y-2"
       />
-      <ul className="grid gap-4 sm:grid-cols-2" id="club-stats-title">
+      <ul
+        className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4"
+        id="club-stats-title"
+      >
         {items.map((item) => (
           <li key={item.label}>
             <Card className="border-primary/20 bg-[linear-gradient(180deg,color-mix(in_oklab,var(--color-card)_95%,var(--color-primary)),var(--color-card))]">
