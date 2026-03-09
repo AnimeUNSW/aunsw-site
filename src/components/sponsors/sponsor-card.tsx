@@ -68,7 +68,7 @@ export function SponsorCard({ sponsor }: { sponsor: Sponsor }) {
   const TierIcon = meta.icon
 
   return (
-    <Card className="h-full overflow-hidden border-primary/20 bg-[linear-gradient(180deg,color-mix(in_oklab,var(--color-card)_95%,var(--color-accent)),var(--color-card))] shadow-[0_16px_32px_-26px_var(--color-primary)] transition-transform duration-300 hover:-translate-y-1 hover:shadow-[0_22px_40px_-24px_var(--color-accent)]">
+    <Card className="h-full w-full overflow-hidden border-primary/20 bg-[linear-gradient(180deg,color-mix(in_oklab,var(--color-card)_95%,var(--color-accent)),var(--color-card))] shadow-[0_16px_32px_-26px_var(--color-primary)] transition-transform duration-300 hover:-translate-y-1 hover:shadow-[0_22px_40px_-24px_var(--color-accent)]">
       <div className={cn("h-1 w-full", meta.ribbonClass)} aria-hidden />
       <div className="overflow-hidden border-b border-border/60 bg-muted/35">
         {sponsor.image ? (
@@ -107,7 +107,7 @@ export function SponsorCard({ sponsor }: { sponsor: Sponsor }) {
           {sponsor.discountDescription}
         </CardDescription>
       </CardHeader>
-      <CardContent className="space-y-3">
+      <CardContent className="flex grow flex-col gap-3">
         {sponsor.promoCode ? (
           <div className="rounded-lg border border-accent/35 bg-accent/10 p-3">
             <p className="mb-1 text-[11px] tracking-[0.14em] text-muted-foreground uppercase">
@@ -124,12 +124,12 @@ export function SponsorCard({ sponsor }: { sponsor: Sponsor }) {
           </div>
         )}
         {sponsor.validUntil ? (
-          <p className="text-xs text-muted-foreground">
+          <p className="mt-auto text-xs text-muted-foreground">
             Valid until {formatDate(sponsor.validUntil)}
           </p>
         ) : null}
       </CardContent>
-      <CardFooter className="justify-between gap-2">
+      <CardFooter className="mt-auto justify-between gap-2">
         <Button
           variant="outline"
           size="sm"

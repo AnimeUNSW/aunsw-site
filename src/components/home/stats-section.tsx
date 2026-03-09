@@ -32,12 +32,12 @@ export function StatsSection({ stats }: StatsSectionProps) {
         className="space-y-2"
       />
       <ul
-        className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4"
+        className="grid items-stretch gap-4 sm:grid-cols-2 lg:grid-cols-4"
         id="club-stats-title"
       >
         {items.map((item) => (
-          <li key={item.label}>
-            <Card className="border-primary/20 bg-[linear-gradient(180deg,color-mix(in_oklab,var(--color-card)_95%,var(--color-primary)),var(--color-card))]">
+          <li key={item.label} className="flex h-full">
+            <Card className="h-full w-full border-primary/20 bg-[linear-gradient(180deg,color-mix(in_oklab,var(--color-card)_95%,var(--color-primary)),var(--color-card))]">
               <CardHeader>
                 <CardTitle className="text-xs tracking-[0.14em] text-muted-foreground uppercase">
                   {item.label}

@@ -80,7 +80,7 @@ export function EventCard({ event }: { event: Event }) {
   const CategoryIcon = meta.icon
 
   return (
-    <Card className="h-full overflow-hidden border-primary/20 bg-[linear-gradient(180deg,color-mix(in_oklab,var(--color-card)_96%,var(--color-primary)),var(--color-card))] shadow-[0_14px_30px_-26px_var(--color-primary)] transition-transform duration-300 hover:-translate-y-1 hover:shadow-[0_24px_42px_-24px_var(--color-primary)]">
+    <Card className="h-full w-full overflow-hidden border-primary/20 bg-[linear-gradient(180deg,color-mix(in_oklab,var(--color-card)_96%,var(--color-primary)),var(--color-card))] shadow-[0_14px_30px_-26px_var(--color-primary)] transition-transform duration-300 hover:-translate-y-1 hover:shadow-[0_24px_42px_-24px_var(--color-primary)]">
       <div className={cn("h-1 w-full", meta.ribbonClass)} aria-hidden />
       <div className="overflow-hidden border-b border-border/60 bg-muted/35">
         {event.image ? (
@@ -114,7 +114,7 @@ export function EventCard({ event }: { event: Event }) {
           {event.description}
         </CardDescription>
       </CardHeader>
-      <CardContent className="space-y-4">
+      <CardContent className="flex grow flex-col gap-4">
         <div className="space-y-2 rounded-lg border border-border/70 bg-muted/35 p-3">
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <CalendarIcon className="size-4" aria-hidden />
@@ -127,7 +127,10 @@ export function EventCard({ event }: { event: Event }) {
             <span>{event.location}</span>
           </div>
         </div>
-        <ul className="flex flex-wrap gap-2" aria-label={`${event.title} tags`}>
+        <ul
+          className="mt-auto flex flex-wrap gap-2"
+          aria-label={`${event.title} tags`}
+        >
           {event.tags.map((tag) => (
             <li key={tag}>
               <Badge
@@ -140,7 +143,7 @@ export function EventCard({ event }: { event: Event }) {
           ))}
         </ul>
       </CardContent>
-      <CardFooter className="justify-between gap-2">
+      <CardFooter className="mt-auto justify-between gap-2">
         <Tooltip>
           <TooltipTrigger asChild>
             <Button

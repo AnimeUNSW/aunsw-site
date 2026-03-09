@@ -12,15 +12,18 @@ import type { Contact } from "@/types/content"
 
 export function ContactSection({ contacts }: { contacts: Contact[] }) {
   return (
-    <ul className="grid gap-4 md:grid-cols-2" aria-label="Contact emails">
+    <ul
+      className="grid items-stretch gap-4 md:grid-cols-2"
+      aria-label="Contact emails"
+    >
       {contacts.map((contact) => (
-        <li key={contact.email}>
-          <Card className="border-primary/20 bg-[linear-gradient(180deg,color-mix(in_oklab,var(--color-card)_96%,var(--color-accent)),var(--color-card))]">
+        <li key={contact.email} className="flex h-full">
+          <Card className="h-full w-full border-primary/20 bg-[linear-gradient(180deg,color-mix(in_oklab,var(--color-card)_96%,var(--color-accent)),var(--color-card))]">
             <CardHeader>
               <CardTitle>{contact.label}</CardTitle>
               <CardDescription>{contact.email}</CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="mt-auto">
               <Button
                 variant="outline"
                 size="sm"

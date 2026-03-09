@@ -1,99 +1,80 @@
-import { ImageIcon, SparklesIcon } from "lucide-react"
+import { ChevronDownIcon, SparklesIcon } from "lucide-react"
 import { Link } from "react-router-dom"
 
+import animeCitySunset from "@/assets/anime-city-sunset.jpg"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Separator } from "@/components/ui/separator"
 import type { SiteContent } from "@/types/content"
 
 interface HeroSectionProps {
+  clubName: string
   hero: SiteContent["hero"]
 }
 
-export function HeroSection({ hero }: HeroSectionProps) {
+export function HeroSection({ clubName, hero }: HeroSectionProps) {
+  const backgroundStyle = animeCitySunset
+    ? {
+        backgroundImage: `url(${animeCitySunset})`,
+      }
+    : {
+        backgroundImage:
+          "linear-gradient(118deg,color-mix(in_oklab,var(--color-background)_40%,black),color-mix(in_oklab,var(--color-primary)_45%,black)_48%,color-mix(in_oklab,var(--color-accent)_35%,black))",
+      }
+
   return (
-    <section className="relative overflow-hidden rounded-3xl border border-primary/25 bg-[linear-gradient(120deg,color-mix(in_oklab,var(--color-primary)_14%,transparent),color-mix(in_oklab,var(--color-accent)_10%,transparent))] p-6 shadow-[0_24px_45px_-30px_var(--color-primary)] md:p-10">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(18rem_10rem_at_85%_10%,color-mix(in_oklab,var(--color-accent)_30%,transparent),transparent_70%)]" />
-      <div className="relative grid gap-8 md:grid-cols-[1fr_auto] md:items-center">
-        <div className="space-y-5">
-          <Badge className="w-fit gap-1.5 tracking-[0.12em] uppercase">
+    <section
+      className="relative left-1/2 min-h-[78svh] w-screen -translate-x-1/2 overflow-hidden bg-cover bg-center bg-no-repeat md:min-h-[100svh]"
+      style={backgroundStyle}
+      aria-label={`${clubName} hero banner`}
+    >
+      <div className="absolute inset-0 bg-[radial-gradient(42rem_24rem_at_18%_22%,color-mix(in_oklab,var(--color-primary)_38%,transparent),transparent_72%),radial-gradient(34rem_20rem_at_82%_72%,color-mix(in_oklab,var(--color-accent)_30%,transparent),transparent_70%)]" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-black/42 to-black/62" />
+
+      <div className="relative mx-auto flex min-h-[78svh] max-w-6xl items-center px-4 py-14 md:min-h-[100svh] md:px-6 md:py-20">
+        <div className="w-full max-w-3xl rounded-3xl border border-white/55 bg-white/72 p-6 shadow-[0_35px_80px_-44px_rgba(6,6,12,0.55)] backdrop-blur-xl backdrop-saturate-150 dark:border-white/20 dark:bg-white/14 md:-translate-x-4 md:p-10">
+          <Badge className="mb-5 w-fit gap-1.5 border border-white/45 bg-white/70 text-foreground tracking-[0.12em] uppercase dark:border-white/20 dark:bg-white/20 dark:text-white">
             <SparklesIcon className="size-3" aria-hidden />
             {hero.badge}
           </Badge>
-          <h1 className="bg-gradient-to-r from-foreground via-primary to-accent bg-clip-text text-3xl font-bold tracking-tight text-transparent md:text-5xl">
-            {hero.title}
+
+          <h1 className="text-4xl font-bold tracking-tight text-foreground drop-shadow-[0_8px_20px_rgba(0,0,0,0.18)] dark:text-white dark:drop-shadow-[0_10px_22px_rgba(0,0,0,0.55)] md:text-6xl">
+            {clubName}
           </h1>
-          <p className="max-w-2xl text-base text-muted-foreground md:text-lg">
+          <h2 className="mt-2 text-lg font-semibold text-foreground/90 dark:text-white/92 md:text-2xl">
+            {hero.title}
+          </h2>
+          <p className="mt-5 max-w-2xl text-sm text-foreground/80 dark:text-white/82 md:text-base">
             {hero.subtitle}
           </p>
-          <div className="flex flex-wrap gap-3 pt-1">
+
+          <div className="mt-7 flex flex-wrap gap-3">
             <Button
-              className="shadow-[0_12px_28px_-20px_var(--color-primary)]"
+              size="lg"
+              className="shadow-[0_18px_34px_-24px_var(--color-primary)]"
               asChild
             >
-              <Link to={hero.primaryCta.href}>{hero.primaryCta.label}</Link>
+              <Link to="/info">Join Now</Link>
             </Button>
             <Button
-              variant="outline"
-              className="border-primary/35 bg-background/70"
+              size="lg"
+              variant="secondary"
+              className="border border-secondary-foreground/15"
               asChild
             >
-              <Link to={hero.secondaryCta.href}>{hero.secondaryCta.label}</Link>
+              <Link to="/events">Events</Link>
             </Button>
           </div>
         </div>
-        <div className="w-full max-w-xs rounded-2xl border border-accent/40 bg-[linear-gradient(180deg,color-mix(in_oklab,var(--color-card)_92%,var(--color-accent)),var(--color-card))] p-5 shadow-[0_20px_38px_-30px_var(--color-accent)] md:ml-auto">
-          <div className="space-y-4">
-            <div className="space-y-2">
-              <p className="text-xs tracking-[0.16em] text-muted-foreground uppercase">
-                Hero photo
-              </p>
-              <div className="overflow-hidden rounded-xl border border-primary/25">
-                {hero.image ? (
-                  <img
-                    src={hero.image}
-                    alt={hero.imageAlt ?? "AnimeUNSW hero photo"}
-                    className="aspect-[4/3] w-full object-cover"
-                  />
-                ) : (
-                  <div className="flex aspect-[4/3] w-full items-center justify-center bg-muted/50 text-xs tracking-[0.12em] text-muted-foreground uppercase">
-                    <ImageIcon className="mr-2 size-4" aria-hidden />
-                    Add hero photo
-                  </div>
-                )}
-              </div>
-            </div>
-            <Separator />
-            <div>
-              <p className="mb-2 text-xs tracking-[0.16em] text-muted-foreground uppercase">
-                Weekly focus
-              </p>
-              <ul className="space-y-2.5 text-sm">
-                <li className="flex gap-2">
-                  <span
-                    className="mt-1 size-2 rounded-full bg-primary"
-                    aria-hidden
-                  />
-                  Watch parties and seasonal premieres
-                </li>
-                <li className="flex gap-2">
-                  <span
-                    className="mt-1 size-2 rounded-full bg-accent"
-                    aria-hidden
-                  />
-                  Trivia and challenge nights
-                </li>
-                <li className="flex gap-2">
-                  <span
-                    className="mt-1 size-2 rounded-full bg-secondary"
-                    aria-hidden
-                  />
-                  Cosplay-friendly community events
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
+      </div>
+
+      <div className="pointer-events-none absolute inset-x-0 bottom-5 z-10 flex justify-center md:bottom-7">
+        <a
+          href="#home-main-sections"
+          className="pointer-events-auto inline-flex size-11 items-center justify-center rounded-full border border-primary-foreground/35 bg-black/35 text-primary-foreground shadow-[0_14px_34px_-22px_black] backdrop-blur-sm transition hover:scale-105 hover:bg-black/45 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+          aria-label="Scroll down to explore more sections"
+        >
+          <ChevronDownIcon className="size-5 animate-bounce" aria-hidden />
+        </a>
       </div>
     </section>
   )

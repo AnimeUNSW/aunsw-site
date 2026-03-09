@@ -26,11 +26,11 @@ export function EventList({
 
   return (
     <ul
-      className="grid gap-5 md:grid-cols-2 lg:grid-cols-3"
+      className="grid items-stretch gap-5 md:grid-cols-2 lg:grid-cols-3"
       aria-label="Event list"
     >
       {events.map((event) => (
-        <li key={event.id} id={event.slug}>
+        <li key={event.id} id={event.slug} className="flex h-full">
           <EventCard event={event} />
         </li>
       ))}
