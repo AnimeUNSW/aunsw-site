@@ -68,7 +68,11 @@ export function SponsorCard({ sponsor }: { sponsor: Sponsor }) {
   const TierIcon = meta.icon
 
   return (
-    <Card className="h-full w-full overflow-hidden border-primary/20 bg-[linear-gradient(180deg,color-mix(in_oklab,var(--color-card)_95%,var(--color-accent)),var(--color-card))] shadow-[0_16px_32px_-26px_var(--color-primary)] transition-transform duration-300 hover:-translate-y-1 hover:shadow-[0_22px_40px_-24px_var(--color-accent)]">
+    <Card className="relative h-full w-full overflow-hidden border-primary/30 bg-[linear-gradient(180deg,color-mix(in_oklab,var(--color-card)_95%,var(--color-accent)),var(--color-card))] shadow-[0_22px_44px_-30px_var(--color-accent)] transition-all duration-300 hover:-translate-y-1.5 hover:border-accent/55 hover:shadow-[0_34px_62px_-30px_var(--color-accent)]">
+      <div
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(18rem_9rem_at_88%_8%,color-mix(in_oklab,var(--color-primary)_24%,transparent),transparent_70%)]"
+        aria-hidden
+      />
       <div className={cn("h-1 w-full", meta.ribbonClass)} aria-hidden />
       <div className="overflow-hidden border-b border-border/60 bg-muted/35">
         {sponsor.image ? (

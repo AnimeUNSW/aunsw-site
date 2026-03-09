@@ -2,7 +2,6 @@ import { ClubIntroSection } from "@/components/home/club-intro-section"
 import { FeaturedEventsSection } from "@/components/home/featured-events-section"
 import { HeroSection } from "@/components/home/hero-section"
 import { SponsorPerksPreviewSection } from "@/components/home/sponsor-perks-preview-section"
-import { StatsSection } from "@/components/home/stats-section"
 import { SocialLinks } from "@/components/shared/social-links"
 import { Separator } from "@/components/ui/separator"
 import { useFeaturedEvents } from "@/hooks/use-featured-events"
@@ -23,9 +22,8 @@ export function HomePage() {
       <div id="home-main-sections" className="scroll-mt-24 space-y-14">
         <ClubIntroSection
           clubDescription={siteContent.clubDescription}
-          eventsOverview={siteContent.eventsOverview}
+          stats={siteContent.clubStats}
         />
-        <StatsSection stats={siteContent.clubStats} />
         <FeaturedEventsSection events={featuredEvents} />
         <SponsorPerksPreviewSection
           overview={siteContent.sponsorPerksOverview}

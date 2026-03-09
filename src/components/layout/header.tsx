@@ -15,6 +15,7 @@ export function Header() {
   const [hasScrolled, setHasScrolled] = useState(
     typeof window !== "undefined" ? window.scrollY > 56 : false,
   )
+  const [isTopHoverActive, setIsTopHoverActive] = useState(false)
   const isHomeRoute = location.pathname === "/"
 
   useEffect(() => {
@@ -25,17 +26,33 @@ export function Header() {
     const onScroll = () => {
       setHasScrolled(window.scrollY > 56)
     }
+    const onMouseMove = (event: MouseEvent) => {
+      const insideTopTriggerZone = event.clientY <= 88
+      setIsTopHoverActive((current) =>
+        current === insideTopTriggerZone ? current : insideTopTriggerZone,
+      )
+    }
+    const onMouseLeave = () => {
+      setIsTopHoverActive(false)
+    }
 
-    const frameId = window.requestAnimationFrame(onScroll)
+    const frameId = window.requestAnimationFrame(() => {
+      onScroll()
+      setIsTopHoverActive(false)
+    })
     window.addEventListener("scroll", onScroll, { passive: true })
+    window.addEventListener("mousemove", onMouseMove)
+    window.addEventListener("mouseleave", onMouseLeave)
 
     return () => {
       window.cancelAnimationFrame(frameId)
       window.removeEventListener("scroll", onScroll)
+      window.removeEventListener("mousemove", onMouseMove)
+      window.removeEventListener("mouseleave", onMouseLeave)
     }
   }, [isHomeRoute])
 
-  const showHeader = !isHomeRoute || hasScrolled
+  const showHeader = !isHomeRoute || hasScrolled || isTopHoverActive
 
   return (
     <header

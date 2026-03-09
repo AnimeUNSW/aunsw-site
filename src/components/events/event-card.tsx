@@ -80,7 +80,11 @@ export function EventCard({ event }: { event: Event }) {
   const CategoryIcon = meta.icon
 
   return (
-    <Card className="h-full w-full overflow-hidden border-primary/20 bg-[linear-gradient(180deg,color-mix(in_oklab,var(--color-card)_96%,var(--color-primary)),var(--color-card))] shadow-[0_14px_30px_-26px_var(--color-primary)] transition-transform duration-300 hover:-translate-y-1 hover:shadow-[0_24px_42px_-24px_var(--color-primary)]">
+    <Card className="relative h-full w-full overflow-hidden border-primary/30 bg-[linear-gradient(180deg,color-mix(in_oklab,var(--color-card)_96%,var(--color-primary)),var(--color-card))] shadow-[0_22px_44px_-30px_var(--color-primary)] transition-all duration-300 hover:-translate-y-1.5 hover:border-primary/45 hover:shadow-[0_34px_62px_-30px_var(--color-primary)]">
+      <div
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(18rem_9rem_at_88%_8%,color-mix(in_oklab,var(--color-accent)_22%,transparent),transparent_70%)]"
+        aria-hidden
+      />
       <div className={cn("h-1 w-full", meta.ribbonClass)} aria-hidden />
       <div className="overflow-hidden border-b border-border/60 bg-muted/35">
         {event.image ? (
