@@ -1,0 +1,83 @@
+{
+  "clubName": "AnimeUNSW",
+  "hero": {
+    "badge": "UNSW Student Society",
+    "title": "Anime nights, socials, and community on campus",
+    "subtitle": "Step into weekly screenings, trivia battles, cosplay showcases, and themed campus socials built for every kind of anime fan.",
+    "image": "https://animeunsw.net/_app/immutable/assets/desert.i-z3Jmnp.png",
+    "imageAlt": "AnimeUNSW hero background artwork",
+    "primaryCta": {
+      "label": "View Events",
+      "href": "/events"
+    },
+    "secondaryCta": {
+      "label": "Membership Info",
+      "href": "/info"
+    }
+  },
+  "clubDescription": "AnimeUNSW is a student-run anime society at UNSW where members meet for screenings, games, creative showcases, and community events every term.",
+  "eventsOverview": "Expect a full seasonal lineup: watch parties, social mixers, tournament-style trivia, cosplay spotlight nights, and opening-song challenges.",
+  "sponsorPerksOverview": "Members unlock partner perks across manga stores, food spots, and hobby retailers with event-night specials and promo codes.",
+  "discordOverview": "Discord is our command center for announcements, reminders, signups, and daily anime discussion between on-campus events.",
+  "socialLinks": {
+    "discord": "https://discord.gg/animeunsw",
+    "instagram": "https://instagram.com/animeunsw",
+    "facebook": "https://facebook.com/animeunsw",
+    "youtube": "https://youtube.com/@animeunsw",
+    "email": "info@animeunsw.org",
+    "linktree": "https://linktr.ee/animeunsw"
+  },
+  "clubStats": {
+    "memberCount": 420,
+    "activeYears": 12,
+    "eventsPerTerm": 18,
+    "sponsorCount": 9,
+    "lastUpdated": "2026-03-01"
+  },
+  "membershipPaths": [
+    {
+      "id": "arc",
+      "label": "Arc Sign-Up",
+      "summary": "Activate your Arc profile before joining AnimeUNSW.",
+      "steps": [
+        "Log in to Arc Membership.",
+        "Find AnimeUNSW in the societies list.",
+        "Complete annual membership checkout."
+      ]
+    },
+    {
+      "id": "registration",
+      "label": "Club Registration",
+      "summary": "Submit AnimeUNSW registration details for event check-in and perks access.",
+      "steps": [
+        "Open the AnimeUNSW registration form.",
+        "Provide your zID and preferred name.",
+        "Agree to society code of conduct."
+      ]
+    },
+    {
+      "id": "discord",
+      "label": "Discord Verification",
+      "summary": "Join the server and unlock member channels.",
+      "steps": [
+        "Join using the invite link.",
+        "Read #rules-and-guidelines.",
+        "Verify membership to access full channels."
+      ]
+    }
+  ],
+  "contacts": [
+    {
+      "label": "General Enquiries",
+      "email": "info@animeunsw.org"
+    },
+    {
+      "label": "Events Team",
+      "email": "events@animeunsw.org"
+    },
+    {
+      "label": "Sponsorships",
+      "email": "sponsorships@animeunsw.org"
+    }
+  ]
+}

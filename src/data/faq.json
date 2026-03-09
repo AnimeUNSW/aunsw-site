@@ -1,0 +1,38 @@
+[
+  {
+    "id": "faq-membership-1",
+    "question": "How do I join AnimeUNSW?",
+    "answer": "Sign up through Arc Membership, then complete the AnimeUNSW registration form linked on this site.",
+    "category": "membership"
+  },
+  {
+    "id": "faq-membership-2",
+    "question": "Do I need prior anime knowledge to attend events?",
+    "answer": "No. Beginners are welcome and most events are designed for mixed experience levels.",
+    "category": "membership"
+  },
+  {
+    "id": "faq-events-1",
+    "question": "Are events free?",
+    "answer": "Most weekly events are free for members. Some major events may have a small ticket fee.",
+    "category": "events"
+  },
+  {
+    "id": "faq-events-2",
+    "question": "Can I bring friends who are not members?",
+    "answer": "Guests are welcome at select social events. Competitive or ticketed events may require membership.",
+    "category": "events"
+  },
+  {
+    "id": "faq-discord-1",
+    "question": "How do I access the Discord server?",
+    "answer": "Use the Discord invite on the Info page and complete server verification with your zID.",
+    "category": "discord"
+  },
+  {
+    "id": "faq-general-1",
+    "question": "Who can I contact for sponsor or collaboration enquiries?",
+    "answer": "Email the sponsorship team at sponsorships@animeunsw.org.",
+    "category": "general"
+  }
+]

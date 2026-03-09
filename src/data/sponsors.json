@@ -1,0 +1,50 @@
+[
+  {
+    "id": "sponsor-kinokuniya",
+    "name": "Kinokuniya Sydney",
+    "logoText": "K!",
+    "websiteUrl": "https://australia.kinokuniya.com",
+    "tier": "diamond",
+    "image": "https://animeunsw.net/_app/immutable/assets/hobbyco.BMsYqr0-.png",
+    "imageAlt": "AnimeUNSW sponsor graphic for hobby retailer",
+    "discountDescription": "10% off manga and light novels for active AnimeUNSW members.",
+    "promoCode": "AUNSW10",
+    "terms": "Show your current AnimeUNSW membership confirmation and UNSW student ID at checkout.",
+    "validUntil": "2026-12-31"
+  },
+  {
+    "id": "sponsor-sekaigoods",
+    "name": "Sekai Goods",
+    "logoText": "SG",
+    "websiteUrl": "https://example.com/sekaigoods",
+    "tier": "gold",
+    "image": "https://animeunsw.net/_app/immutable/assets/isekai_gacha.Bjsw64av.png",
+    "imageAlt": "AnimeUNSW sponsor visual for collectibles",
+    "discountDescription": "15% off figures and model kits over $40, including selected anime franchise lines.",
+    "promoCode": "SEKAI15",
+    "terms": "Online only. Excludes pre-orders and limited-edition releases."
+  },
+  {
+    "id": "sponsor-ramen-street",
+    "name": "Ramen Street",
+    "logoText": "RS",
+    "websiteUrl": "https://example.com/ramenstreet",
+    "tier": "silver",
+    "image": "https://animeunsw.net/_app/immutable/assets/harajuku_gyoza.BCg8ZCr0.png",
+    "imageAlt": "AnimeUNSW sponsor visual for food partner",
+    "discountDescription": "Free soft drink with any ramen meal after AnimeUNSW event nights.",
+    "terms": "Offer redeemable on event days only between 6pm and 9pm."
+  },
+  {
+    "id": "sponsor-gamequest",
+    "name": "GameQuest",
+    "logoText": "GQ",
+    "websiteUrl": "https://example.com/gamequest",
+    "tier": "community",
+    "image": "https://animeunsw.net/_app/immutable/assets/roll_with_advantage.z3IcQ_uH.png",
+    "imageAlt": "AnimeUNSW sponsor visual for tabletop partner",
+    "discountDescription": "5% off anime-themed board games and TCG accessories for members.",
+    "promoCode": "QUEST5",
+    "terms": "Available in-store and online. Cannot be combined with sale bundles."
+  }
+]

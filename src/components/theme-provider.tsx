@@ -23,6 +23,16 @@ const ThemeProviderContext = React.createContext<
   ThemeProviderState | undefined
 >(undefined)
 
+export function useTheme() {
+  const context = React.useContext(ThemeProviderContext)
+
+  if (!context) {
+    throw new Error("useTheme must be used within ThemeProvider")
+  }
+
+  return context
+}
+
 function isTheme(value: string | null): value is Theme {
   if (value === null) {
     return false
@@ -217,14 +227,4 @@ export function ThemeProvider({
       {children}
     </ThemeProviderContext.Provider>
   )
-}
-
-export const useTheme = () => {
-  const context = React.useContext(ThemeProviderContext)
-
-  if (context === undefined) {
-    throw new Error("useTheme must be used within a ThemeProvider")
-  }
-
-  return context
 }
