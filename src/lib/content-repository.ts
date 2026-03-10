@@ -1,16 +1,18 @@
-import cosplayBlogData from "@/data/cosplay-blog.json"
 import eventsData from "@/data/events.json"
 import faqData from "@/data/faq.json"
 import siteData from "@/data/site.json"
 import sponsorsData from "@/data/sponsors.json"
 import teamData from "@/data/team.json"
+import {
+  parseEvents,
+  parseFaqs,
+  parseSiteContent,
+  parseSponsors,
+  parseTeamProfiles,
+} from "@/lib/content-validation"
 import type {
-  CosplayBlogEntry,
   ContentRepository,
   Event,
-  FAQ,
-  SiteContent,
-  Sponsor,
   TeamProfile,
 } from "@/types/content"
 
@@ -29,13 +31,18 @@ function sortTeamProfiles(profiles: TeamProfile[]) {
   )
 }
 
+const events = sortEvents(parseEvents(eventsData))
+const sponsors = parseSponsors(sponsorsData)
+const faqs = parseFaqs(faqData)
+const siteContent = parseSiteContent(siteData)
+const teamProfiles = sortTeamProfiles(parseTeamProfiles(teamData))
+
 const repository: ContentRepository = {
-  getEvents: () => sortEvents(eventsData as Event[]),
-  getSponsors: () => sponsorsData as Sponsor[],
-  getFaqs: () => faqData as FAQ[],
-  getSiteContent: () => siteData as SiteContent,
-  getCosplayBlogEntries: () => cosplayBlogData as CosplayBlogEntry[],
-  getTeamProfiles: () => sortTeamProfiles(teamData as TeamProfile[]),
+  getEvents: () => [...events],
+  getSponsors: () => [...sponsors],
+  getFaqs: () => [...faqs],
+  getSiteContent: () => ({ ...siteContent }),
+  getTeamProfiles: () => [...teamProfiles],
 }
 
 export function getEvents() {
@@ -59,10 +66,6 @@ export function getFaqs() {
 
 export function getSiteContent() {
   return repository.getSiteContent()
-}
-
-export function getCosplayBlogEntries() {
-  return repository.getCosplayBlogEntries()
 }
 
 export function getTeamProfiles() {

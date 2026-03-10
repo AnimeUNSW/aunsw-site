@@ -102,24 +102,6 @@ export interface SiteContent {
   contacts: Contact[]
 }
 
-export interface CosplayPortrait {
-  image: string
-  alt: string
-  focusX: number
-  focusY: number
-  zoom: number
-}
-
-export interface CosplayBlogEntry {
-  id: string
-  title: string
-  characterAlias: string
-  role: string
-  excerpt: string
-  publishedAt: string
-  portrait: CosplayPortrait
-}
-
 export type TeamMembership = "executive" | "director" | "other"
 
 export interface TeamProfile {
@@ -143,6 +125,5 @@ export interface ContentRepository {
   getSponsors: () => Sponsor[]
   getFaqs: () => FAQ[]
   getSiteContent: () => SiteContent
-  getCosplayBlogEntries: () => CosplayBlogEntry[]
   getTeamProfiles: () => TeamProfile[]
 }
