@@ -1,8 +1,7 @@
-import { ChevronDownIcon, SparklesIcon } from "lucide-react"
+import { ChevronDownIcon } from "lucide-react"
 import { Link } from "react-router-dom"
 
 import animeCitySunset from "@/assets/anime-city-sunset.jpg"
-import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import type { SiteContent } from "@/types/content"
 
@@ -39,20 +38,17 @@ export function HeroSection({ clubName, hero }: HeroSectionProps) {
       {/*  */}
       <div className="relative mx-auto flex min-h-[68svh] max-w-6xl items-center px-4 py-12 md:min-h-[84svh] md:px-6 md:py-16">
         <div className="w-full max-w-3xl rounded-3xl border border-white/55 bg-white/72 p-6 shadow-[0_35px_80px_-44px_rgba(6,6,12,0.55)] backdrop-blur-xl backdrop-saturate-150 md:-translate-x-4 md:p-10 dark:border-white/20 dark:bg-white/14">
-          <Badge className="mb-5 w-fit gap-1.5 border border-white/45 bg-white/70 tracking-[0.12em] text-foreground uppercase dark:border-white/20 dark:bg-white/20 dark:text-white">
-            <SparklesIcon className="size-3" aria-hidden />
-            {hero.badge}
-          </Badge>
-
           <h1 className="text-4xl font-bold tracking-tight text-foreground drop-shadow-[0_8px_20px_rgba(0,0,0,0.18)] md:text-6xl dark:text-white dark:drop-shadow-[0_10px_22px_rgba(0,0,0,0.55)]">
             {clubName}
           </h1>
           <h2 className="mt-2 text-lg font-semibold text-foreground/90 md:text-2xl dark:text-white/92">
             {hero.title}
           </h2>
-          <p className="mt-5 max-w-2xl text-sm text-foreground/80 md:text-base dark:text-white/82">
-            {hero.subtitle}
-          </p>
+          {hero.subtitle ? (
+            <p className="mt-5 max-w-2xl text-sm text-foreground/80 md:text-base dark:text-white/82">
+              {hero.subtitle}
+            </p>
+          ) : null}
 
           <div className="mt-7 flex flex-wrap gap-3">
             <Button size="lg" className="shadow-[0_18px_34px_-24px_var(--color-primary)]" asChild>

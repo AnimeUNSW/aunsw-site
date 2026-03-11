@@ -1,6 +1,8 @@
 import { InfoIcon, SparklesIcon } from "lucide-react"
-import discordIcon from "@/assets/discord-icon.png"
+import discordIconBlack from "@/assets/discord-icon-black.png"
+import discordIconWhite from "@/assets/discord-icon-white.png"
 
+import { useTheme } from "@/components/theme-provider"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
 import { cn } from "@/lib/utils"
@@ -30,6 +32,10 @@ interface TeamMemberCardProps {
 }
 
 export function TeamMemberCard({ profile, isActive }: TeamMemberCardProps) {
+  const { resolvedTheme } = useTheme()
+  const discordIcon =
+    resolvedTheme === "dark" ? discordIconWhite : discordIconBlack
+
   return (
     <article className="grid gap-5 p-4 md:grid-cols-[minmax(0,0.84fr)_minmax(0,1.16fr)] md:gap-7 md:p-6">
       <div className="relative overflow-hidden rounded-2xl border border-border/60 bg-muted/35">

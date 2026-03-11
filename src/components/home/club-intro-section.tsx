@@ -9,15 +9,15 @@ interface ClubIntroSectionProps {
 
 interface StatItem {
   label: string
-  value: number
+  value: string | number
 }
 
 export function ClubIntroSection({ clubDescription, stats }: ClubIntroSectionProps) {
   const items: StatItem[] = [
-    { label: "Members", value: stats.memberCount },
-    { label: "Active Since", value: stats.activeSince },
     { label: "Events this year", value: stats.eventsPerTerm },
-    { label: "Sponsors", value: stats.sponsorCount },
+    { label: "Active Since", value: stats.activeSince },
+    { label: "Instagram Followers", value: stats.memberCount },
+    { label: "Discord members", value: stats.sponsorCount },
   ]
 
   return (
@@ -41,7 +41,7 @@ export function ClubIntroSection({ clubDescription, stats }: ClubIntroSectionPro
       <Card className="h-full border-accent/35 bg-[linear-gradient(180deg,color-mix(in_oklab,var(--color-card)_95%,var(--color-accent)),var(--color-card))] shadow-[0_20px_42px_-30px_var(--color-accent)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_30px_56px_-30px_var(--color-accent)]">
         <CardHeader>
           <CardTitle className="text-xs tracking-[0.16em] text-muted-foreground uppercase">
-            Membership Stats
+            Club Stats
           </CardTitle>
         </CardHeader>
         <CardContent className="grow">

@@ -67,6 +67,14 @@ function expectNumber(value: unknown, path: string): number {
   return value
 }
 
+function expectStringOrNumber(value: unknown, path: string): string | number {
+  if (typeof value === "string") {
+    return value
+  }
+
+  return expectNumber(value, path)
+}
+
 function expectBoolean(value: unknown, path: string): boolean {
   assert(typeof value === "boolean", `${path} must be a boolean`)
   return value
@@ -181,9 +189,8 @@ function parseHero(value: unknown, path: string): SiteContent["hero"] {
   const secondaryCta = expectObject(raw.secondaryCta, `${path}.secondaryCta`)
 
   return {
-    badge: expectString(raw.badge, `${path}.badge`),
     title: expectString(raw.title, `${path}.title`),
-    subtitle: expectString(raw.subtitle, `${path}.subtitle`),
+    subtitle: expectOptionalString(raw.subtitle, `${path}.subtitle`),
     image: expectOptionalString(raw.image, `${path}.image`),
     imageAlt: expectOptionalString(raw.imageAlt, `${path}.imageAlt`),
     primaryCta: {
@@ -257,13 +264,19 @@ export function parseSiteContent(value: unknown): SiteContent {
     discordOverview: expectString(raw.discordOverview, "siteContent.discordOverview"),
     socialLinks: parseSocialLinks(raw.socialLinks, "siteContent.socialLinks"),
     clubStats: {
-      memberCount: expectNumber(clubStats.memberCount, "siteContent.clubStats.memberCount"),
-      activeSince: expectNumber(clubStats.activeSince, "siteContent.clubStats.activeSince"),
-      eventsPerTerm: expectNumber(
+      memberCount: expectStringOrNumber(
+        clubStats.memberCount,
+        "siteContent.clubStats.memberCount"
+      ),
+      activeSince: expectStringOrNumber(
+        clubStats.activeSince,
+        "siteContent.clubStats.activeSince"
+      ),
+      eventsPerTerm: expectStringOrNumber(
         clubStats.eventsPerTerm,
         "siteContent.clubStats.eventsPerTerm"
       ),
-      sponsorCount: expectNumber(
+      sponsorCount: expectStringOrNumber(
         clubStats.sponsorCount,
         "siteContent.clubStats.sponsorCount"
       ),

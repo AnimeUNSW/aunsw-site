@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react"
 import { Link, useLocation } from "react-router-dom"
 
+import { useTheme } from "@/components/theme-provider"
 import { useSiteContent } from "@/hooks/use-site-content"
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
+import arcLogoBlack from "@/assets/arc-logo-black.png"
+import arcLogoWhite from "@/assets/arc-logo-white.webp"
 import purpleLogo from "@/assets/purple_logo.gif"
 
 import { MobileNavSheet } from "@/components/navigation/mobile-nav-sheet"
@@ -11,6 +14,7 @@ import { ThemeToggle } from "@/components/navigation/theme-toggle"
 import { cn } from "@/lib/utils"
 
 export function Header() {
+  const { resolvedTheme } = useTheme()
   const siteContent = useSiteContent()
   const location = useLocation()
   const [hasScrolled, setHasScrolled] = useState(
@@ -54,6 +58,7 @@ export function Header() {
   }, [isHomeRoute])
 
   const showHeader = !isHomeRoute || hasScrolled || isTopHoverActive
+  const arcLogo = resolvedTheme === "dark" ? arcLogoWhite : arcLogoBlack
 
   return (
     <header
@@ -71,25 +76,44 @@ export function Header() {
         )}
       >
         <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-4 px-4 py-3 md:px-6">
-          <Link
-            to="/"
-            className="group flex items-center gap-2"
-            aria-label="Go to home page"
-          >
-            <Avatar
-              size="sm"
-              aria-hidden
-              className="ring-1 ring-primary/35 transition-transform duration-200 group-hover:scale-105"
+          <div className="flex items-center gap-2.5">
+            <a
+              href="https://www.arc.unsw.edu.au/"
+              target="_blank"
+              rel="noreferrer"
+              className="group shrink-0"
+              aria-label="Open Arc UNSW website"
             >
-              <AvatarImage src={purpleLogo} alt="AnimeUNSW logo" />
-              <AvatarFallback className="bg-gradient-to-br from-primary to-accent text-primary-foreground">
-                AU
-              </AvatarFallback>
-            </Avatar>
-            <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-sm font-semibold tracking-[0.18em] text-transparent uppercase md:text-base">
-              {siteContent.clubName}
-            </span>
-          </Link>
+              <img
+                src={arcLogo}
+                alt="Arc logo"
+                className="h-8 w-auto shrink-0 object-contain transition-transform duration-200 group-hover:scale-105"
+              />
+            </a>
+            <span
+              aria-hidden
+              className="h-7 w-px shrink-0 bg-border/70"
+            />
+            <Link
+              to="/"
+              className="group flex items-center gap-2"
+              aria-label="Go to home page"
+            >
+              <Avatar
+                size="sm"
+                aria-hidden
+                className="ring-1 ring-primary/35 transition-transform duration-200 group-hover:scale-105"
+              >
+                <AvatarImage src={purpleLogo} alt="AnimeUNSW logo" />
+                <AvatarFallback className="bg-gradient-to-br from-primary to-accent text-primary-foreground">
+                  AU
+                </AvatarFallback>
+              </Avatar>
+              <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-sm font-semibold tracking-[0.18em] text-transparent uppercase md:text-base">
+                {siteContent.clubName}
+              </span>
+            </Link>
+          </div>
           <nav className="hidden md:block" aria-label="Main navigation">
             <Navbar />
           </nav>

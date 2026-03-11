@@ -1,9 +1,7 @@
 {
   "clubName": "AnimeUNSW",
   "hero": {
-    "badge": "UNSW Student Society",
     "title": "Anime nights, socials, and community on campus",
-    "subtitle": "Step into weekly screenings, trivia battles, cosplay showcases, and themed campus socials built for every kind of anime fan.",
     "imageAlt": "AnimeUNSW hero background artwork",
     "primaryCta": {
       "label": "View Events",
@@ -14,9 +12,9 @@
       "href": "/info"
     }
   },
-  "clubDescription": "AnimeUNSW is a student-run anime society at UNSW where members meet for screenings, games, creative showcases, and community events every term.",
+  "clubDescription": "A society formed by students with a passion in anime/manga that has continued to run exciting events both online and in-person. We’re always giving away prizes for competitions and giveaways so stay tuned!! We’ve grown into one of Sydney’s biggest anime clubs! Memberships are open to anyone, as we strive to gather students interested in anime/manga to socialise and form friendships.",
   "eventsOverview": "Expect a full seasonal lineup: watch parties, social mixers, tournament-style trivia, cosplay spotlight nights, and opening-song challenges.",
-  "sponsorPerksOverview": "Members unlock partner perks across manga stores, food spots, and hobby retailers with event-night specials and promo codes.",
+  "sponsorPerksOverview": "Members unlock partner perks at manga stores, food spots, and hobby retailers across Sydney, as well as prizes and food/drink supplied for events!",
   "discordOverview": "Discord is our command center for announcements, reminders, signups, and daily anime discussion between on-campus events.",
   "socialLinks": {
     "discord": "https://discord.gg/animeunsw",
@@ -27,11 +25,11 @@
     "linktree": "https://linktr.ee/animeunsw"
   },
   "clubStats": {
-    "memberCount": 420,
+    "memberCount": "2600+",
     "activeSince": 1997,
     "eventsPerTerm": 18,
-    "sponsorCount": 9,
-    "lastUpdated": "2026-03-01"
+    "sponsorCount": "3400+",
+    "lastUpdated": "2026-03-12"
   },
   "membershipPaths": [
     {

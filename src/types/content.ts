@@ -56,10 +56,10 @@ export interface SocialLinks {
 }
 
 export interface ClubStats {
-  memberCount: number
-  activeSince: number
-  eventsPerTerm: number
-  sponsorCount: number
+  memberCount: string | number
+  activeSince: string | number
+  eventsPerTerm: string | number
+  sponsorCount: string | number
   lastUpdated: string
 }
 
@@ -78,9 +78,8 @@ export interface MembershipPath {
 export interface SiteContent {
   clubName: string
   hero: {
-    badge: string
     title: string
-    subtitle: string
+    subtitle?: string
     image?: string
     imageAlt?: string
     primaryCta: {

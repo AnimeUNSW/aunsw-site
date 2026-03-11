@@ -18,7 +18,6 @@ export function SponsorPerksPreviewSection({
     <section className="space-y-5" aria-labelledby="sponsor-perks-title">
       <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
         <SectionHeader
-          badge="Loot Drop"
           title="Sponsor Discounts"
           description={overview}
           className="space-y-2"

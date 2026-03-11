@@ -8,7 +8,6 @@ import {
 } from "lucide-react"
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
-import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -65,7 +64,6 @@ const TIER_META: Record<Sponsor["tier"], TierMeta> = {
 
 export function SponsorCard({ sponsor }: { sponsor: Sponsor }) {
   const meta = TIER_META[sponsor.tier]
-  const TierIcon = meta.icon
 
   return (
     <Card className="relative h-full w-full overflow-hidden border-primary/30 bg-[linear-gradient(180deg,color-mix(in_oklab,var(--color-card)_95%,var(--color-accent)),var(--color-card))] shadow-[0_22px_44px_-30px_var(--color-accent)] transition-all duration-300 hover:-translate-y-1.5 hover:border-accent/55 hover:shadow-[0_34px_62px_-30px_var(--color-accent)]">
@@ -96,16 +94,7 @@ export function SponsorCard({ sponsor }: { sponsor: Sponsor }) {
               {sponsor.logoText}
             </AvatarFallback>
           </Avatar>
-          <div className="space-y-1">
-            <Badge
-              variant="secondary"
-              className={cn("gap-1.5 capitalize", meta.badgeClass)}
-            >
-              <TierIcon className="size-3" aria-hidden />
-              {sponsor.tier}
-            </Badge>
-            <CardTitle className="text-lg">{sponsor.name}</CardTitle>
-          </div>
+          <CardTitle className="text-lg">{sponsor.name}</CardTitle>
         </div>
         <CardDescription className="leading-relaxed">
           {sponsor.discountDescription}
