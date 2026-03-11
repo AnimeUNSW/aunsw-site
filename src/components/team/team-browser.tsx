@@ -32,6 +32,8 @@ export function TeamBrowser({ profiles }: TeamBrowserProps) {
   const [activeIndex, setActiveIndex] = useState(0)
   const [touchStartX, setTouchStartX] = useState<number | null>(null)
 
+  // autoplay effect; whenever profiles length or activeIndex changes we
+  // restart the timer so manual navigation resets the countdown.
   useEffect(() => {
     if (profiles.length <= 1) {
       return undefined
@@ -44,12 +46,13 @@ export function TeamBrowser({ profiles }: TeamBrowserProps) {
     return () => {
       window.clearInterval(timer)
     }
-  }, [profiles.length])
+  }, [profiles.length, activeIndex])
 
   const activeSafeIndex = getSafeIndex(activeIndex, profiles.length)
 
   const executiveCount = profiles.filter(
-    (profile) => profile.membership === "executive"
+    (profile) =>
+      profile.membership === "executive" || profile.membership === "top5"
   ).length
   const directorCount = profiles.filter(
     (profile) => profile.membership === "director"
@@ -220,15 +223,6 @@ export function TeamBrowser({ profiles }: TeamBrowserProps) {
           })}
         </ul>
       </section>
-
-      <div className="flex items-center gap-2 text-xs text-muted-foreground">
-        <UsersIcon className="size-4" aria-hidden />
-        <p>
-          Photo portraits are cropped from submitted intro sheets and can be
-          swapped later by replacing files in <code>public/team/portraits</code>
-          .
-        </p>
-      </div>
 
       <div className="flex items-center gap-2 text-xs text-muted-foreground">
         <SparklesIcon className="size-4" aria-hidden />

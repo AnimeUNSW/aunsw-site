@@ -32,7 +32,7 @@ const FAQ_CATEGORIES: FAQCategory[] = [
   "general",
 ]
 
-const TEAM_MEMBERSHIPS: TeamMembership[] = ["executive", "director", "other"]
+const TEAM_MEMBERSHIPS: TeamMembership[] = ["executive", "director", "top5", "other"]
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) {
@@ -215,11 +215,11 @@ function parseTeamProfile(value: unknown, path: string): TeamProfile {
     pronouns: expectOptionalString(raw.pronouns, `${path}.pronouns`),
     portraitImage: expectString(raw.portraitImage, `${path}.portraitImage`),
     portraitAlt: expectString(raw.portraitAlt, `${path}.portraitAlt`),
-    bio: expectStringArray(raw.bio, `${path}.bio`),
+    degree: expectStringArray(raw.degree, `${path}.degree`),
     funFacts: expectStringArray(raw.funFacts, `${path}.funFacts`),
     favoriteAnime: expectStringArray(raw.favoriteAnime, `${path}.favoriteAnime`),
     extras,
-    socialHandle: expectOptionalString(raw.socialHandle, `${path}.socialHandle`),
+    discordHandle: expectOptionalString(raw.discordHandle, `${path}.discordHandle`),
   }
 }
 

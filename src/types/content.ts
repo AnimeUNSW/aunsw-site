@@ -102,7 +102,7 @@ export interface SiteContent {
   contacts: Contact[]
 }
 
-export type TeamMembership = "executive" | "director" | "other"
+export type TeamMembership = "top5" | "executive" | "director" | "other"
 
 export interface TeamProfile {
   id: string
@@ -113,11 +113,11 @@ export interface TeamProfile {
   pronouns?: string
   portraitImage: string
   portraitAlt: string
-  bio: string[]
+  degree: string[]
   funFacts: string[]
   favoriteAnime: string[]
   extras?: string[]
-  socialHandle?: string
+  discordHandle?: string
 }
 
 export interface ContentRepository {

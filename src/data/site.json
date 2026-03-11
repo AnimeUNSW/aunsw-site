@@ -4,7 +4,6 @@
     "badge": "UNSW Student Society",
     "title": "Anime nights, socials, and community on campus",
     "subtitle": "Step into weekly screenings, trivia battles, cosplay showcases, and themed campus socials built for every kind of anime fan.",
-    "image": "https://animeunsw.net/_app/immutable/assets/desert.i-z3Jmnp.png",
     "imageAlt": "AnimeUNSW hero background artwork",
     "primaryCta": {
       "label": "View Events",
@@ -24,7 +23,7 @@
     "instagram": "https://instagram.com/animeunsw",
     "facebook": "https://facebook.com/animeunsw",
     "youtube": "https://youtube.com/@animeunsw",
-    "email": "info@animeunsw.org",
+    "email": "unswanime@gmail.com",
     "linktree": "https://linktr.ee/animeunsw"
   },
   "clubStats": {
@@ -70,10 +69,6 @@
     {
       "label": "General Enquiries",
       "email": "info@animeunsw.org"
-    },
-    {
-      "label": "Events Team",
-      "email": "events@animeunsw.org"
     },
     {
       "label": "Sponsorships",

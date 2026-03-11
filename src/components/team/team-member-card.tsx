@@ -1,4 +1,5 @@
-import { AtSignIcon, InfoIcon, SparklesIcon } from "lucide-react"
+import { InfoIcon, SparklesIcon } from "lucide-react"
+import discordIcon from "@/assets/discord-icon.png"
 
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
@@ -10,11 +11,16 @@ const MEMBERSHIP_STYLES: Record<TeamProfile["membership"], string> = {
     "bg-violet-200/55 text-violet-950 dark:bg-violet-400/20 dark:text-violet-100",
   executive:
     "bg-fuchsia-200/60 text-fuchsia-950 dark:bg-fuchsia-400/20 dark:text-fuchsia-100",
+  top5:
+    "bg-fuchsia-200/60 text-fuchsia-950 dark:bg-fuchsia-400/20 dark:text-fuchsia-100",
   other:
     "bg-slate-200/60 text-slate-900 dark:bg-slate-400/20 dark:text-slate-100",
 }
 
 function formatMembership(value: TeamProfile["membership"]) {
+  if (value === "top5") {
+    return "Top 5"
+  }
   return value.charAt(0).toUpperCase() + value.slice(1)
 }
 
@@ -53,10 +59,10 @@ export function TeamMemberCard({ profile, isActive }: TeamMemberCardProps) {
               {profile.pronouns}
             </Badge>
           ) : null}
-          {profile.socialHandle ? (
+          {profile.discordHandle ? (
             <Badge variant="outline" className="border-primary/30">
-              <AtSignIcon className="size-3" aria-hidden />
-              {profile.socialHandle}
+              <img src={discordIcon} alt="" className="size-3" />
+              {profile.discordHandle}
             </Badge>
           ) : null}
         </div>
@@ -76,10 +82,10 @@ export function TeamMemberCard({ profile, isActive }: TeamMemberCardProps) {
             id={`${profile.id}-bio-carousel`}
             className="text-sm font-semibold tracking-[0.14em] uppercase"
           >
-            Bio
+            Degree
           </h3>
           <ul className="space-y-1 text-sm text-muted-foreground">
-            {profile.bio.map((line, index) => (
+            {profile.degree.map((line, index) => (
               <li key={`${profile.id}-bio-${index}`}>{line}</li>
             ))}
           </ul>

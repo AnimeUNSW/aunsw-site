@@ -2,7 +2,8 @@ import { useEffect, useState } from "react"
 import { Link, useLocation } from "react-router-dom"
 
 import { useSiteContent } from "@/hooks/use-site-content"
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
+import purpleLogo from "@/assets/purple_logo.gif"
 
 import { MobileNavSheet } from "@/components/navigation/mobile-nav-sheet"
 import { Navbar } from "@/components/navigation/navbar"
@@ -80,6 +81,7 @@ export function Header() {
               aria-hidden
               className="ring-1 ring-primary/35 transition-transform duration-200 group-hover:scale-105"
             >
+              <AvatarImage src={purpleLogo} alt="AnimeUNSW logo" />
               <AvatarFallback className="bg-gradient-to-br from-primary to-accent text-primary-foreground">
                 AU
               </AvatarFallback>

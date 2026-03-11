@@ -17,6 +17,11 @@ function renderRoute(route: string) {
 describe("app routes", () => {
   it("renders home page", () => {
     renderRoute("/")
+    // logo should be present and use the new purple_logo.gif asset
+    const logo = screen.getByRole("img", { name: /animeunsw logo/i })
+    expect(logo).toBeInTheDocument()
+    expect(logo).toHaveAttribute("src", expect.stringContaining("purple_logo.gif"))
+
     expect(
       screen.getByRole("heading", {
         name: /anime nights, socials, and community on campus/i,
