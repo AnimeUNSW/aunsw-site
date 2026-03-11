@@ -13,6 +13,7 @@ function makeProfile(id: string): TeamProfile {
     name: `Person ${id}`,
     role: "",
     membership: "executive",
+    portfolio: `Portfolio ${id}`,
     displayOrder: 0,
     pronouns: "they/them",
     portraitImage: "",
@@ -57,5 +58,38 @@ describe("TeamBrowser autoplay reset", () => {
     // now let remaining time pass and expect it to auto-advance
     vi.advanceTimersByTime(100)
     expect(screen.getByText(/person a/i)).toBeInTheDocument()
+  })
+
+  it("jumps to the portfolio lead when a portfolio chip is clicked", async () => {
+    const profiles: TeamProfile[] = [
+      {
+        ...makeProfile("top5"),
+        name: "Aurelia",
+        portfolio: "Top 5",
+        membership: "top5",
+        displayOrder: 0,
+      },
+      {
+        ...makeProfile("creative-director"),
+        name: "Miranda",
+        portfolio: "Creatives",
+        membership: "director",
+        displayOrder: 1,
+      },
+      {
+        ...makeProfile("creative-exec"),
+        name: "Eri",
+        portfolio: "Creatives",
+        membership: "executive",
+        displayOrder: 2,
+      },
+    ]
+    const user = userEvent.setup()
+
+    render(<TeamBrowser profiles={profiles} />)
+
+    await user.click(screen.getByRole("button", { name: "Creatives" }))
+
+    expect(screen.getByText(/eri/i)).toBeInTheDocument()
   })
 })

@@ -57,7 +57,7 @@ export interface SocialLinks {
 
 export interface ClubStats {
   memberCount: number
-  activeYears: number
+  activeSince: number
   eventsPerTerm: number
   sponsorCount: number
   lastUpdated: string
@@ -109,6 +109,7 @@ export interface TeamProfile {
   name: string
   role: string
   membership: TeamMembership
+  portfolio: string
   displayOrder: number
   pronouns?: string
   portraitImage: string

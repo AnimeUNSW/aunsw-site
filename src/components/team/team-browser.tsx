@@ -32,6 +32,44 @@ export function TeamBrowser({ profiles }: TeamBrowserProps) {
   const [activeIndex, setActiveIndex] = useState(0)
   const [touchStartX, setTouchStartX] = useState<number | null>(null)
 
+  const portfolioStops = useMemo(() => {
+    const stops = new Map<
+      string,
+      {
+        label: string
+        index: number
+      }
+    >()
+
+    profiles.forEach((profile, index) => {
+      const existing = stops.get(profile.portfolio)
+
+      if (!existing) {
+        stops.set(profile.portfolio, {
+          label: profile.portfolio,
+          index,
+        })
+        return
+      }
+
+      const existingProfile = profiles[existing.index]
+      const profileIsLead =
+        profile.membership === "executive" || profile.membership === "top5"
+      const existingIsLead =
+        existingProfile?.membership === "executive" ||
+        existingProfile?.membership === "top5"
+
+      if (profileIsLead && !existingIsLead) {
+        stops.set(profile.portfolio, {
+          label: profile.portfolio,
+          index,
+        })
+      }
+    })
+
+    return [...stops.values()]
+  }, [profiles])
+
   // autoplay effect; whenever profiles length or activeIndex changes we
   // restart the timer so manual navigation resets the countdown.
   useEffect(() => {
@@ -197,14 +235,14 @@ export function TeamBrowser({ profiles }: TeamBrowserProps) {
         </div>
 
         <ul
-          className="flex snap-x snap-mandatory gap-2 overflow-x-auto pb-1"
-          aria-label="Jump to team profile"
+          className="flex snap-x snap-mandatory justify-center gap-2 overflow-x-auto pb-1"
+          aria-label="Jump to team portfolio"
         >
-          {profiles.map((profile, index) => {
-            const isActive = index === activeSafeIndex
+          {portfolioStops.map((portfolioStop) => {
+            const isActive = activeProfile.portfolio === portfolioStop.label
 
             return (
-              <li key={profile.id} className="snap-start">
+              <li key={portfolioStop.label} className="snap-start">
                 <button
                   type="button"
                   className={cn(
@@ -213,10 +251,10 @@ export function TeamBrowser({ profiles }: TeamBrowserProps) {
                       ? "border-primary/50 bg-primary/20 text-foreground"
                       : "border-border/70 bg-background/50 text-muted-foreground hover:border-primary/35 hover:bg-primary/10 hover:text-foreground"
                   )}
-                  onClick={() => setActiveIndex(index)}
+                  onClick={() => setActiveIndex(portfolioStop.index)}
                   aria-current={isActive ? "true" : undefined}
                 >
-                  {profile.name}
+                  {portfolioStop.label}
                 </button>
               </li>
             )

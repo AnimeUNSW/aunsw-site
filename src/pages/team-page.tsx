@@ -11,7 +11,7 @@ export function TeamPage() {
       <PageHeader
         badge="Committee"
         title="Meet the Team"
-        description="Browse our current executives and directors with intro-sheet bios, fun facts, and favourite anime picks."
+        description="Get to know our current executives and directors!"
       />
       <Separator className="bg-gradient-to-r from-primary/30 via-accent/40 to-transparent" />
       <TeamBrowser profiles={profiles} />

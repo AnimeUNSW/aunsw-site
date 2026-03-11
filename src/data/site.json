@@ -28,7 +28,7 @@
   },
   "clubStats": {
     "memberCount": 420,
-    "activeYears": 12,
+    "activeSince": 1997,
     "eventsPerTerm": 18,
     "sponsorCount": 9,
     "lastUpdated": "2026-03-01"
@@ -68,11 +68,11 @@
   "contacts": [
     {
       "label": "General Enquiries",
-      "email": "info@animeunsw.org"
+      "email": "unswanime@gmail.com"
     },
     {
       "label": "Sponsorships",
-      "email": "sponsorships@animeunsw.org"
+      "email": "sponsors@animeunsw.net"
     }
   ]
 }

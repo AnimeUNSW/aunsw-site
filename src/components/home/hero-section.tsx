@@ -28,7 +28,7 @@ export function HeroSection({ clubName, hero }: HeroSectionProps) {
 
   return (
     <section
-      className="relative left-1/2 min-h-[78svh] w-screen -translate-x-1/2 overflow-hidden bg-cover bg-center bg-no-repeat md:min-h-[100svh]"
+      className="relative -mx-36 min-h-[68svh] overflow-hidden bg-cover bg-center bg-no-repeat md:-mx-48 md:min-h-[84svh] lg:-mx-68 xl:-mx-84 2xl:-mx-100"
       style={backgroundStyle}
       aria-label={`${clubName} hero banner`}
     >
@@ -37,7 +37,7 @@ export function HeroSection({ clubName, hero }: HeroSectionProps) {
       <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-black/42 to-black/62" />
 
       {/*  */}
-      <div className="relative mx-auto flex min-h-[78svh] max-w-6xl items-center px-4 py-14 md:min-h-[100svh] md:px-6 md:py-20">
+      <div className="relative mx-auto flex min-h-[68svh] max-w-6xl items-center px-4 py-12 md:min-h-[84svh] md:px-6 md:py-16">
         <div className="w-full max-w-3xl rounded-3xl border border-white/55 bg-white/72 p-6 shadow-[0_35px_80px_-44px_rgba(6,6,12,0.55)] backdrop-blur-xl backdrop-saturate-150 md:-translate-x-4 md:p-10 dark:border-white/20 dark:bg-white/14">
           <Badge className="mb-5 w-fit gap-1.5 border border-white/45 bg-white/70 tracking-[0.12em] text-foreground uppercase dark:border-white/20 dark:bg-white/20 dark:text-white">
             <SparklesIcon className="size-3" aria-hidden />

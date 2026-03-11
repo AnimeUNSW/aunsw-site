@@ -211,6 +211,7 @@ function parseTeamProfile(value: unknown, path: string): TeamProfile {
     name: expectString(raw.name, `${path}.name`),
     role: expectString(raw.role, `${path}.role`),
     membership: expectEnum(raw.membership, TEAM_MEMBERSHIPS, `${path}.membership`),
+    portfolio: expectString(raw.portfolio, `${path}.portfolio`),
     displayOrder: expectNumber(raw.displayOrder, `${path}.displayOrder`),
     pronouns: expectOptionalString(raw.pronouns, `${path}.pronouns`),
     portraitImage: expectString(raw.portraitImage, `${path}.portraitImage`),
@@ -257,7 +258,7 @@ export function parseSiteContent(value: unknown): SiteContent {
     socialLinks: parseSocialLinks(raw.socialLinks, "siteContent.socialLinks"),
     clubStats: {
       memberCount: expectNumber(clubStats.memberCount, "siteContent.clubStats.memberCount"),
-      activeYears: expectNumber(clubStats.activeYears, "siteContent.clubStats.activeYears"),
+      activeSince: expectNumber(clubStats.activeSince, "siteContent.clubStats.activeSince"),
       eventsPerTerm: expectNumber(
         clubStats.eventsPerTerm,
         "siteContent.clubStats.eventsPerTerm"

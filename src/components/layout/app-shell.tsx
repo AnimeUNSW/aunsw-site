@@ -1,9 +1,33 @@
-import type { PropsWithChildren } from "react"
+import { useLayoutEffect, type PropsWithChildren } from "react"
+import { useLocation } from "react-router-dom"
 
 import { Footer } from "@/components/layout/footer"
 import { Header } from "@/components/layout/header"
 
 export function AppShell({ children }: PropsWithChildren) {
+  const location = useLocation()
+
+  useLayoutEffect(() => {
+    const root = document.documentElement
+    const body = document.body
+    const previousRootScrollBehavior = root.style.scrollBehavior
+    const previousBodyScrollBehavior = body.style.scrollBehavior
+
+    root.style.scrollBehavior = "auto"
+    body.style.scrollBehavior = "auto"
+    window.scrollTo(0, 0)
+
+    const frameId = window.requestAnimationFrame(() => {
+      window.scrollTo(0, 0)
+    })
+
+    return () => {
+      window.cancelAnimationFrame(frameId)
+      root.style.scrollBehavior = previousRootScrollBehavior
+      body.style.scrollBehavior = previousBodyScrollBehavior
+    }
+  }, [location.pathname])
+
   return (
     <div className="relative min-h-svh bg-[radial-gradient(60rem_30rem_at_0%_0%,color-mix(in_oklab,var(--color-primary)_18%,transparent),transparent_65%),radial-gradient(56rem_28rem_at_100%_0%,color-mix(in_oklab,var(--color-accent)_20%,transparent),transparent_68%),repeating-linear-gradient(135deg,color-mix(in_oklab,var(--color-border)_32%,transparent)_0_1px,transparent_1px_13px)]">
       <a
