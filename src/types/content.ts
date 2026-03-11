@@ -1,9 +1,9 @@
 export type EventCategory =
-  | "club"
-  | "social"
+  | "weekly"
   | "trivia"
   | "cosplay"
   | "challenge"
+  | "past"
 
 export type SponsorTier = "diamond" | "gold" | "silver" | "community"
 
@@ -14,15 +14,17 @@ export interface Event {
   slug: string
   title: string
   description: string
-  category: EventCategory
-  startDateTime: string
-  endDateTime: string
+  category: EventCategory[]
+  startDateTime?: string
+  endDateTime?: string
+  recurringStartTime?: string
+  recurringEndTime?: string
+  isRecurring?: boolean
   location: string
   image?: string
   imageAlt?: string
-  tags: string[]
   featured: boolean
-  registrationUrl?: string
+  registerLink?: string
 }
 
 export interface Sponsor {

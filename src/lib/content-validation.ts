@@ -16,11 +16,11 @@ import type {
 type JsonObject = Record<string, unknown>
 
 const EVENT_CATEGORIES: EventCategory[] = [
-  "club",
-  "social",
+  "weekly",
   "trivia",
   "cosplay",
   "challenge",
+  "past",
 ]
 
 const SPONSOR_TIERS: SponsorTier[] = ["diamond", "gold", "silver", "community"]
@@ -101,23 +101,59 @@ function expectEnum<T extends string>(
   return value as T
 }
 
+function expectEnumArray<T extends string>(
+  value: unknown,
+  allowed: readonly T[],
+  path: string
+): T[] {
+  assert(Array.isArray(value), `${path} must be an array`)
+  assert(value.length > 0, `${path} must contain at least one value`)
+
+  return value.map((item, index) =>
+    expectEnum(item, allowed, `${path}[${index}]`)
+  )
+}
+
 function parseEvent(value: unknown, path: string): Event {
   const raw = expectObject(value, path)
+  const startDateTime = expectOptionalString(raw.startDateTime, `${path}.startDateTime`)
+  const endDateTime = expectOptionalString(raw.endDateTime, `${path}.endDateTime`)
+  const recurringStartTime = expectOptionalString(
+    raw.recurringStartTime,
+    `${path}.recurringStartTime`
+  )
+  const recurringEndTime = expectOptionalString(
+    raw.recurringEndTime,
+    `${path}.recurringEndTime`
+  )
+  const hasFixedSchedule = Boolean(startDateTime && endDateTime)
+  const hasRecurringSchedule = Boolean(recurringStartTime && recurringEndTime)
+
+  assert(
+    hasFixedSchedule || hasRecurringSchedule,
+    `${path} must include either start/end date times or recurring start/end times`
+  )
+  assert(
+    !(hasFixedSchedule && hasRecurringSchedule),
+    `${path} cannot include both fixed and recurring schedule fields`
+  )
 
   return {
     id: expectString(raw.id, `${path}.id`),
     slug: expectString(raw.slug, `${path}.slug`),
     title: expectString(raw.title, `${path}.title`),
     description: expectString(raw.description, `${path}.description`),
-    category: expectEnum(raw.category, EVENT_CATEGORIES, `${path}.category`),
-    startDateTime: expectString(raw.startDateTime, `${path}.startDateTime`),
-    endDateTime: expectString(raw.endDateTime, `${path}.endDateTime`),
+    category: expectEnumArray(raw.category, EVENT_CATEGORIES, `${path}.category`),
+    startDateTime,
+    endDateTime,
+    recurringStartTime,
+    recurringEndTime,
+    isRecurring: hasRecurringSchedule,
     location: expectString(raw.location, `${path}.location`),
     image: expectOptionalString(raw.image, `${path}.image`),
     imageAlt: expectOptionalString(raw.imageAlt, `${path}.imageAlt`),
-    tags: expectStringArray(raw.tags, `${path}.tags`),
     featured: expectBoolean(raw.featured, `${path}.featured`),
-    registrationUrl: expectOptionalString(raw.registrationUrl, `${path}.registrationUrl`),
+    registerLink: expectOptionalString(raw.registerLink, `${path}.registerLink`),
   }
 }
 
@@ -232,8 +268,9 @@ function parseTeamProfile(value: unknown, path: string): TeamProfile {
 }
 
 export function parseEvents(value: unknown): Event[] {
-  assert(Array.isArray(value), "events must be an array")
-  return value.map((event, index) => parseEvent(event, `events[${index}]`))
+  const raw = expectObject(value, "events")
+  assert(Array.isArray(raw.events), "events.events must be an array")
+  return raw.events.map((event, index) => parseEvent(event, `events[${index}]`))
 }
 
 export function parseSponsors(value: unknown): Sponsor[] {

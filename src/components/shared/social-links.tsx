@@ -1,13 +1,13 @@
 import type { ComponentType } from "react"
 import {
-  FacebookIcon,
   InstagramIcon,
   Link2Icon,
   MailIcon,
-  MessageCircleIcon,
-  YoutubeIcon,
 } from "lucide-react"
 
+import discordIconBlack from "@/assets/discord-icon-black.png"
+import discordIconWhite from "@/assets/discord-icon-white.png"
+import { useTheme } from "@/components/theme-provider"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import {
@@ -21,7 +21,8 @@ interface SocialLinkItem {
   id: string
   label: string
   href: string
-  icon: ComponentType<{ className?: string }>
+  icon?: ComponentType<{ className?: string }>
+  imageSrc?: string
   fallback: string
 }
 
@@ -30,12 +31,16 @@ function makeMailto(value: string) {
 }
 
 export function SocialLinks({ links }: { links: SocialLinksModel }) {
+  const { resolvedTheme } = useTheme()
+  const discordIcon =
+    resolvedTheme === "dark" ? discordIconWhite : discordIconBlack
+
   const items: SocialLinkItem[] = [
     {
       id: "discord",
       label: "Discord",
       href: links.discord,
-      icon: MessageCircleIcon,
+      imageSrc: discordIcon,
       fallback: "D",
     },
     {
@@ -54,26 +59,6 @@ export function SocialLinks({ links }: { links: SocialLinksModel }) {
     },
   ]
 
-  if (links.facebook) {
-    items.push({
-      id: "facebook",
-      label: "Facebook",
-      href: links.facebook,
-      icon: FacebookIcon,
-      fallback: "F",
-    })
-  }
-
-  if (links.youtube) {
-    items.push({
-      id: "youtube",
-      label: "YouTube",
-      href: links.youtube,
-      icon: YoutubeIcon,
-      fallback: "Y",
-    })
-  }
-
   if (links.linktree) {
     items.push({
       id: "linktree",
@@ -87,7 +72,6 @@ export function SocialLinks({ links }: { links: SocialLinksModel }) {
   return (
     <ul className="flex flex-wrap gap-2" aria-label="AnimeUNSW social links">
       {items.map((item) => {
-        const Icon = item.icon
         const isMailto = item.href.startsWith("mailto:")
 
         return (
@@ -112,7 +96,15 @@ export function SocialLinks({ links }: { links: SocialLinksModel }) {
                       aria-hidden
                     >
                       <AvatarFallback className="bg-gradient-to-br from-primary/25 to-accent/30">
-                        <Icon className="size-3" />
+                        {item.imageSrc ? (
+                          <img
+                            src={item.imageSrc}
+                            alt=""
+                            className="size-3 object-contain"
+                          />
+                        ) : item.icon ? (
+                          <item.icon className="size-3" />
+                        ) : null}
                       </AvatarFallback>
                     </Avatar>
                     <span className="sr-only">{item.fallback}</span>

@@ -11,6 +11,6 @@ export function useEvents(category: EventCategory | "all" = "all") {
       return events
     }
 
-    return events.filter((event) => event.category === category)
+    return events.filter((event) => event.category.includes(category))
   }, [category])
 }

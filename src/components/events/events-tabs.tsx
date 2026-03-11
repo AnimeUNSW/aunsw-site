@@ -2,11 +2,11 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 const CATEGORIES = [
   { value: "all", label: "All" },
-  { value: "club", label: "Club" },
-  { value: "social", label: "Social" },
+  { value: "weekly", label: "Weekly" },
   { value: "trivia", label: "Trivia" },
   { value: "cosplay", label: "Cosplay" },
   { value: "challenge", label: "Challenges" },
+  { value: "past", label: "Past Events" },
 ] as const
 
 interface EventsTabsProps {

@@ -5,10 +5,8 @@ import {
   Gamepad2Icon,
   ImageIcon,
   MapPinIcon,
-  PartyPopperIcon,
   SparklesIcon,
   TicketIcon,
-  TvIcon,
 } from "lucide-react"
 
 import { Badge } from "@/components/ui/badge"
@@ -37,20 +35,16 @@ interface CategoryMeta {
   ribbonClass: string
 }
 
-const CATEGORY_META: Record<Event["category"], CategoryMeta> = {
+const CATEGORY_META: Record<
+  import("@/types/content").EventCategory,
+  CategoryMeta
+> = {
   challenge: {
     label: "Challenge",
     icon: Gamepad2Icon,
     badgeClass:
       "bg-amber-200/40 text-amber-900 dark:bg-amber-400/20 dark:text-amber-100",
     ribbonClass: "bg-gradient-to-r from-amber-500 to-rose-500",
-  },
-  club: {
-    label: "Club Event",
-    icon: TvIcon,
-    badgeClass:
-      "bg-indigo-200/45 text-indigo-900 dark:bg-indigo-400/20 dark:text-indigo-100",
-    ribbonClass: "bg-gradient-to-r from-indigo-500 to-fuchsia-500",
   },
   cosplay: {
     label: "Cosplay",
@@ -59,12 +53,19 @@ const CATEGORY_META: Record<Event["category"], CategoryMeta> = {
       "bg-pink-200/50 text-pink-900 dark:bg-pink-400/20 dark:text-pink-100",
     ribbonClass: "bg-gradient-to-r from-pink-500 to-violet-500",
   },
-  social: {
-    label: "Social",
-    icon: PartyPopperIcon,
+  past: {
+    label: "Past Events",
+    icon: CalendarIcon,
     badgeClass:
-      "bg-rose-200/50 text-rose-900 dark:bg-rose-400/20 dark:text-rose-100",
-    ribbonClass: "bg-gradient-to-r from-rose-500 to-fuchsia-500",
+      "bg-slate-200/70 text-slate-900 dark:bg-slate-400/20 dark:text-slate-100",
+    ribbonClass: "bg-gradient-to-r from-slate-500 to-zinc-400",
+  },
+  weekly: {
+    label: "Weekly",
+    icon: CalendarIcon,
+    badgeClass:
+      "bg-sky-200/65 text-sky-950 dark:bg-sky-400/20 dark:text-sky-100",
+    ribbonClass: "bg-gradient-to-r from-sky-500 to-cyan-400",
   },
   trivia: {
     label: "Trivia",
@@ -76,8 +77,8 @@ const CATEGORY_META: Record<Event["category"], CategoryMeta> = {
 }
 
 export function EventCard({ event }: { event: Event }) {
-  const meta = CATEGORY_META[event.category]
-  const CategoryIcon = meta.icon
+  const primaryCategory = event.category[0]
+  const meta = CATEGORY_META[primaryCategory]
 
   return (
     <Card className="relative h-full w-full overflow-hidden border-primary/30 bg-[linear-gradient(180deg,color-mix(in_oklab,var(--color-card)_96%,var(--color-primary)),var(--color-card))] shadow-[0_22px_44px_-30px_var(--color-primary)] transition-all duration-300 hover:-translate-y-1.5 hover:border-primary/45 hover:shadow-[0_34px_62px_-30px_var(--color-primary)]">
@@ -103,13 +104,22 @@ export function EventCard({ event }: { event: Event }) {
       </div>
       <CardHeader className="space-y-3">
         <div className="flex flex-wrap items-center gap-2">
-          <Badge variant="secondary" className={cn("gap-1.5", meta.badgeClass)}>
-            <CategoryIcon className="size-3" aria-hidden />
-            {meta.label}
-          </Badge>
           {event.featured ? (
             <Badge className="tracking-[0.12em] uppercase">Featured</Badge>
           ) : null}
+          {event.category.map((category) => {
+            const categoryMeta = CATEGORY_META[category]
+
+            return (
+              <Badge
+                key={category}
+                variant="secondary"
+                className={categoryMeta.badgeClass}
+              >
+                {categoryMeta.label}
+              </Badge>
+            )
+          })}
         </div>
         <CardTitle>
           <h3 className="text-lg font-semibold">{event.title}</h3>
@@ -118,59 +128,47 @@ export function EventCard({ event }: { event: Event }) {
           {event.description}
         </CardDescription>
       </CardHeader>
-      <CardContent className="flex grow flex-col gap-4">
-        <div className="space-y-2 rounded-lg border border-border/70 bg-muted/35 p-3">
+      <CardContent className="flex grow flex-col">
+        <div className="mt-auto space-y-2 rounded-lg border border-border/70 bg-muted/35 p-3">
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <CalendarIcon className="size-4" aria-hidden />
-            <time dateTime={event.startDateTime}>
-              {formatDateTime(event.startDateTime)}
-            </time>
+            {event.startDateTime ? (
+              <time dateTime={event.startDateTime}>
+                {formatDateTime(event.startDateTime)}
+              </time>
+            ) : (
+              <span>Schedule TBA</span>
+            )}
           </div>
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <MapPinIcon className="size-4" aria-hidden />
             <span>{event.location}</span>
           </div>
         </div>
-        <ul
-          className="mt-auto flex flex-wrap gap-2"
-          aria-label={`${event.title} tags`}
-        >
-          {event.tags.map((tag) => (
-            <li key={tag}>
-              <Badge
-                variant="outline"
-                className="border-primary/25 bg-background/70"
-              >
-                {tag}
-              </Badge>
-            </li>
-          ))}
-        </ul>
       </CardContent>
-      <CardFooter className="mt-auto justify-between gap-2">
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button
-              variant="outline"
-              size="sm"
-              className="border-primary/35"
-              asChild
-            >
-              <a href={`/events#${event.slug}`}>Mission details</a>
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>Jump to event details</p>
-          </TooltipContent>
-        </Tooltip>
-        {event.registrationUrl ? (
+      <CardFooter className="mt-auto justify-start gap-2">
+        {event.registerLink ? (
           <Button size="sm" asChild>
-            <a href={event.registrationUrl} target="_blank" rel="noreferrer">
+            <a href={event.registerLink} target="_blank" rel="noreferrer">
               <TicketIcon className="size-4" aria-hidden />
               Register
             </a>
           </Button>
-        ) : null}
+        ) : (
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <span className="inline-flex">
+                <Button size="sm" disabled>
+                  <TicketIcon className="size-4" aria-hidden />
+                  Register
+                </Button>
+              </span>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Sorry! You&apos;re unable to register for this event.</p>
+            </TooltipContent>
+          </Tooltip>
+        )}
       </CardFooter>
     </Card>
   )

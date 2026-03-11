@@ -208,7 +208,7 @@ export function TeamBrowser({ profiles }: TeamBrowserProps) {
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
         >
-          <div className="pointer-events-none absolute inset-0 z-10 bg-[radial-gradient(28rem_12rem_at_12%_8%,color-mix(in_oklab,var(--color-accent)_32%,transparent),transparent_70%),radial-gradient(22rem_12rem_at_92%_88%,color-mix(in_oklab,var(--color-primary)_28%,transparent),transparent_68%)]" />
+          <div className="pointer-events-none absolute inset-0 z-10 bg-[radial-gradient(28rem_12rem_at_12%_8%,color-mix(in_oklab,var(--color-accent)_32%,transparent),transparent_70%)]" />
           <div
             className="flex transition-transform duration-700 ease-[cubic-bezier(0.2,1,0.22,1)]"
             style={{ transform: `translateX(-${activeSafeIndex * 100}%)` }}
