@@ -39,6 +39,13 @@ const CATEGORY_META: Record<
   import("@/types/content").EventCategory,
   CategoryMeta
 > = {
+  collab: {
+    label: "Collab",
+    icon: SparklesIcon,
+    badgeClass:
+      "bg-emerald-200/65 text-emerald-950 dark:bg-emerald-400/20 dark:text-emerald-100",
+    ribbonClass: "bg-gradient-to-r from-emerald-500 to-teal-400",
+  },
   challenge: {
     label: "Challenge",
     icon: Gamepad2Icon,

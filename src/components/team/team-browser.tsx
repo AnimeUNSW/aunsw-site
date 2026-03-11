@@ -2,8 +2,7 @@ import { useEffect, useMemo, useState, type TouchEventHandler } from "react"
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
-  SparklesIcon,
-  UsersIcon,
+  SparklesIcon
 } from "lucide-react"
 
 import { TeamMemberCard } from "@/components/team/team-member-card"

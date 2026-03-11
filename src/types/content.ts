@@ -1,5 +1,6 @@
 export type EventCategory =
   | "weekly"
+  | "collab"
   | "trivia"
   | "cosplay"
   | "challenge"

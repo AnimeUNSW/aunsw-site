@@ -1,5 +1,5 @@
 {
-  "categoryOptions": ["weekly", "trivia", "cosplay", "challenge", "past"],
+  "categoryOptions": ["weekly", "collab", "trivia", "cosplay", "challenge", "past"],
   "events": [
     {
       "id": "evt-weekly-ramen",
@@ -26,6 +26,20 @@
       "location": "Lawrence East (H13) 2063",
       "image": "../src/assets/event-pics/chill-lounge.png",
       "imageAlt": "AnimeUNSW kickoff screening session",
+      "featured": false,
+      "registerLink": "https://campus.hellorubric.com/?s=12432"
+    },
+    {
+      "id": "evt-cosplay-casino-1-2026",
+      "slug": "cosplay-casino-1-2026",
+      "title": "Cosplay Casino",
+      "description": "The fourth instalment of one of our most popular collabs - the Cosplay Casino with TTG Soc! You are encouraged to cosplay, and will enter a special cosplay raffle if you do! Come along to wear your favourite cosplay, play some casino games, and win some prizes! There's even free pizza!",
+      "category": ["collab", "cosplay"],
+      "startDateTime": "2026-03-13T17:00:00+11:00",
+      "endDateTime": "2026-03-13T21:00:00+11:00",
+      "location": "Rupert Myers (M15) 520, 540",
+      "image": "../src/assets/event-pics/cosplay-casino-1-2026.png",
+      "imageAlt": "AnimeUNSW x TTGSoc Cosplay Casino Banner",
       "featured": true,
       "registerLink": "https://campus.hellorubric.com/?s=12432"
     },
