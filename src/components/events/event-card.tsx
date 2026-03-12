@@ -1,10 +1,10 @@
 import type { LucideIcon } from "lucide-react"
 import {
-  BrainCircuitIcon,
   CalendarIcon,
   Gamepad2Icon,
   ImageIcon,
   MapPinIcon,
+  ShieldAlertIcon,
   SparklesIcon,
   TicketIcon,
 } from "lucide-react"
@@ -39,6 +39,13 @@ const CATEGORY_META: Record<
   import("@/types/content").EventCategory,
   CategoryMeta
 > = {
+  anisyd: {
+    label: "Anisyd",
+    icon: ShieldAlertIcon,
+    badgeClass:
+      "bg-red-200/70 text-red-950 dark:bg-red-400/20 dark:text-red-100",
+    ribbonClass: "bg-gradient-to-r from-red-600 to-rose-500",
+  },
   collab: {
     label: "Collab",
     icon: SparklesIcon,
@@ -46,8 +53,8 @@ const CATEGORY_META: Record<
       "bg-emerald-200/65 text-emerald-950 dark:bg-emerald-400/20 dark:text-emerald-100",
     ribbonClass: "bg-gradient-to-r from-emerald-500 to-teal-400",
   },
-  challenge: {
-    label: "Challenge",
+  competition: {
+    label: "Competition",
     icon: Gamepad2Icon,
     badgeClass:
       "bg-amber-200/40 text-amber-900 dark:bg-amber-400/20 dark:text-amber-100",
@@ -73,13 +80,6 @@ const CATEGORY_META: Record<
     badgeClass:
       "bg-sky-200/65 text-sky-950 dark:bg-sky-400/20 dark:text-sky-100",
     ribbonClass: "bg-gradient-to-r from-sky-500 to-cyan-400",
-  },
-  trivia: {
-    label: "Trivia",
-    icon: BrainCircuitIcon,
-    badgeClass:
-      "bg-purple-200/50 text-purple-900 dark:bg-purple-400/20 dark:text-purple-100",
-    ribbonClass: "bg-gradient-to-r from-purple-500 to-violet-500",
   },
 }
 

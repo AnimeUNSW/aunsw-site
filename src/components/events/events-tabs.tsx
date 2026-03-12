@@ -4,9 +4,9 @@ const CATEGORIES = [
   { value: "all", label: "All" },
   { value: "weekly", label: "Weekly" },
   { value: "collab", label: "Collab" },
-  { value: "trivia", label: "Trivia" },
+  { value: "anisyd", label: "Anisyd" },
   { value: "cosplay", label: "Cosplay" },
-  { value: "challenge", label: "Challenges" },
+  { value: "competition", label: "Competitions" },
   { value: "past", label: "Past Events" },
 ] as const
 
@@ -26,7 +26,7 @@ export function EventsTabs({ value, onValueChange }: EventsTabsProps) {
           <TabsTrigger
             key={category.value}
             value={category.value}
-            className="rounded-md px-3 py-2 data-active:bg-gradient-to-r data-active:from-primary/20 data-active:to-accent/25"
+            className="cursor-pointer rounded-md px-3 py-2 after:hidden data-active:bg-gradient-to-r data-active:from-primary/20 data-active:to-accent/25"
           >
             {category.label}
           </TabsTrigger>

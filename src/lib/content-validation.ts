@@ -18,9 +18,9 @@ type JsonObject = Record<string, unknown>
 const EVENT_CATEGORIES: EventCategory[] = [
   "weekly",
   "collab",
-  "trivia",
+  "anisyd",
   "cosplay",
-  "challenge",
+  "competition",
   "past",
 ]
 

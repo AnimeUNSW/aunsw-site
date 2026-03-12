@@ -16,7 +16,7 @@ export function EventsPage() {
       <PageHeader
         badge="Calendar"
         title="Events"
-        description="Explore club events, trivia nights, cosplay competitions, and various challenges. Note that you must be a member to attend our events."
+        description="Explore club events, competition nights, cosplay competitions, and other challenges. Note that you must be a member to attend our events."
       />
       <Separator className="bg-gradient-to-r from-primary/30 via-accent/40 to-transparent" />
       <section className="space-y-5" aria-label="Event filters and list">

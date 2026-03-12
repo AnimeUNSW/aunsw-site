@@ -86,23 +86,40 @@ function hydrateRecurringEvents(events: Event[]) {
   })
 }
 
-function sortEvents(events: Event[]) {
+function getEventTime(event: Event) {
+  return new Date(event.startDateTime ?? 0).getTime()
+}
+
+function getEventGroup(event: Event, now: number) {
+  const eventTime = getEventTime(event)
+
+  if (event.featured) {
+    return 0
+  }
+
+  return eventTime >= now ? 1 : 2
+}
+
+export function sortEvents(events: Event[]) {
   return [...events].sort((left, right) => {
     const now = Date.now()
-    const leftDate = new Date(left.startDateTime ?? 0).getTime()
-    const rightDate = new Date(right.startDateTime ?? 0).getTime()
-    const leftIsUpcoming = leftDate >= now
-    const rightIsUpcoming = rightDate >= now
+    const leftDate = getEventTime(left)
+    const rightDate = getEventTime(right)
+    const leftGroup = getEventGroup(left, now)
+    const rightGroup = getEventGroup(right, now)
 
-    if (leftIsUpcoming !== rightIsUpcoming) {
-      return leftIsUpcoming ? -1 : 1
+    if (leftGroup !== rightGroup) {
+      return leftGroup - rightGroup
     }
 
-    if (leftIsUpcoming && rightIsUpcoming) {
-      return leftDate - rightDate
+    const leftDistance = Math.abs(leftDate - now)
+    const rightDistance = Math.abs(rightDate - now)
+
+    if (leftDistance !== rightDistance) {
+      return leftDistance - rightDistance
     }
 
-    return rightDate - leftDate
+    return leftDate - rightDate
   })
 }
 

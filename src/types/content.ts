@@ -1,9 +1,9 @@
 export type EventCategory =
   | "weekly"
   | "collab"
-  | "trivia"
+  | "anisyd"
   | "cosplay"
-  | "challenge"
+  | "competition"
   | "past"
 
 export type SponsorTier = "diamond" | "gold" | "silver" | "community"
