@@ -12,13 +12,13 @@ export function EventsPage() {
   const events = useEvents(category)
 
   return (
-    <div className="space-y-7">
+    <div className="page-container space-y-7">
       <PageHeader
         badge="Calendar"
         title="Events"
         description="Explore club events, competition nights, cosplay competitions, and other challenges. Note that you must be a member to attend our events."
       />
-      <Separator className="bg-gradient-to-r from-primary/30 via-accent/40 to-transparent" />
+      <Separator className="page-divider-accent" />
       <section className="space-y-5" aria-label="Event filters and list">
         <EventsTabs
           value={category}
