@@ -10,6 +10,27 @@ interface HeroSectionProps {
   hero: SiteContent["hero"]
 }
 
+const HERO_SECTION_CLASS =
+  "relative w-full min-h-[100svh] overflow-hidden bg-cover bg-center bg-no-repeat"
+const HERO_RADIAL_OVERLAY_CLASS =
+  "absolute inset-0 bg-[radial-gradient(42rem_24rem_at_18%_22%,color-mix(in_oklab,var(--color-primary)_38%,transparent),transparent_72%),radial-gradient(34rem_20rem_at_82%_72%,color-mix(in_oklab,var(--color-accent)_30%,transparent),transparent_70%)]"
+const HERO_DARK_OVERLAY_CLASS =
+  "absolute inset-0 bg-gradient-to-b from-black/35 via-black/42 to-black/62"
+const HERO_CONTENT_CLASS =
+  "relative mx-auto flex min-h-[100svh] max-w-6xl items-center px-4 py-12 md:px-6 md:py-16"
+const HERO_PANEL_CLASS =
+  "w-full max-w-3xl rounded-3xl border border-white/55 bg-white/72 p-6 shadow-[0_35px_80px_-44px_rgba(6,6,12,0.55)] backdrop-blur-xl backdrop-saturate-150 md:-translate-x-4 md:p-10 dark:border-white/20 dark:bg-white/14"
+const HERO_TITLE_CLASS =
+  "text-4xl font-bold tracking-tight text-foreground drop-shadow-[0_8px_20px_rgba(0,0,0,0.18)] md:text-6xl dark:text-white dark:drop-shadow-[0_10px_22px_rgba(0,0,0,0.55)]"
+const HERO_SUBTITLE_CLASS =
+  "mt-2 text-lg font-semibold text-foreground/90 md:text-2xl dark:text-white/92"
+const HERO_BODY_CLASS =
+  "mt-5 max-w-2xl text-sm text-foreground/80 md:text-base dark:text-white/82"
+const HERO_SCROLL_WRAPPER_CLASS =
+  "pointer-events-none absolute inset-x-0 bottom-5 z-10 flex justify-center md:bottom-7"
+const HERO_SCROLL_BUTTON_CLASS =
+  "pointer-events-auto inline-flex size-11 items-center justify-center rounded-full border border-white/55 bg-black/40 text-white shadow-[0_14px_34px_-22px_black] backdrop-blur-sm transition hover:scale-105 hover:bg-black/50 focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
+
 function isExternalHref(href: string) {
   return /^(https?:)?\/\//i.test(href) || href.startsWith("mailto:")
 }
@@ -27,25 +48,25 @@ export function HeroSection({ clubName, hero }: HeroSectionProps) {
 
   return (
     <section
-      className="relative -mx-36 min-h-[68svh] overflow-hidden bg-cover bg-center bg-no-repeat md:-mx-48 md:min-h-[84svh] lg:-mx-68 xl:-mx-84 2xl:-mx-100"
+      className={HERO_SECTION_CLASS}
       style={backgroundStyle}
       aria-label={`${clubName} hero banner`}
     >
       {/* Background gradients */}
-      <div className="absolute inset-0 bg-[radial-gradient(42rem_24rem_at_18%_22%,color-mix(in_oklab,var(--color-primary)_38%,transparent),transparent_72%),radial-gradient(34rem_20rem_at_82%_72%,color-mix(in_oklab,var(--color-accent)_30%,transparent),transparent_70%)]" />
-      <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-black/42 to-black/62" />
+      <div className={HERO_RADIAL_OVERLAY_CLASS} />
+      <div className={HERO_DARK_OVERLAY_CLASS} />
 
       {/*  */}
-      <div className="relative mx-auto flex min-h-[68svh] max-w-6xl items-center px-4 py-12 md:min-h-[84svh] md:px-6 md:py-16">
-        <div className="w-full max-w-3xl rounded-3xl border border-white/55 bg-white/72 p-6 shadow-[0_35px_80px_-44px_rgba(6,6,12,0.55)] backdrop-blur-xl backdrop-saturate-150 md:-translate-x-4 md:p-10 dark:border-white/20 dark:bg-white/14">
-          <h1 className="text-4xl font-bold tracking-tight text-foreground drop-shadow-[0_8px_20px_rgba(0,0,0,0.18)] md:text-6xl dark:text-white dark:drop-shadow-[0_10px_22px_rgba(0,0,0,0.55)]">
+      <div className={HERO_CONTENT_CLASS}>
+        <div className={HERO_PANEL_CLASS}>
+          <h1 className={HERO_TITLE_CLASS}>
             {clubName}
           </h1>
-          <h2 className="mt-2 text-lg font-semibold text-foreground/90 md:text-2xl dark:text-white/92">
+          <h2 className={HERO_SUBTITLE_CLASS}>
             {hero.title}
           </h2>
           {hero.subtitle ? (
-            <p className="mt-5 max-w-2xl text-sm text-foreground/80 md:text-base dark:text-white/82">
+            <p className={HERO_BODY_CLASS}>
               {hero.subtitle}
             </p>
           ) : null}
@@ -73,10 +94,10 @@ export function HeroSection({ clubName, hero }: HeroSectionProps) {
         </div>
       </div>
 
-      <div className="pointer-events-none absolute inset-x-0 bottom-5 z-10 flex justify-center md:bottom-7">
+      <div className={HERO_SCROLL_WRAPPER_CLASS}>
         <a
           href="#home-main-sections"
-          className="pointer-events-auto inline-flex size-11 items-center justify-center rounded-full border border-primary-foreground/35 bg-black/35 text-primary-foreground shadow-[0_14px_34px_-22px_black] backdrop-blur-sm transition hover:scale-105 hover:bg-black/45 focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
+          className={HERO_SCROLL_BUTTON_CLASS}
           aria-label="Scroll down to explore more sections"
         >
           <ChevronDownIcon className="size-5 animate-bounce" aria-hidden />

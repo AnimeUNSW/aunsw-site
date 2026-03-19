@@ -17,7 +17,7 @@
   "sponsorPerksOverview": "Members unlock partner perks at manga stores, food spots, and hobby retailers across Sydney, as well as prizes and food/drink supplied for events!",
   "discordOverview": "Discord is our command center for announcements, reminders, signups, and daily anime discussion between on-campus events.",
   "socialLinks": {
-    "discord": "https://discord.gg/animeunsw",
+    "discord": "https://discord.gg/aunsw",
     "instagram": "https://instagram.com/animeunsw",
     "email": "unswanime@gmail.com",
     "linktree": "https://linktr.ee/animeunsw"
@@ -33,22 +33,25 @@
     {
       "id": "arc",
       "label": "Arc Sign-Up",
-      "summary": "Activate your Arc profile before joining AnimeUNSW.",
+      "summary": "Activate your Arc membership for the current year first.",
       "steps": [
         "Log in to Arc Membership.",
-        "Find AnimeUNSW in the societies list.",
-        "Complete annual membership checkout."
+        "Complete your annual Arc membership checkout.",
+        "Use the same name and student details you will use on Rubric."
       ]
     },
     {
       "id": "registration",
-      "label": "Club Registration",
-      "summary": "Submit AnimeUNSW registration details for event check-in and perks access.",
+      "label": "Rubric Registration",
+      "summary": "Join AnimeUNSW through Rubric to access event check-in and member perks.",
       "steps": [
-        "Open the AnimeUNSW registration form.",
-        "Provide your zID and preferred name.",
-        "Agree to society code of conduct."
-      ]
+        "Open the AnimeUNSW Rubric page using the link below.",
+        "Sign in on Rubric and complete setup if this is your first time.",
+        "Select the current AnimeUNSW membership option and complete checkout.",
+        "Keep your Rubric confirmation email as proof of membership."
+      ],
+      "linkUrl": "https://campus.hellorubric.com/?s=12432",
+      "linkLabel": "Open AnimeUNSW Rubric page"
     },
     {
       "id": "discord",

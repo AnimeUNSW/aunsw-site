@@ -7,11 +7,15 @@ import { Separator } from "@/components/ui/separator"
 import { useFeaturedEvents } from "@/hooks/use-featured-events"
 import { useSiteContent } from "@/hooks/use-site-content"
 import { useSponsors } from "@/hooks/use-sponsors"
+import { hasMemberDiscountOffer } from "@/lib/sponsors"
 
 export function HomePage() {
   const siteContent = useSiteContent()
   const featuredEvents = useFeaturedEvents()
-  const sponsors = useSponsors().slice(0, 3)
+  const sponsors = useSponsors()
+  const sponsorsWithDiscounts = sponsors
+    .filter(hasMemberDiscountOffer)
+    .slice(0, 3)
 
   return (
     <div className="space-y-14">
@@ -19,7 +23,10 @@ export function HomePage() {
         <HeroSection clubName={siteContent.clubName} hero={siteContent.hero} />
       </div>
 
-      <div id="home-main-sections" className="scroll-mt-24 space-y-14">
+      <div
+        id="home-main-sections"
+        className="page-container scroll-mt-24 space-y-14"
+      >
         <ClubIntroSection
           clubDescription={siteContent.clubDescription}
           stats={siteContent.clubStats}
@@ -27,7 +34,7 @@ export function HomePage() {
         <FeaturedEventsSection events={featuredEvents} />
         <SponsorPerksPreviewSection
           overview={siteContent.sponsorPerksOverview}
-          sponsors={sponsors}
+          sponsors={sponsorsWithDiscounts}
         />
         <Separator />
         <section

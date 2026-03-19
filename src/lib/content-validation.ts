@@ -8,7 +8,6 @@ import type {
   SiteContent,
   SocialLinks,
   Sponsor,
-  SponsorTier,
   TeamMembership,
   TeamProfile,
 } from "@/types/content"
@@ -23,8 +22,6 @@ const EVENT_CATEGORIES: EventCategory[] = [
   "competition",
   "past",
 ]
-
-const SPONSOR_TIERS: SponsorTier[] = ["diamond", "gold", "silver", "community"]
 
 const FAQ_CATEGORIES: FAQCategory[] = [
   "membership",
@@ -166,7 +163,6 @@ function parseSponsor(value: unknown, path: string): Sponsor {
     name: expectString(raw.name, `${path}.name`),
     logoText: expectString(raw.logoText, `${path}.logoText`),
     websiteUrl: expectString(raw.websiteUrl, `${path}.websiteUrl`),
-    tier: expectEnum(raw.tier, SPONSOR_TIERS, `${path}.tier`),
     image: expectOptionalString(raw.image, `${path}.image`),
     imageAlt: expectOptionalString(raw.imageAlt, `${path}.imageAlt`),
     discountDescription: expectString(raw.discountDescription, `${path}.discountDescription`),
@@ -208,6 +204,8 @@ function parseMembershipPath(value: unknown, path: string): MembershipPath {
     label: expectString(raw.label, `${path}.label`),
     summary: expectString(raw.summary, `${path}.summary`),
     steps: expectStringArray(raw.steps, `${path}.steps`),
+    linkUrl: expectOptionalString(raw.linkUrl, `${path}.linkUrl`),
+    linkLabel: expectOptionalString(raw.linkLabel, `${path}.linkLabel`),
   }
 }
 

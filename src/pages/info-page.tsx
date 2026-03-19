@@ -12,13 +12,13 @@ export function InfoPage() {
   const siteContent = useSiteContent()
 
   return (
-    <div className="space-y-9">
+    <div className="page-container space-y-9">
       <PageHeader
         badge="Help"
         title="Info"
         description="Membership instructions, Discord access, FAQ answers, and contact details."
       />
-      <Separator className="bg-gradient-to-r from-primary/30 via-accent/40 to-transparent" />
+      <Separator className="page-divider-accent" />
       <section className="space-y-4" aria-labelledby="membership-title">
         <h2
           id="membership-title"

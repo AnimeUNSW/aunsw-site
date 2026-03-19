@@ -1,3 +1,5 @@
+import { ExternalLinkIcon } from "lucide-react"
+
 import {
   Card,
   CardContent,
@@ -42,6 +44,17 @@ export function MembershipInstructions({ paths }: MembershipInstructionsProps) {
             <CardHeader>
               <CardTitle>{path.label}</CardTitle>
               <CardDescription>{path.summary}</CardDescription>
+              {path.linkUrl ? (
+                <a
+                  href={path.linkUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex w-fit items-center gap-1 text-sm font-medium text-primary underline-offset-4 hover:underline"
+                >
+                  {path.linkLabel ?? "Open link"}
+                  <ExternalLinkIcon className="size-4" aria-hidden />
+                </a>
+              ) : null}
             </CardHeader>
             <CardContent>
               <ol className="space-y-2" aria-label={`${path.label} steps`}>

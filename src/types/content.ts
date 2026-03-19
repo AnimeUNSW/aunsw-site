@@ -6,8 +6,6 @@ export type EventCategory =
   | "competition"
   | "past"
 
-export type SponsorTier = "diamond" | "gold" | "silver" | "community"
-
 export type FAQCategory = "membership" | "discord" | "events" | "general"
 
 export interface Event {
@@ -33,7 +31,6 @@ export interface Sponsor {
   name: string
   logoText: string
   websiteUrl: string
-  tier: SponsorTier
   image?: string
   imageAlt?: string
   discountDescription: string
@@ -76,6 +73,8 @@ export interface MembershipPath {
   label: string
   summary: string
   steps: string[]
+  linkUrl?: string
+  linkLabel?: string
 }
 
 export interface SiteContent {
