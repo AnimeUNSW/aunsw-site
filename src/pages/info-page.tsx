@@ -26,7 +26,7 @@ export function InfoPage() {
         >
           Membership Instructions
         </h2>
-        <MembershipInstructions paths={siteContent.membershipPaths} />
+        <MembershipInstructions steps={siteContent.membershipSteps} />
       </section>
       <section className="space-y-4" aria-labelledby="faq-title">
         <h2 id="faq-title" className="text-xl font-semibold tracking-[0.02em]">

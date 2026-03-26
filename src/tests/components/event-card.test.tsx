@@ -32,4 +32,41 @@ describe("EventCard", () => {
 
     expect(screen.getByText("Weekly")).toBeInTheDocument()
   })
+
+  it("auto-adds Past Events badge when event end time has already passed", () => {
+    const pastEvent = {
+      id: "evt-past-test",
+      slug: "past-test",
+      title: "Past test event",
+      description: "This event happened already.",
+      category: ["weekly"],
+      startDateTime: "2010-01-01T10:00:00.000Z",
+      endDateTime: "2010-01-01T12:00:00.000Z",
+      location: "Test Venue",
+      featured: false,
+    }
+
+    renderWithProviders(<EventCard event={pastEvent} />)
+
+    expect(screen.getByText("Past Events")).toBeInTheDocument()
+  })
+
+  it("disables Register button for past events", () => {
+    const pastEvent = {
+      id: "evt-past-test-2",
+      slug: "past-test-2",
+      title: "Past test event 2",
+      description: "This event happened already.",
+      category: ["collab"],
+      startDateTime: "2010-01-01T10:00:00.000Z",
+      endDateTime: "2010-01-01T12:00:00.000Z",
+      location: "Test Venue",
+      featured: false,
+      registerLink: "https://campus.hellorubric.com",
+    }
+
+    renderWithProviders(<EventCard event={pastEvent} />)
+
+    expect(screen.getByRole("button", { name: /register/i })).toBeDisabled()
+  })
 })

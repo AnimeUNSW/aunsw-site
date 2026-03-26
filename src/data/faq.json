@@ -2,7 +2,7 @@
   {
     "id": "faq-membership-1",
     "question": "How do I join AnimeUNSW?",
-    "answer": "Complete Arc membership first, then join AnimeUNSW through our Rubric page from the Info tab.",
+    "answer": "You can join at an event by scanning the QR code and paying cash or card, then collect your membership card from an exec. Alternatively, register online at https://campus.hellorubric.com/?tab=memberships&s=12432 and ask an exec at an event for your card.",
     "category": "membership"
   },
   {
@@ -14,13 +14,13 @@
   {
     "id": "faq-events-1",
     "question": "Are events free?",
-    "answer": "Most weekly events are free for members. Some major events may have a small ticket fee.",
+    "answer": "Most of our events are free for members. Some major events and Anisyd events may have a small ticket fee.",
     "category": "events"
   },
   {
     "id": "faq-events-2",
     "question": "Can I bring friends who are not members?",
-    "answer": "Guests are welcome at select social events. Competitive or ticketed events may require membership.",
+    "answer": "You must be a member to attend our events. Though, non-members are welcome to tag along to weekly ramen and hang out, but they would not be given ramen.",
     "category": "events"
   },
   {

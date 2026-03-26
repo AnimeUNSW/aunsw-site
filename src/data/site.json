@@ -25,45 +25,38 @@
   "clubStats": {
     "memberCount": "2600+",
     "activeSince": 1997,
-    "eventsPerTerm": 14,
+    "eventsThisYear": 14,
     "sponsorCount": "3400+",
     "lastUpdated": "2026-03-12"
   },
-  "membershipPaths": [
-    {
-      "id": "arc",
-      "label": "Arc Sign-Up",
-      "summary": "Activate your Arc membership for the current year first.",
-      "steps": [
-        "Log in to Arc Membership.",
-        "Complete your annual Arc membership checkout.",
-        "Use the same name and student details you will use on Rubric."
-      ]
-    },
-    {
-      "id": "registration",
-      "label": "Rubric Registration",
-      "summary": "Join AnimeUNSW through Rubric to access event check-in and member perks.",
-      "steps": [
-        "Open the AnimeUNSW Rubric page using the link below.",
-        "Sign in on Rubric and complete setup if this is your first time.",
-        "Select the current AnimeUNSW membership option and complete checkout.",
-        "Keep your Rubric confirmation email as proof of membership."
-      ],
-      "linkUrl": "https://campus.hellorubric.com/?s=12432",
-      "linkLabel": "Open AnimeUNSW Rubric page"
-    },
-    {
-      "id": "discord",
-      "label": "Discord Verification",
-      "summary": "Join the server and unlock member channels.",
-      "steps": [
-        "Join using the invite link.",
-        "Read #rules-and-guidelines.",
-        "Verify membership to access full channels."
-      ]
-    }
-  ],
+  "membershipSteps": {
+    "id": "animeunsw",
+    "label": "AnimeUNSW Membership",
+    "summary": "Join via event checkout or online Rubric registration.",
+    "linkUrl": "https://campus.hellorubric.com/?tab=memberships&s=12432",
+    "linkLabel": "Sign up on Rubric",
+    "tabs": [
+      {
+        "id": "join-home",
+        "label": "Join at home",
+        "steps": [
+          "Open Rubric from home",
+          "Complete the online membership form and payment",
+          "Show an exec your Rubric app or web to prove membership, and receive your physical membership card"
+        ]
+      },
+      {
+        "id": "join-event",
+        "label": "Join at an event",
+        "steps": [
+          "Attend an AnimeUNSW event",
+          "Scan the membership QR code at the event",
+          "Pay membership fee by cash or card",
+          "Collect your membership card from an exec on-site"
+        ]
+      }
+    ]
+  },
   "contacts": [
     {
       "label": "General Enquiries",

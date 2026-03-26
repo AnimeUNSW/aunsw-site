@@ -58,7 +58,7 @@ export interface SocialLinks {
 export interface ClubStats {
   memberCount: string | number
   activeSince: string | number
-  eventsPerTerm: string | number
+  eventsThisYear: string | number
   sponsorCount: string | number
   lastUpdated: string
 }
@@ -68,11 +68,17 @@ export interface Contact {
   email: string
 }
 
-export interface MembershipPath {
+export interface MembershipTab {
+  id: string
+  label: string
+  steps: string[]
+}
+
+export interface MembershipSteps {
   id: string
   label: string
   summary: string
-  steps: string[]
+  tabs: MembershipTab[]
   linkUrl?: string
   linkLabel?: string
 }
@@ -99,7 +105,7 @@ export interface SiteContent {
   discordOverview: string
   socialLinks: SocialLinks
   clubStats: ClubStats
-  membershipPaths: MembershipPath[]
+  membershipSteps: MembershipSteps
   contacts: Contact[]
 }
 

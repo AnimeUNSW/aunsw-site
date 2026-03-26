@@ -26,6 +26,7 @@ import {
 } from "@/components/ui/tooltip"
 import { cn } from "@/lib/utils"
 import { formatDateTime } from "@/lib/format"
+import { isEventPast } from "@/lib/events"
 import type { Event } from "@/types/content"
 
 interface CategoryMeta {
@@ -93,8 +94,14 @@ const EVENT_IMAGE_FALLBACK_CLASS =
   "flex aspect-[16/9] w-full items-center justify-center bg-gradient-to-br from-muted/60 to-background text-xs tracking-[0.12em] text-muted-foreground uppercase"
 
 export function EventCard({ event }: { event: Event }) {
-  const primaryCategory = event.category[0]
+  const hasPastCategory = event.category.includes("past")
+  const isPast = isEventPast(event)
+  const categories = isPast
+    ? Array.from(new Set([...event.category, "past"]))
+    : event.category
+  const primaryCategory = categories[0]
   const meta = CATEGORY_META[primaryCategory]
+  const canRegister = Boolean(event.registerLink) && !isPast
 
   return (
     <Card className={EVENT_CARD_CLASS}>
@@ -123,7 +130,7 @@ export function EventCard({ event }: { event: Event }) {
           {event.featured ? (
             <Badge className="tracking-[0.12em] uppercase">Featured</Badge>
           ) : null}
-          {event.category.map((category) => {
+          {categories.map((category) => {
             const categoryMeta = CATEGORY_META[category]
 
             return (
@@ -163,7 +170,7 @@ export function EventCard({ event }: { event: Event }) {
         </div>
       </CardContent>
       <CardFooter className="mt-auto justify-start gap-2">
-        {event.registerLink ? (
+        {canRegister ? (
           <Button size="sm" asChild>
             <a href={event.registerLink} target="_blank" rel="noreferrer">
               <TicketIcon className="size-4" aria-hidden />

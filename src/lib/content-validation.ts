@@ -196,14 +196,32 @@ function parseSocialLinks(value: unknown, path: string): SocialLinks {
   }
 }
 
-function parseMembershipPath(value: unknown, path: string): MembershipPath {
+function parseMembershipStepTab(value: unknown, path: string): MembershipTab {
+  const raw = expectObject(value, path)
+
+  return {
+    id: expectString(raw.id, `${path}.id`),
+    label: expectString(raw.label, `${path}.label`),
+    steps: expectStringArray(raw.steps, `${path}.steps`),
+  }
+}
+
+function parseMembershipSteps(value: unknown, path: string): MembershipSteps {
   const raw = expectObject(value, path)
 
   return {
     id: expectString(raw.id, `${path}.id`),
     label: expectString(raw.label, `${path}.label`),
     summary: expectString(raw.summary, `${path}.summary`),
-    steps: expectStringArray(raw.steps, `${path}.steps`),
+    tabs: Array.isArray(raw.tabs)
+      ? raw.tabs.map((tab, index) => parseMembershipStepTab(tab, `${path}.tabs[${index}]`))
+      : [
+          {
+            id: "join",
+            label: "Join",
+            steps: expectStringArray(raw.steps, `${path}.steps`),
+          },
+        ],
     linkUrl: expectOptionalString(raw.linkUrl, `${path}.linkUrl`),
     linkLabel: expectOptionalString(raw.linkLabel, `${path}.linkLabel`),
   }
@@ -285,7 +303,7 @@ export function parseFaqs(value: unknown): FAQ[] {
 export function parseSiteContent(value: unknown): SiteContent {
   const raw = expectObject(value, "siteContent")
   const clubStats = expectObject(raw.clubStats, "siteContent.clubStats")
-  assert(Array.isArray(raw.membershipPaths), "siteContent.membershipPaths must be an array")
+  assert(typeof raw.membershipSteps === "object" && raw.membershipSteps !== null, "siteContent.membershipSteps must be an object")
   assert(Array.isArray(raw.contacts), "siteContent.contacts must be an array")
 
   return {
@@ -308,9 +326,9 @@ export function parseSiteContent(value: unknown): SiteContent {
         clubStats.activeSince,
         "siteContent.clubStats.activeSince"
       ),
-      eventsPerTerm: expectStringOrNumber(
-        clubStats.eventsPerTerm,
-        "siteContent.clubStats.eventsPerTerm"
+      eventsThisYear: expectStringOrNumber(
+        clubStats.eventsThisYear,
+        "siteContent.clubStats.eventsThisYear"
       ),
       sponsorCount: expectStringOrNumber(
         clubStats.sponsorCount,
@@ -318,9 +336,7 @@ export function parseSiteContent(value: unknown): SiteContent {
       ),
       lastUpdated: expectString(clubStats.lastUpdated, "siteContent.clubStats.lastUpdated"),
     },
-    membershipPaths: raw.membershipPaths.map((path, index) =>
-      parseMembershipPath(path, `siteContent.membershipPaths[${index}]`)
-    ),
+    membershipSteps: parseMembershipSteps(raw.membershipSteps, "siteContent.membershipSteps"),
     contacts: raw.contacts.map((contact, index) =>
       parseContact(contact, `siteContent.contacts[${index}]`)
     ),
