@@ -30,10 +30,10 @@
     "category": "general"
   },
   {
-    "id": "faq-general-2",
+    "id": "faq-membership-1",
     "question": "Do I need to be a UNSW student to join the society?",
     "answer": "You don't! Anyone can join the society, regardless of whether or not you attend UNSW. Though, it is cheaper for UNSW students.",
-    "category": "general"
+    "category": "membership"
   },
   {
     "id": "faq-general-3",
