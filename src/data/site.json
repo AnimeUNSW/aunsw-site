@@ -32,7 +32,7 @@
   "membershipSteps": {
     "id": "animeunsw",
     "label": "AnimeUNSW Membership",
-    "summary": "Join via event checkout or online Rubric registration.",
+    "summary": "Join the society from home or at an event!",
     "linkUrl": "https://campus.hellorubric.com/?tab=memberships&s=12432",
     "linkLabel": "Sign up on Rubric",
     "tabs": [
@@ -40,7 +40,7 @@
         "id": "join-home",
         "label": "Join at home",
         "steps": [
-          "Open Rubric from home",
+          "Open the Rubric app or website",
           "Complete the online membership form and payment",
           "Show an exec your Rubric app or web to prove membership, and receive your physical membership card"
         ]
@@ -50,8 +50,8 @@
         "label": "Join at an event",
         "steps": [
           "Attend an AnimeUNSW event",
-          "Scan the membership QR code at the event",
-          "Pay membership fee by cash or card",
+          "Decide whether to pay cash or card, and ask an exec for the relevant QR code",
+          "Pay membership fee by your preferred method",
           "Collect your membership card from an exec on-site"
         ]
       }

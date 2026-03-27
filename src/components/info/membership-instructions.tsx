@@ -56,20 +56,18 @@ export function MembershipInstructions({ steps }: MembershipInstructionsProps) {
               <ol className="space-y-2" aria-label={`${tab.label} steps`}>
                 {tab.steps.map((step, index) => {
                   const renderedStep = (() => {
-                    if (path.linkUrl && step.includes("Rubric")) {
-                      const [before, after] = step.split("Rubric")
+                    if (path.linkUrl && step === "Open the Rubric app or website") {
                       return (
                         <span>
-                          {before}
+                          Open the Rubric mobile app or {' '}
                           <a
                             href={path.linkUrl}
                             target="_blank"
                             rel="noreferrer"
                             className="font-medium text-primary underline"
                           >
-                            Rubric
+                            website
                           </a>
-                          {after}
                         </span>
                       )
                     }
