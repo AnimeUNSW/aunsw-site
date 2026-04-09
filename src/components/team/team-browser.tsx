@@ -1,9 +1,5 @@
 import { useEffect, useMemo, useState, type TouchEventHandler } from "react"
-import {
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  SparklesIcon
-} from "lucide-react"
+import { ChevronLeftIcon, ChevronRightIcon, SparklesIcon } from "lucide-react"
 
 import { TeamMemberCard } from "@/components/team/team-member-card"
 import { Badge } from "@/components/ui/badge"
@@ -260,14 +256,6 @@ export function TeamBrowser({ profiles }: TeamBrowserProps) {
           })}
         </ul>
       </section>
-
-      <div className="flex items-center gap-2 text-xs text-muted-foreground">
-        <SparklesIcon className="size-4" aria-hidden />
-        <p>
-          Autoplay runs every {Math.round(AUTOPLAY_MS / 1000)} seconds. Swipe on
-          touch devices for manual navigation.
-        </p>
-      </div>
     </div>
   )
 }
