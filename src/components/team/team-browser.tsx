@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState, type TouchEventHandler } from "react"
-import { ChevronLeftIcon, ChevronRightIcon, SparklesIcon } from "lucide-react"
+import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react"
 
 import { TeamMemberCard } from "@/components/team/team-member-card"
 import { Badge } from "@/components/ui/badge"

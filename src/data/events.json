@@ -10,7 +10,7 @@
       "recurringStartTime": "thursday 13:00",
       "recurringEndTime": "thursday 15:00",
       "location": "Colombo Theatres Foyer",
-      "image": "../src/assets/event-pics/weekly-ramen.jpg",
+      "image": "/event-pics/weekly-ramen.jpg",
       "imageAlt": "Weekly ramen setup feat. Nam",
       "featured": true,
       "registerLink": "https://campus.hellorubric.com/?eid=55949"
@@ -24,7 +24,7 @@
       "recurringStartTime": "thursday 14:00",
       "recurringEndTime": "thursday 16:00",
       "location": "Lawrence East (H13) 2063",
-      "image": "../src/assets/event-pics/chill-lounge.png",
+      "image": "/event-pics/chill-lounge.png",
       "imageAlt": "AnimeUNSW chill lounge arc photo",
       "featured": false,
       "registerLink": "https://campus.hellorubric.com/?s=12432"
@@ -38,7 +38,7 @@
       "startDateTime": "2026-05-16T10:00:00+11:00",
       "endDateTime": "2026-05-17T16:00:00+11:00",
       "location": "Sydney Lower Town Hall",
-      "image": "../src/assets/event-pics/anisyd-artmart-2026.png",
+      "image": "/event-pics/anisyd-artmart-2026.png",
       "imageAlt": "Anisyd 2026 art mart poster",
       "featured": true,
       "registerLink": "https://events.humanitix.com/anisyd-express-art-mart"
@@ -52,7 +52,7 @@
       "startDateTime": "2026-03-13T17:00:00+11:00",
       "endDateTime": "2026-03-13T21:00:00+11:00",
       "location": "Rupert Myers (M15) 520, 540",
-      "image": "../src/assets/event-pics/cosplay-casino-1-2026.png",
+      "image": "/event-pics/cosplay-casino-1-2026.png",
       "imageAlt": "AnimeUNSW x TTGSoc Cosplay Casino Banner",
       "featured": true,
       "registerLink": "https://campus.hellorubric.com/?eid=57212"
@@ -66,7 +66,7 @@
       "startDateTime": "2026-03-20T14:00:00+11:00",
       "endDateTime": "2026-03-20T16:00:00+11:00",
       "location": "UNSW Business School (E12) 215",
-      "image": "../src/assets/event-pics/ita-bag-1-2026.png",
+      "image": "/event-pics/ita-bag-1-2026.png",
       "imageAlt": "AnimeUNSW x SanrioSoc Ita Bag Meetup Banner",
       "featured": false,
       "registerLink": "https://campus.hellorubric.com/?eid=57072"
@@ -80,7 +80,7 @@
       "startDateTime": "2026-03-10T18:00:00+11:00",
       "endDateTime": "2026-03-10T22:00:00+11:00",
       "location": "Manning House, USYD",
-      "image": "../src/assets/event-pics/anisyd-welcome-2026.png",
+      "image": "/event-pics/anisyd-welcome-2026.png",
       "imageAlt": "Anisyd welcome party banner",
       "featured": false
     },
@@ -93,7 +93,7 @@
       "startDateTime": "2026-03-06T18:00:00+11:00",
       "endDateTime": "2026-03-06T20:00:00+11:00",
       "location": "Law Theatre G02",
-      "image": "../src/assets/event-pics/mooting-1-2026.png",
+      "image": "/event-pics/mooting-1-2026.png",
       "imageAlt": "AnimeUNSW mooting banner",
       "featured": false
     },
@@ -106,7 +106,7 @@
       "startDateTime": "2026-02-27T17:30:00+11:00",
       "endDateTime": "2026-02-27T21:30:00+11:00",
       "location": "Leighton Hall",
-      "image": "../src/assets/event-pics/kickoff-26.jpg",
+      "image": "/event-pics/kickoff-26.jpg",
       "imageAlt": "AnimeUNSW kickoff crowd picture",
       "featured": false
     }, 
@@ -119,7 +119,7 @@
       "startDateTime": "2026-02-19T18:00:00+11:00",
       "endDateTime": "2026-02-19T20:00:00+11:00",
       "location": "Ainsworth201",
-      "image": "../src/assets/event-pics/spicy-ramen-1-2026.png",
+      "image": "/event-pics/spicy-ramen-1-2026.png",
       "imageAlt": "AnimeUNSW spicy ramen challenge banner",
       "featured": false
     }
