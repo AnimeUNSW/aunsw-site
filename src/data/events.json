@@ -54,7 +54,7 @@
       "location": "Rupert Myers (M15) 520, 540",
       "image": "../src/assets/event-pics/cosplay-casino-1-2026.png",
       "imageAlt": "AnimeUNSW x TTGSoc Cosplay Casino Banner",
-      "featured": true,
+      "featured": false,
       "registerLink": "https://campus.hellorubric.com/?eid=57212"
     },
     {
@@ -108,7 +108,7 @@
       "location": "Leighton Hall",
       "image": "../src/assets/event-pics/kickoff-26.jpg",
       "imageAlt": "AnimeUNSW kickoff crowd picture",
-      "featured": false
+      "featured": true
     }, 
     {
       "id": "evt-spicy-ramen-1-2026",

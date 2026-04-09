@@ -14,7 +14,7 @@ interface StatItem {
 
 export function ClubIntroSection({ clubDescription, stats }: ClubIntroSectionProps) {
   const items: StatItem[] = [
-    { label: "Events this year", value: stats.eventsPerTerm },
+    { label: "Events this year", value: stats.eventsThisYear },
     { label: "Active Since", value: stats.activeSince },
     { label: "Instagram Followers", value: stats.memberCount },
     { label: "Discord members", value: stats.sponsorCount },

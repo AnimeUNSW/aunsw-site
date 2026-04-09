@@ -1,11 +1,5 @@
 [
   {
-    "id": "faq-membership-1",
-    "question": "How do I join AnimeUNSW?",
-    "answer": "Complete Arc membership first, then join AnimeUNSW through our Rubric page from the Info tab.",
-    "category": "membership"
-  },
-  {
     "id": "faq-membership-2",
     "question": "Do I need prior anime knowledge to attend events?",
     "answer": "No. Beginners are welcome and most events are designed for mixed experience levels.",
@@ -14,25 +8,37 @@
   {
     "id": "faq-events-1",
     "question": "Are events free?",
-    "answer": "Most weekly events are free for members. Some major events may have a small ticket fee.",
+    "answer": "Most of our events are free for members. Some major events and Anisyd events may have a small ticket fee.",
     "category": "events"
   },
   {
     "id": "faq-events-2",
     "question": "Can I bring friends who are not members?",
-    "answer": "Guests are welcome at select social events. Competitive or ticketed events may require membership.",
+    "answer": "You must be a member to attend our events. Though, non-members are welcome to tag along to weekly ramen and hang out, but they would not be given ramen.",
     "category": "events"
   },
   {
     "id": "faq-discord-1",
     "question": "How do I access the Discord server?",
-    "answer": "Use the Discord invite on the Info page and complete server verification with your zID.",
+    "answer": "Use the Discord invite below and complete server verification.",
     "category": "discord"
   },
   {
     "id": "faq-general-1",
     "question": "Who can I contact for sponsor or collaboration enquiries?",
     "answer": "Email the sponsorship team at sponsors@animeunsw.net.",
+    "category": "general"
+  },
+  {
+    "id": "faq-membership-1",
+    "question": "Do I need to be a UNSW student to join the society?",
+    "answer": "You don't! Anyone can join the society, regardless of whether or not you attend UNSW. Though, it is cheaper for UNSW students.",
+    "category": "membership"
+  },
+  {
+    "id": "faq-general-3",
+    "question": "I'm having a problem, how can I get help?",
+    "answer": "If it's a technical problem, you can join our discord server and open a ticket in the help channel. For all other general questions, you can email us at: unswanime@gmail.com",
     "category": "general"
   }
 ]
