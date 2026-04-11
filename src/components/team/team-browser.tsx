@@ -91,6 +91,23 @@ export function TeamBrowser({ profiles }: TeamBrowserProps) {
     (profile) => profile.membership === "director"
   ).length
 
+  const externalsCount = profiles.filter(
+    (profile) => profile.portfolio === "Externals"
+  ).length
+  const creativesCount = profiles.filter(
+    (profile) => profile.portfolio === "Creatives"
+  ).length
+  const eventsCount = profiles.filter(
+    (profile) => profile.portfolio === "Events"
+  ).length
+  const marketingCount = profiles.filter(
+    (profile) => profile.portfolio === "Marketing"
+  ).length
+  const itCount = profiles.filter(
+    (profile) => profile.portfolio === "IT"
+  ).length
+  const leadCount = directorCount + executiveCount
+
   const activeProfile = useMemo(
     () => profiles[activeSafeIndex],
     [activeSafeIndex, profiles]
@@ -141,29 +158,67 @@ export function TeamBrowser({ profiles }: TeamBrowserProps) {
 
   return (
     <div className="space-y-6">
-      <section
-        className="rounded-2xl border border-primary/20 bg-[linear-gradient(145deg,color-mix(in_oklab,var(--color-card)_95%,var(--color-primary)),var(--color-card))] p-5 md:p-7"
-        aria-labelledby="team-intro-title"
-      >
-        <div className="flex flex-wrap items-center gap-2">
-          <Badge variant="secondary" className="tracking-[0.14em] uppercase">
-            Committee
-          </Badge>
-          <Badge variant="outline" className="border-primary/30">
-            {executiveCount} executives
-          </Badge>
-          <Badge variant="outline" className="border-primary/30">
-            {directorCount} directors
-          </Badge>
-        </div>
-        <h2 id="team-intro-title" className="mt-3 text-2xl font-semibold">
-          Executive and Director Gallery
-        </h2>
-        <p className="mt-2 max-w-3xl text-sm text-muted-foreground md:text-base">
-          Swipe or use buttons to move through one profile at a time. Autoplay
-          is enabled, and all intro sheet content stays visible in each frame.
-        </p>
-      </section>
+
+      {
+        leadCount > 0 ?
+        <section
+          className="rounded-2xl border border-primary/20 bg-[linear-gradient(145deg,color-mix(in_oklab,var(--color-card)_95%,var(--color-primary)),var(--color-card))] p-5 md:p-7"
+          aria-labelledby="team-intro-title"
+        >
+          <div className="flex flex-wrap items-center gap-2">
+            <Badge variant="secondary" className="tracking-[0.14em] uppercase">
+              Committee
+            </Badge>
+            <Badge variant="outline" className="border-primary/30">
+              {executiveCount} executives
+            </Badge>
+            <Badge variant="outline" className="border-primary/30">
+              {directorCount} directors
+            </Badge>
+          </div>
+          <h2 id="team-intro-title" className="mt-3 text-2xl font-semibold">
+            Executive and Director Gallery
+          </h2>
+          <p className="mt-2 max-w-3xl text-sm text-muted-foreground md:text-base">
+            Swipe or use buttons to move through one profile at a time. Autoplay
+            is enabled, and all intro sheet content stays visible in each frame.
+          </p>
+        </section>
+        :
+        <section
+          className="rounded-2xl border border-primary/20 bg-[linear-gradient(145deg,color-mix(in_oklab,var(--color-card)_95%,var(--color-primary)),var(--color-card))] p-5 md:p-7"
+          aria-labelledby="team-intro-title"
+        >
+          <div className="flex flex-wrap items-center gap-2">
+            <Badge variant="secondary" className="tracking-[0.14em] uppercase">
+              Subcommittee
+            </Badge>
+            <Badge variant="outline" className="border-primary/30">
+              {externalsCount} externals
+            </Badge>
+            <Badge variant="outline" className="border-primary/30">
+              {creativesCount} creatives
+            </Badge>
+            <Badge variant="outline" className="border-primary/30">
+              {eventsCount} events
+            </Badge>
+            <Badge variant="outline" className="border-primary/30">
+              {marketingCount} marketing
+            </Badge>
+            <Badge variant="outline" className="border-primary/30">
+              {itCount} IT
+            </Badge>
+          </div>
+          <h2 id="team-intro-title" className="mt-3 text-2xl font-semibold">
+            Executive and Director Gallery
+          </h2>
+          <p className="mt-2 max-w-3xl text-sm text-muted-foreground md:text-base">
+            Swipe or use buttons to move through one profile at a time. Autoplay
+            is enabled, and all intro sheet content stays visible in each frame.
+          </p>
+        </section>
+
+      }
 
       <section className="space-y-4" aria-label="Team profile carousel">
         <div className="flex flex-wrap items-center justify-between gap-2">
