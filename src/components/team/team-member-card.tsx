@@ -23,6 +23,9 @@ function formatMembership(value: TeamProfile["membership"]) {
   if (value === "top5") {
     return "Top 5"
   }
+  if (value === "other") {
+    return "Subcommittee"
+  }
   return value.charAt(0).toUpperCase() + value.slice(1)
 }
 

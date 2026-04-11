@@ -13,16 +13,11 @@ export function TeamPage() {
       <PageHeader
         badge="Committee"
         title="Meet the Team"
-        description="Get to know our current executives and directors!"
+        description="Get to know our current executives, directors and subcommittee members!"
       />
       <Separator className="page-divider-accent" />
       <TeamBrowser profiles={committeeProfiles} />
 
-      <PageHeader
-        badge="Subcommittee"
-        title="Meet the Team"
-        description="Get to know our current subcommittee members!"
-      />
       <Separator className="page-divider-accent" />
       <TeamBrowser profiles={subcomProfiles} />
     </div>

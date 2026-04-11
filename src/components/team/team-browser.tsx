@@ -210,7 +210,7 @@ export function TeamBrowser({ profiles }: TeamBrowserProps) {
             </Badge>
           </div>
           <h2 id="team-intro-title" className="mt-3 text-2xl font-semibold">
-            Executive and Director Gallery
+            Subcommittee Gallery
           </h2>
           <p className="mt-2 max-w-3xl text-sm text-muted-foreground md:text-base">
             Swipe or use buttons to move through one profile at a time. Autoplay
