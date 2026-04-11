@@ -415,7 +415,7 @@
     "portfolio": "Externals",
     "displayOrder": 1,
     "pronouns": "She/Her",
-    "portraitImage": "/team/portraits/rianne.png",
+    "portraitImage": "/team/portraits/annabelle.png",
     "portraitAlt": "A mirror selfie of Annabelle",
     "degree": ["bachelor of science / majoring in ecology and conservation"],
     "funFacts": [
@@ -441,7 +441,7 @@
     "portfolio": "Externals",
     "displayOrder": 2,
     "pronouns": "He/They",
-    "portraitImage": "/team/portraits/rianne.png",
+    "portraitImage": "/team/portraits/han.jpg",
     "portraitAlt": "Han in an angel devil cosplay",
     "degree": ["Fine Arts / Media (Animation + Moving Image / Screen Production)"],
     "funFacts": [
@@ -464,7 +464,7 @@
     "portfolio": "Externals",
     "displayOrder": 3,
     "pronouns": "He/Him",
-    "portraitImage": "/team/portraits/rianne.png",
+    "portraitImage": "/team/portraits/yuk.jpg",
     "portraitAlt": "Yuk looking down on the camera",
     "degree": ["Aerospace Engineering / Materials Science"],
     "funFacts": [
@@ -488,7 +488,7 @@
     "portfolio": "Externals",
     "displayOrder": 4,
     "pronouns": "She/Her",
-    "portraitImage": "/team/portraits/rianne.png",
+    "portraitImage": "/team/portraits/janice.png",
     "portraitAlt": "Janice holding up a peace sign",
     "degree": ["2nd Year B med sci"],
     "funFacts": [
@@ -507,13 +507,13 @@
   },
   {
     "id": "callum-externals-subcom",
-    "name": "Janice",
+    "name": "Callum",
     "role": "Externals Subcom",
     "membership": "other",
     "portfolio": "Externals",
     "displayOrder": 5,
     "pronouns": "He/Him",
-    "portraitImage": "/team/portraits/rianne.png",
+    "portraitImage": "/team/portraits/callum.png",
     "portraitAlt": "Callum taking a mirror selfie",
     "degree": ["2nd Year B med sci"],
     "funFacts": [
@@ -541,7 +541,7 @@
     "portfolio": "Creatives",
     "displayOrder": 6,
     "pronouns": "Any",
-    "portraitImage": "/team/portraits/rianne.png",
+    "portraitImage": "/team/portraits/Lilian.jpg",
     "portraitAlt": "Lilian posing in a cosplay",
     "degree": ["Bachelor of Design/Commerce"],
     "funFacts": [
@@ -566,7 +566,7 @@
     "portfolio": "Creatives",
     "displayOrder": 7,
     "pronouns": "Any",
-    "portraitImage": "/team/portraits/rianne.png",
+    "portraitImage": "/team/portraits/Lachlan.jpg",
     "portraitAlt": "Lachlan posing in a cosplay",
     "degree": ["3rd Year Bcom (International)"],
     "funFacts": [
@@ -598,7 +598,7 @@
     "portfolio": "Creatives",
     "displayOrder": 8,
     "pronouns": "Any",
-    "portraitImage": "/team/portraits/rianne.png",
+    "portraitImage": "/team/portraits/natalie.png",
     "portraitAlt": "Natalie smiling at the camera in a train",
     "degree": ["2nd Year Bachelor of Primary Education (Honours)"],
     "funFacts": [
@@ -627,7 +627,7 @@
     "portfolio": "Creatives",
     "displayOrder": 9,
     "pronouns": "She/Her",
-    "portraitImage": "/team/portraits/rianne.png",
+    "portraitImage": "/team/portraits/gigi.jpg",
     "portraitAlt": "Gigi taking a selfie",
     "degree": ["1st year Bachelor of Arts, majoring in sociology and gender studies!"],
     "funFacts": [
@@ -651,7 +651,7 @@
     "portfolio": "Creatives",
     "displayOrder": 10,
     "pronouns": "They/Them",
-    "portraitImage": "/team/portraits/rianne.png",
+    "portraitImage": "/team/portraits/chimo.png",
     "portraitAlt": "A digital artwork of Chimo",
     "degree": ["Media Arts / Education (secondary)"],
     "funFacts": [
@@ -677,7 +677,7 @@
     "portfolio": "Creatives",
     "displayOrder": 11,
     "pronouns": "She/Her",
-    "portraitImage": "/team/portraits/rianne.png",
+    "portraitImage": "/team/portraits/Tea.jpeg",
     "portraitAlt": "Cameraman pointing at Tea as she is sitting on the grass",
     "degree": ["Faculty of Medicine & Health"],
     "funFacts": [
@@ -699,7 +699,7 @@
     "portfolio": "Creatives",
     "displayOrder": 12,
     "pronouns": "She/Her",
-    "portraitImage": "/team/portraits/rianne.png",
+    "portraitImage": "/team/portraits/cathy.png",
     "portraitAlt": "Cathy sipping on matcha",
     "degree": ["3rd Year Physiotherapy"],
     "funFacts": [
@@ -719,7 +719,7 @@
     "portfolio": "Events",
     "displayOrder": 13,
     "pronouns": "They/Them",
-    "portraitImage": "/team/portraits/rianne.png",
+    "portraitImage": "/team/portraits/rina.png",
     "portraitAlt": "Rina holding up a peace sign",
     "degree": ["1st Year Actuarial Studies"],
     "funFacts": [
@@ -744,7 +744,7 @@
     "portfolio": "Events",
     "displayOrder": 14,
     "pronouns": "She/Her",
-    "portraitImage": "/team/portraits/rianne.png",
+    "portraitImage": "/team/portraits/ling.png",
     "portraitAlt": "Ling posing in a cosplay",
     "degree": ["2nd yr science (psyc) / science (compsci)"],
     "funFacts": [
@@ -765,7 +765,7 @@
     "portfolio": "Events",
     "displayOrder": 15,
     "pronouns": "He/Him",
-    "portraitImage": "/team/portraits/rianne.png",
+    "portraitImage": "/team/portraits/henry.png",
     "portraitAlt": "Henry smiling at the camera covered in snow",
     "degree": ["2nd Year Mechanical Engineering"],
     "funFacts": [
@@ -789,7 +789,7 @@
     "portfolio": "Events",
     "displayOrder": 16,
     "pronouns": "She/Her",
-    "portraitImage": "/team/portraits/rianne.png",
+    "portraitImage": "/team/portraits/aria.jpg",
     "portraitAlt": "Aria taking a selfie",
     "degree": ["1st Year Business"],
     "funFacts": [
@@ -815,7 +815,7 @@
     "portfolio": "Events",
     "displayOrder": 17,
     "pronouns": "He/Him",
-    "portraitImage": "/team/portraits/rianne.png",
+    "portraitImage": "/team/portraits/jason.png",
     "portraitAlt": "Jason standing on the beach at sunset",
     "degree": ["Mechanical Engineering"],
     "funFacts": [
@@ -837,7 +837,7 @@
     "portfolio": "Events",
     "displayOrder": 18,
     "pronouns": "He/Him",
-    "portraitImage": "/team/portraits/rianne.png",
+    "portraitImage": "/team/portraits/chris.png",
     "portraitAlt": "Chris holding a small minecraft diamond helmet on his thumb",
     "degree": ["2nd Year City Planning"],
     "funFacts": [
@@ -862,7 +862,7 @@
     "portfolio": "Marketing",
     "displayOrder": 19,
     "pronouns": "She/Her",
-    "portraitImage": "/team/portraits/rianne.png",
+    "portraitImage": "/team/portraits/kathy.png",
     "portraitAlt": "Kathy taking a mirror selfie",
     "degree": ["2nd year law/commerce"],
     "funFacts": [
@@ -890,7 +890,7 @@
     "portfolio": "Marketing",
     "displayOrder": 20,
     "pronouns": "She/Her",
-    "portraitImage": "/team/portraits/rianne.png",
+    "portraitImage": "/team/portraits/Lynn.png",
     "portraitAlt": "Lynn taking a selfie",
     "degree": ["Engineering"],
     "funFacts": [
@@ -924,7 +924,7 @@
     "portfolio": "Marketing",
     "displayOrder": 21,
     "pronouns": "She/Her",
-    "portraitImage": "/team/portraits/rianne.png",
+    "portraitImage": "/team/portraits/Anne.jpg",
     "portraitAlt": "Anne sitting by a bookshelf looking back towards the camera",
     "degree": ["Electrical Engineering"],
     "funFacts": [
@@ -947,7 +947,7 @@
     "portfolio": "Marketing",
     "displayOrder": 22,
     "pronouns": "They/Them",
-    "portraitImage": "/team/portraits/rianne.png",
+    "portraitImage": "/team/portraits/Ivy.jpg",
     "portraitAlt": "Ivy's face on a photobooth screen",
     "degree": ["3rd year Law/Crim"],
     "funFacts": [
@@ -972,7 +972,7 @@
     "portfolio": "Marketing",
     "displayOrder": 23,
     "pronouns": "Any",
-    "portraitImage": "/team/portraits/rianne.png",
+    "portraitImage": "/team/portraits/lisa.png",
     "portraitAlt": "A selfie of Lisa taken from a high angle",
     "degree": ["Computer Science (3rd year)"],
     "funFacts": [
@@ -1002,7 +1002,7 @@
     "portfolio": "Marketing",
     "displayOrder": 24,
     "pronouns": "He/Him",
-    "portraitImage": "/team/portraits/rianne.png",
+    "portraitImage": "/team/portraits/felixX.jpg",
     "portraitAlt": "Felix posing dramatically in front of a lake",
     "degree": ["1st yr Mechanical Engineering"],
     "funFacts": [
@@ -1029,7 +1029,7 @@
     "portfolio": "IT",
     "displayOrder": 25,
     "pronouns": "She/Her",
-    "portraitImage": "/team/portraits/rianne.png",
+    "portraitImage": "/team/portraits/jade.jpg",
     "portraitAlt": "Jade taking a selfie",
     "degree": ["3rd year Computer Science/Fine Arts"],
     "funFacts": [
@@ -1056,7 +1056,7 @@
     "portfolio": "IT",
     "displayOrder": 26,
     "pronouns": "He/Him",
-    "portraitImage": "/team/portraits/rianne.png",
+    "portraitImage": "/team/portraits/brian.jpg",
     "portraitAlt": "Brian taking a selfie",
     "degree": ["2nd year Cyber Security"],
     "funFacts": [
@@ -1084,7 +1084,7 @@
     "portfolio": "IT",
     "displayOrder": 27,
     "pronouns": "He/Him",
-    "portraitImage": "/team/portraits/rianne.png",
+    "portraitImage": "/team/portraits/vlad.png",
     "portraitAlt": "Brian taking a selfie",
     "degree": ["Computer science"],
     "funFacts": [
