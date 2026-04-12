@@ -23,6 +23,9 @@ function formatMembership(value: TeamProfile["membership"]) {
   if (value === "top5") {
     return "Top 5"
   }
+  if (value === "other") {
+    return "Subcommittee"
+  }
   return value.charAt(0).toUpperCase() + value.slice(1)
 }
 
@@ -35,7 +38,9 @@ export function TeamMemberCard({ profile, isActive }: TeamMemberCardProps) {
   const { resolvedTheme } = useTheme()
   const discordIcon =
     resolvedTheme === "dark" ? discordIconWhite : discordIconBlack
-
+  const totalInfoLength = profile.funFacts.length + profile.favoriteAnime.length
+  const factLength = totalInfoLength > 8 && profile.funFacts.length > 4 ? 8 - Math.min(profile.favoriteAnime.length + 1, 4  ) : profile.funFacts.length + 1
+  const animeLength = totalInfoLength > 8 && profile.favoriteAnime.length > 4 ? 8 - Math.min(profile.funFacts.length + 1, 4) : profile.favoriteAnime.length + 1
   return (
     <article className="grid gap-5 p-4 md:grid-cols-[minmax(0,0.84fr)_minmax(0,1.16fr)] md:gap-7 md:p-6">
       <div className="relative overflow-hidden rounded-2xl border border-border/60 bg-muted/35">
@@ -109,7 +114,7 @@ export function TeamMemberCard({ profile, isActive }: TeamMemberCardProps) {
           >
             Fun Facts
           </h3>
-          <ul className="list-disc space-y-1 pl-5 text-sm text-muted-foreground">
+          <ul className={`list-disc space-y-1 pl-5 text-sm text-muted-foreground max-h-[calc(${factLength}*1.625rem)] overflow-y-auto`}>
             {profile.funFacts.map((line, index) => (
               <li key={`${profile.id}-fun-${index}`}>{line}</li>
             ))}
@@ -128,7 +133,7 @@ export function TeamMemberCard({ profile, isActive }: TeamMemberCardProps) {
           >
             Fav Anime
           </h3>
-          <ul className="list-disc space-y-1 pl-5 text-sm text-muted-foreground">
+          <ul className={`list-disc space-y-1 pl-5 text-sm text-muted-foreground max-h-[calc(${animeLength}*1.625rem)] overflow-y-auto`}>
             {profile.favoriteAnime.map((line, index) => (
               <li key={`${profile.id}-anime-${index}`}>{line}</li>
             ))}
