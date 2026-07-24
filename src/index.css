@@ -131,7 +131,8 @@
 
   body {
     @apply min-h-svh bg-background text-foreground antialiased;
-    background-image: radial-gradient(
+    background-image:
+      radial-gradient(
         50rem 28rem at 5% -15%,
         color-mix(in oklab, var(--color-primary) 20%, transparent),
         transparent 65%
@@ -164,5 +165,61 @@
   ::selection {
     background: color-mix(in oklab, var(--color-primary) 80%, white);
     color: var(--color-primary-foreground);
+  }
+}
+
+@layer components {
+  @keyframes hero-character-reveal {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes hero-character-float {
+    0%,
+    100% {
+      transform: translate3d(0, -4px, 0);
+    }
+
+    50% {
+      transform: translate3d(0, 4px, 0);
+    }
+  }
+
+  .hero-character-pointer {
+    transform: translate3d(
+      var(--hero-pointer-x, 0),
+      var(--hero-pointer-y, 0),
+      0
+    );
+    will-change: transform;
+  }
+
+  .hero-character-reveal {
+    animation: hero-character-reveal 700ms ease-out both;
+  }
+
+  .hero-character-idle {
+    animation: hero-character-float 6s ease-in-out infinite;
+    will-change: transform;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-character-reveal {
+    animation: none;
+    opacity: 1;
+  }
+
+  .hero-character-pointer {
+    transform: none;
+  }
+
+  .hero-character-idle {
+    animation: none;
   }
 }
