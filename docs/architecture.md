@@ -9,11 +9,11 @@ definitions, see [content-guide.md](content-guide.md).
 The site is a browser-only React SPA. Its production artifact is a directory of
 static HTML, CSS, JavaScript, fonts, and images. The repository contains:
 
-- no API server;
-- no database or CMS;
-- no authentication or authorization;
+- no API server or database code;
+- one credentialed client for the separately deployed AnimeUNSW account API;
+- no client-side authentication secrets;
 - no server-rendered routes;
-- no environment-variable contract; and
+- one public API-origin environment variable; and
 - no analytics or third-party runtime SDK.
 
 External URLs in content—Discord, Instagram, Rubric, sponsor sites, and event
@@ -152,6 +152,7 @@ The application deliberately has little state:
 - Pressing `d` outside an editable control toggles the resolved theme.
 - Event tabs own the selected event category.
 - Team browsers own the active profile and touch position.
+- The account page owns its loading, guest, authenticated, and error states.
 - Team autoplay advances every 6.5 seconds and resets after manual navigation.
 
 There is no external state store. Do not introduce one for isolated component
@@ -232,9 +233,9 @@ would also require asynchronous loading, error states, caching, and tests;
 current getters and hooks are synchronous. Do not add network fetching to
 individual cards or pages.
 
-### Adding environment configuration
+### Environment configuration
 
-No variables are currently required. If configuration is introduced, use
-Vite's public `VITE_` prefix only for values safe to expose to every visitor.
-Document the variable, default, and deployment setup; never place secrets in a
-client bundle.
+`VITE_API_BASE_URL` selects the public account API origin and defaults to
+`https://api.animeunsw.net`. It is intentionally public. All Discord secrets,
+session records, membership checks, and database access remain behind that API.
+Never place secrets in a Vite variable or client bundle.

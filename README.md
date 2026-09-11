@@ -2,12 +2,12 @@
 
 The public website for AnimeUNSW, the anime and manga society at UNSW.
 It presents club information, events, sponsor benefits, committee profiles,
-membership instructions, and contact links.
+membership instructions, contact links, and a Discord-linked member dashboard.
 
 The application is a static React single-page application (SPA). Most club
 content lives in JSON files, so routine updates do not require changing React
-components. There is no backend, database, authentication layer, or runtime
-environment configuration in this repository.
+components. The member account route calls the separately deployed AnimeUNSW
+API; secrets and authentication remain outside this static repository.
 
 ## Documentation index
 
@@ -80,6 +80,7 @@ The `@/` alias resolves to `src/` in both TypeScript and Vite.
 | `/sponsors`        | `src/pages/sponsors-page.tsx`  | Sponsor benefits and terms                                            |
 | `/team`            | `src/pages/team-page.tsx`      | Committee and subcommittee carousels                                  |
 | `/info`            | `src/pages/info-page.tsx`      | Membership, FAQ, Discord, and contacts                                |
+| `/account`         | `src/pages/account-page.tsx`   | Discord login and personal server statistics                          |
 | Any unmatched path | `src/pages/not-found-page.tsx` | In-app 404 page                                                       |
 
 Routes are declared in `src/app/app-routes.tsx`. Navigation labels are declared
@@ -201,8 +202,8 @@ src/hooks/* ── memoized React-facing selectors
 pages → feature components → UI primitives
 ```
 
-There is no network fetch in this flow. Content changes require a new build and
-deployment.
+Club content does not use network fetches. The account route is the sole runtime
+API consumer and sends credentials only to the configured AnimeUNSW API.
 
 ## Contribution expectations
 

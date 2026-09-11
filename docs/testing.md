@@ -115,6 +115,10 @@ Mock the smallest surface required and restore globals/spies in `afterEach`.
 Do not add broad global mocks that conceal missing browser behavior in unrelated
 tests.
 
+Account-route tests stub `fetch` with only the required status and response.
+Restore the stub after each test so account authentication does not affect other
+route tests.
+
 ## What to test for a change
 
 | Change                       | Minimum useful coverage                                                             |

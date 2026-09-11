@@ -75,7 +75,8 @@ Source-relative strings such as `../src/assets/...` are not production-safe.
 
 ## Environment and secrets
 
-No environment variables are currently required. Everything shipped by Vite is
+The optional `VITE_API_BASE_URL` build variable defaults to
+`https://api.animeunsw.net`. Everything shipped by Vite is
 downloadable by visitors, including `VITE_*` variables. Never place API keys,
 private tokens, credentials, or unpublished personal information in:
 
@@ -87,6 +88,10 @@ private tokens, credentials, or unpublished personal information in:
 If future functionality requires a secret, implement it behind a server-side
 boundary rather than in this SPA.
 
+The API must allow the exact deployed website origin with credentialed CORS and
+set a secure, HTTP-only, host-only session cookie. Deploy and verify the API
+before publishing a website build that exposes the Account navigation item.
+
 ## Pre-deployment checklist
 
 - [ ] `npm ci` completes from the committed lockfile.
@@ -96,6 +101,7 @@ boundary rather than in this SPA.
 - [ ] `npm run build` passes and produces a fresh `dist/`.
 - [ ] `npm run preview` renders every top-level route.
 - [ ] A direct load/refresh on every route works in a host-like environment.
+- [ ] `/account` can log in through Discord, rejects non-members, and logs out.
 - [ ] Public images and bundled artwork load without 404s.
 - [ ] Event dates, registration state, sponsor terms, and membership links are
       current.

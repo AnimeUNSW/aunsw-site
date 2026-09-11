@@ -111,6 +111,10 @@ To add a navigable route, update both:
 Then add a route test and update the README route table. Route components render
 inside `AppShell`; do not add a second global header, footer, or main element.
 
+The account route reads `VITE_API_BASE_URL`, which defaults to the production
+API origin. Set it to a local HTTPS API origin when testing authentication. All
+requests that use the session cookie must set `credentials: "include"`.
+
 ### Styling
 
 Use tokens from `src/index.css` so components work in both themes. Prefer

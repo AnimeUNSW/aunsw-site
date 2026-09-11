@@ -6,6 +6,7 @@ import { InfoPage } from "@/pages/info-page"
 import { NotFoundPage } from "@/pages/not-found-page"
 import { SponsorsPage } from "@/pages/sponsors-page"
 import { TeamPage } from "@/pages/team-page"
+import { AccountPage } from "@/pages/account-page"
 
 export function AppRoutes() {
   return (
@@ -15,6 +16,7 @@ export function AppRoutes() {
       <Route path="/sponsors" element={<SponsorsPage />} />
       <Route path="/team" element={<TeamPage />} />
       <Route path="/info" element={<InfoPage />} />
+      <Route path="/account" element={<AccountPage />} />
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   )
