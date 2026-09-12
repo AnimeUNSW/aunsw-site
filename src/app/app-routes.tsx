@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom"
 
+import { AdminPage } from "@/pages/admin-page"
 import { EventsPage } from "@/pages/events-page"
 import { HomePage } from "@/pages/home-page"
 import { InfoPage } from "@/pages/info-page"
@@ -17,6 +18,7 @@ export function AppRoutes() {
       <Route path="/team" element={<TeamPage />} />
       <Route path="/info" element={<InfoPage />} />
       <Route path="/account" element={<AccountPage />} />
+      <Route path="/admin" element={<AdminPage />} />
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   )

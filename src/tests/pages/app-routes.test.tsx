@@ -77,9 +77,73 @@ describe("app routes", () => {
     expect(
       await screen.findByRole("heading", { name: "Continue with Discord" })
     ).toBeInTheDocument()
-    expect(screen.getByRole("link", { name: "Sign in with Discord" })).toHaveAttribute(
+    expect(
+      screen.getByRole("link", { name: "Sign in with Discord" })
+    ).toHaveAttribute(
       "href",
       "https://api.animeunsw.net/auth/discord/start?return_to=http%3A%2F%2Flocalhost%3A3000%2Faccount"
     )
+  })
+
+  it("blocks a direct admin URL for logged-out visitors", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockResolvedValue(new Response(null, { status: 401 }))
+    )
+
+    renderRoute("/admin")
+
+    expect(
+      await screen.findByRole("heading", { name: "Access denied" })
+    ).toBeInTheDocument()
+    expect(
+      screen.queryByRole("button", { name: "Add event" })
+    ).not.toBeInTheDocument()
+  })
+
+  it("shows the admin dashboard only for an Executive account", async () => {
+    const account = {
+      avatar_url: null,
+      discord_id: "123",
+      display_name: "Executive",
+      is_executive: true,
+      username: "exec",
+      stats: {
+        anilist_profile: null,
+        events_attended: 0,
+        exp: 0,
+        mal_profile: null,
+        message_count: 0,
+        quote: null,
+        rank: null,
+        term_exp: 0,
+      },
+    }
+    vi.stubGlobal(
+      "fetch",
+      vi
+        .fn()
+        .mockResolvedValueOnce(
+          new Response(JSON.stringify(account), {
+            status: 200,
+            headers: { "Content-Type": "application/json" },
+          })
+        )
+        .mockResolvedValueOnce(
+          new Response(JSON.stringify({ events: [] }), {
+            status: 200,
+            headers: { "Content-Type": "application/json" },
+          })
+        )
+    )
+
+    renderRoute("/admin")
+
+    expect(
+      await screen.findByRole("button", { name: "Add event" })
+    ).toBeInTheDocument()
+    expect(
+      screen.queryByRole("heading", { name: "Access denied" })
+    ).not.toBeInTheDocument()
   })
 })

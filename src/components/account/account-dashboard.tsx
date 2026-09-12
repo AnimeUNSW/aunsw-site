@@ -2,9 +2,11 @@ import {
   CalendarCheckIcon,
   LogOutIcon,
   MessageCircleIcon,
+  SettingsIcon,
   SparklesIcon,
   TrophyIcon,
 } from "lucide-react"
+import { Link } from "react-router-dom"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
@@ -75,16 +77,26 @@ export function AccountDashboard({
               @{account.username}
             </p>
           </div>
-          <Button
-            type="button"
-            variant="outline"
-            size="lg"
-            disabled={isLoggingOut}
-            onClick={onLogout}
-          >
-            <LogOutIcon data-icon="inline-start" />
-            {isLoggingOut ? "Logging out…" : "Log out"}
-          </Button>
+          <div className="flex flex-wrap justify-center gap-2 sm:justify-end">
+            {account.is_executive ? (
+              <Button asChild size="lg">
+                <Link to="/admin">
+                  <SettingsIcon data-icon="inline-start" />
+                  Admin dashboard
+                </Link>
+              </Button>
+            ) : null}
+            <Button
+              type="button"
+              variant="outline"
+              size="lg"
+              disabled={isLoggingOut}
+              onClick={onLogout}
+            >
+              <LogOutIcon data-icon="inline-start" />
+              {isLoggingOut ? "Logging out…" : "Log out"}
+            </Button>
+          </div>
         </CardContent>
       </Card>
 

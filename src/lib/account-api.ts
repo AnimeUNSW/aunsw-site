@@ -19,6 +19,7 @@ export interface Account {
   avatar_url: string | null
   discord_id: string
   display_name: string
+  is_executive: boolean
   stats: AccountStats
   username: string
 }
@@ -27,7 +28,10 @@ export class MembershipRequiredError extends Error {}
 
 export function discordLoginUrl(frontendOrigin = window.location.origin) {
   const url = new URL(`${API_BASE_URL}/auth/discord/start`)
-  url.searchParams.set("return_to", `${frontendOrigin.replace(/\/$/, "")}/account`)
+  url.searchParams.set(
+    "return_to",
+    `${frontendOrigin.replace(/\/$/, "")}/account`
+  )
   return url.toString()
 }
 
