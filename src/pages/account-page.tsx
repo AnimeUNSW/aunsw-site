@@ -7,7 +7,7 @@ import { PageHeader } from "@/components/shared/page-header"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import {
-  API_BASE_URL,
+  discordLoginUrl,
   getAccount,
   logOut,
   MembershipRequiredError,
@@ -111,7 +111,7 @@ export function AccountPage() {
               </p>
             </div>
             <Button asChild size="lg">
-              <a href={`${API_BASE_URL}/auth/discord/start`}>
+              <a href={discordLoginUrl()}>
                 <LogInIcon data-icon="inline-start" />
                 Sign in with Discord
               </a>

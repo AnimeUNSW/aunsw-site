@@ -25,6 +25,12 @@ export interface Account {
 
 export class MembershipRequiredError extends Error {}
 
+export function discordLoginUrl(frontendOrigin = window.location.origin) {
+  const url = new URL(`${API_BASE_URL}/auth/discord/start`)
+  url.searchParams.set("return_to", `${frontendOrigin.replace(/\/$/, "")}/account`)
+  return url.toString()
+}
+
 export async function getAccount(
   signal?: AbortSignal
 ): Promise<Account | null> {

@@ -77,8 +77,9 @@ describe("app routes", () => {
     expect(
       await screen.findByRole("heading", { name: "Continue with Discord" })
     ).toBeInTheDocument()
-    expect(
-      screen.getByRole("link", { name: "Sign in with Discord" })
-    ).toHaveAttribute("href", "https://api.animeunsw.net/auth/discord/start")
+    expect(screen.getByRole("link", { name: "Sign in with Discord" })).toHaveAttribute(
+      "href",
+      "https://api.animeunsw.net/auth/discord/start?return_to=http%3A%2F%2Flocalhost%3A3000%2Faccount"
+    )
   })
 })
