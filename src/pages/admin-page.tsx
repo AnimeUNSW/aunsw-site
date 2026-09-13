@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { PencilIcon, PlusIcon, ShieldAlertIcon, Trash2Icon } from "lucide-react"
 import { Link } from "react-router-dom"
 
+import { AttendanceUploader } from "@/components/admin/attendance-uploader"
 import { EventEditor } from "@/components/admin/event-editor"
 import { PageHeader } from "@/components/shared/page-header"
 import { Badge } from "@/components/ui/badge"
@@ -203,7 +204,12 @@ export function AdminPage() {
                       {event.location} · /events#{event.slug}
                     </p>
                   </div>
-                  <div className="flex gap-2">
+                  <div className="flex flex-wrap justify-end gap-2">
+                    <AttendanceUploader
+                      eventId={event.id}
+                      eventTitle={event.title}
+                      disabled={saving}
+                    />
                     <Button
                       size="sm"
                       variant="outline"

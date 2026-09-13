@@ -3,6 +3,19 @@ import type { Event } from "@/types/content"
 
 export type EventInput = Omit<Event, "id" | "isRecurring">
 
+export interface AttendanceImportResult {
+  total_rows: number
+  unique_valid_zids: number
+  duplicate_rows: number
+  placeholder_rows: number
+  invalid_rows: number
+  matched_users: number
+  newly_recorded: number
+  already_recorded: number
+  unmatched_zids: number
+  ambiguous_zids: number
+}
+
 export class AdminAccessError extends Error {}
 
 async function adminRequest<T>(path: string, init?: RequestInit): Promise<T> {
@@ -61,5 +74,16 @@ export function updateEvent(id: string, event: EventInput): Promise<Event> {
 export function deleteEvent(id: string): Promise<void> {
   return adminRequest(`/v1/admin/events/${encodeURIComponent(id)}`, {
     method: "DELETE",
+  })
+}
+
+export function uploadEventAttendance(
+  id: string,
+  file: File
+): Promise<AttendanceImportResult> {
+  return adminRequest(`/v1/admin/events/${encodeURIComponent(id)}/attendance`, {
+    method: "POST",
+    headers: { "Content-Type": file.type || "text/csv" },
+    body: file,
   })
 }
