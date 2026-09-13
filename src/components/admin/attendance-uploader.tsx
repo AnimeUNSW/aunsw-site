@@ -11,10 +11,12 @@ export function AttendanceUploader({
   eventId,
   eventTitle,
   disabled = false,
+  onUploaded,
 }: {
   eventId: string
   eventTitle: string
   disabled?: boolean
+  onUploaded?: (result: AttendanceImportResult) => void
 }) {
   const inputRef = useRef<HTMLInputElement>(null)
   const [uploading, setUploading] = useState(false)
@@ -37,7 +39,9 @@ export function AttendanceUploader({
     setError(null)
     setResult(null)
     try {
-      setResult(await uploadEventAttendance(eventId, file))
+      const uploadResult = await uploadEventAttendance(eventId, file)
+      setResult(uploadResult)
+      onUploaded?.(uploadResult)
     } catch (uploadError) {
       setError(
         uploadError instanceof Error

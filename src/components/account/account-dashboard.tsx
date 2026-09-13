@@ -131,7 +131,7 @@ export function AccountDashboard({
           <CardContent className="space-y-4">
             {account.stats.quote ? (
               <blockquote className="border-l-2 border-primary pl-4 text-lg">
-                “{account.stats.quote}”
+                {account.stats.quote}
               </blockquote>
             ) : null}
             <div className="flex flex-wrap gap-4">

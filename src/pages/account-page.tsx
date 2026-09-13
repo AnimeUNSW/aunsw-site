@@ -19,12 +19,33 @@ type AccountState =
   | { status: "guest" }
   | { status: "ready"; account: Account }
   | { status: "error"; message: string }
+const loginErrorMessages: Record<string, string> = {
+  access_denied: "Discord sign-in was cancelled. No changes were made.",
+  discord_error:
+    "Discord could not complete the sign-in request. Please try again.",
+  identity_lookup_failed:
+    "Discord signed you in, but your profile could not be retrieved. Please try again.",
+  invalid_state:
+    "This login attempt expired or could not be verified. Please start again.",
+  missing_code:
+    "Discord did not provide the information needed to sign you in. Please try again.",
+  session_missing:
+    "Your login session expired. Please start the Discord sign-in again.",
+  token_exchange_failed:
+    "The Discord authorization could not be completed. Please try again.",
+}
 
 export function AccountPage() {
   const [searchParams] = useSearchParams()
   const [state, setState] = useState<AccountState>({ status: "loading" })
   const [isLoggingOut, setIsLoggingOut] = useState(false)
-  const notMember = searchParams.get("error") === "not_member"
+  const loginErrorCode = searchParams.get("error")
+  const loginErrorMessage = loginErrorCode
+    ? loginErrorMessages[loginErrorCode] ||
+      (loginErrorCode === "not_member"
+        ? "You must join the AnimeUNSW Discord server before signing in."
+        : "Discord login failed. Please try again.")
+    : null
 
   useEffect(() => {
     const controller = new AbortController()
@@ -73,19 +94,20 @@ export function AccountPage() {
         description="Sign in with Discord to view your AnimeUNSW server activity, XP, rank, and event attendance."
       />
 
-      {notMember ? (
+      {loginErrorMessage ? (
         <div
           role="alert"
-          className="rounded-xl border border-amber-500/40 bg-amber-500/10 p-4 text-sm"
+          className="space-y-2 rounded-xl border border-amber-500/40 bg-amber-500/10 p-4 text-sm"
         >
-          Join the{" "}
-          <a
-            className="font-medium underline underline-offset-4"
-            href="https://discord.gg/aunsw"
-          >
-            AnimeUNSW Discord server
-          </a>{" "}
-          before signing in.
+          <p>{loginErrorMessage}</p>
+          {loginErrorCode === "not_member" ? (
+            <a
+              className="font-medium underline underline-offset-4"
+              href="https://discord.gg/aunsw"
+            >
+              Join the AnimeUNSW Discord server
+            </a>
+          ) : null}
         </div>
       ) : null}
 

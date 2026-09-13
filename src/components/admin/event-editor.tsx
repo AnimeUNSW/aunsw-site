@@ -1,8 +1,8 @@
-import { useState, type FormEvent } from "react"
+import { useState, type DragEvent, type FormEvent } from "react"
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import type { EventInput } from "@/lib/admin-api"
+import { uploadEventImage, type EventInput } from "@/lib/admin-api"
 import type { Event, EventCategory } from "@/types/content"
 
 const categoryOptions: EventCategory[] = [
@@ -73,6 +73,8 @@ export function EventEditor({
 }) {
   const [value, setValue] = useState(() => initialState(event))
   const [error, setError] = useState<string | null>(null)
+  const [imageFile, setImageFile] = useState<File | null>(null)
+  const [uploadingImage, setUploadingImage] = useState(false)
 
   function set<K extends keyof EditorState>(key: K, next: EditorState[K]) {
     setValue((current) => ({ ...current, [key]: next }))
@@ -87,12 +89,51 @@ export function EventEditor({
     )
   }
 
+  function selectImage(file: File | undefined) {
+    if (!file) return
+    if (
+      !["image/png", "image/jpeg", "image/webp", "image/gif"].includes(
+        file.type
+      )
+    ) {
+      setError("Choose a PNG, JPG, WebP, or GIF image.")
+      return
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      setError("Event images must be 5 MB or smaller.")
+      return
+    }
+    setImageFile(file)
+    setError(null)
+  }
+
+  function dropImage(event: DragEvent<HTMLLabelElement>) {
+    event.preventDefault()
+    selectImage(event.dataTransfer.files[0])
+  }
   async function submit(formEvent: FormEvent<HTMLFormElement>) {
     formEvent.preventDefault()
     setError(null)
     if (value.category.length === 0) {
       setError("Choose at least one category.")
       return
+    }
+    let image = value.image
+    if (imageFile) {
+      setUploadingImage(true)
+      try {
+        const uploaded = await uploadEventImage(value.slug, imageFile)
+        image = uploaded.image
+      } catch (uploadError) {
+        setError(
+          uploadError instanceof Error
+            ? uploadError.message
+            : "Could not upload the event image."
+        )
+        return
+      } finally {
+        setUploadingImage(false)
+      }
     }
     const payload: EventInput = {
       slug: value.slug,
@@ -101,7 +142,7 @@ export function EventEditor({
       category: value.category,
       location: value.location,
       featured: value.featured,
-      ...(value.image ? { image: value.image } : {}),
+      ...(image ? { image } : {}),
       ...(value.imageAlt ? { imageAlt: value.imageAlt } : {}),
       ...(value.registerLink ? { registerLink: value.registerLink } : {}),
       ...(value.schedule === "dated"
@@ -285,14 +326,32 @@ export function EventEditor({
                 onChange={(change) => set("registerLink", change.target.value)}
               />
             </label>
-            <label className="grid gap-1.5 text-sm font-medium">
-              Image path or URL
-              <input
-                className={fieldClass}
-                value={value.image}
-                onChange={(change) => set("image", change.target.value)}
-              />
-            </label>
+            <div className="grid gap-1.5 text-sm font-medium md:col-span-2">
+              <span>Event image</span>
+              <label
+                className="grid cursor-pointer place-items-center gap-1 rounded-lg border border-dashed border-input bg-muted/30 px-4 py-6 text-center transition hover:border-primary"
+                onDragOver={(dragEvent) => dragEvent.preventDefault()}
+                onDrop={dropImage}
+              >
+                <input
+                  className="sr-only"
+                  type="file"
+                  accept="image/png,image/jpeg,image/webp,image/gif"
+                  disabled={saving || uploadingImage}
+                  onChange={(change) => selectImage(change.target.files?.[0])}
+                />
+                <span>
+                  {imageFile
+                    ? imageFile.name
+                    : value.image
+                      ? "Drop or choose a replacement image"
+                      : "Drop an image here or click to choose one"}
+                </span>
+                <span className="text-xs font-normal text-muted-foreground">
+                  PNG, JPG, WebP, or GIF · maximum 5 MB
+                </span>
+              </label>
+            </div>
             <label className="grid gap-1.5 text-sm font-medium">
               Image description
               <input
@@ -317,8 +376,12 @@ export function EventEditor({
             <Button type="button" variant="outline" onClick={onCancel}>
               Cancel
             </Button>
-            <Button type="submit" disabled={saving}>
-              {saving ? "Saving…" : "Save event"}
+            <Button type="submit" disabled={saving || uploadingImage}>
+              {uploadingImage
+                ? "Uploading image…"
+                : saving
+                  ? "Saving…"
+                  : "Save event"}
             </Button>
           </div>
         </form>

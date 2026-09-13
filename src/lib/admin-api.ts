@@ -2,6 +2,11 @@ import { API_BASE_URL } from "@/lib/account-api"
 import type { Event } from "@/types/content"
 
 export type EventInput = Omit<Event, "id" | "isRecurring">
+export type AdminEvent = Event & { attendanceCount: number }
+
+export interface EventImageUploadResult {
+  image: string
+}
 
 export interface AttendanceImportResult {
   total_rows: number
@@ -50,10 +55,15 @@ async function adminRequest<T>(path: string, init?: RequestInit): Promise<T> {
   return response.json() as Promise<T>
 }
 
-export async function getAdminEvents(signal?: AbortSignal): Promise<Event[]> {
-  const payload = await adminRequest<{ events: Event[] }>("/v1/admin/events", {
-    signal,
-  })
+export async function getAdminEvents(
+  signal?: AbortSignal
+): Promise<AdminEvent[]> {
+  const payload = await adminRequest<{ events: AdminEvent[] }>(
+    "/v1/admin/events",
+    {
+      signal,
+    }
+  )
   return payload.events
 }
 
@@ -86,4 +96,18 @@ export function uploadEventAttendance(
     headers: { "Content-Type": file.type || "text/csv" },
     body: file,
   })
+}
+
+export function uploadEventImage(
+  slug: string,
+  file: File
+): Promise<EventImageUploadResult> {
+  return adminRequest(
+    `/v1/admin/event-images?slug=${encodeURIComponent(slug)}`,
+    {
+      method: "POST",
+      headers: { "Content-Type": file.type },
+      body: file,
+    }
+  )
 }

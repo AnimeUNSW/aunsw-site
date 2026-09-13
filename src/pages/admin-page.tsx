@@ -14,20 +14,20 @@ import {
   deleteEvent,
   getAdminEvents,
   updateEvent,
+  type AdminEvent,
   type EventInput,
 } from "@/lib/admin-api"
 import { getAccount } from "@/lib/account-api"
-import type { Event } from "@/types/content"
 
 type PageState =
   | { status: "loading" }
   | { status: "denied"; message: string }
   | { status: "error"; message: string }
-  | { status: "ready"; events: Event[] }
+  | { status: "ready"; events: AdminEvent[] }
 
 export function AdminPage() {
   const [state, setState] = useState<PageState>({ status: "loading" })
-  const [editing, setEditing] = useState<Event | "new" | null>(null)
+  const [editing, setEditing] = useState<AdminEvent | "new" | null>(null)
   const [saving, setSaving] = useState(false)
   const [notice, setNotice] = useState<string | null>(null)
 
@@ -73,13 +73,17 @@ export function AdminPage() {
         editing === "new"
           ? await createEvent(value)
           : await updateEvent(editing.id, value)
+      const savedWithAttendance: AdminEvent = {
+        ...saved,
+        attendanceCount: editing === "new" ? 0 : editing.attendanceCount,
+      }
       setState({
         status: "ready",
         events:
           editing === "new"
-            ? [...state.events, saved]
+            ? [...state.events, savedWithAttendance]
             : state.events.map((event) =>
-                event.id === saved.id ? saved : event
+                event.id === saved.id ? savedWithAttendance : event
               ),
       })
       setEditing(null)
@@ -89,7 +93,7 @@ export function AdminPage() {
     }
   }
 
-  async function removeEvent(event: Event) {
+  async function removeEvent(event: AdminEvent) {
     if (state.status !== "ready") return
     if (!window.confirm(`Remove “${event.title}” from the website?`)) return
     setSaving(true)
@@ -109,6 +113,20 @@ export function AdminPage() {
     } finally {
       setSaving(false)
     }
+  }
+
+  function addAttendance(eventId: string, count: number) {
+    setState((current) => {
+      if (current.status !== "ready") return current
+      return {
+        ...current,
+        events: current.events.map((event) =>
+          event.id === eventId
+            ? { ...event, attendanceCount: event.attendanceCount + count }
+            : event
+        ),
+      }
+    })
   }
 
   return (
@@ -200,6 +218,11 @@ export function AdminPage() {
                       ))}
                       {event.featured ? <Badge>featured</Badge> : null}
                     </div>
+                    {event.attendanceCount > 0 ? (
+                      <Badge variant="outline">
+                        Attendance uploaded · {event.attendanceCount}
+                      </Badge>
+                    ) : null}
                     <p className="text-sm text-muted-foreground">
                       {event.location} · /events#{event.slug}
                     </p>
@@ -209,6 +232,9 @@ export function AdminPage() {
                       eventId={event.id}
                       eventTitle={event.title}
                       disabled={saving}
+                      onUploaded={(result) =>
+                        addAttendance(event.id, result.newly_recorded)
+                      }
                     />
                     <Button
                       size="sm"
