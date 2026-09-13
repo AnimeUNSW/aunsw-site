@@ -161,8 +161,7 @@ export function AccountDashboard({
       ) : null}
 
       <p className="text-sm text-muted-foreground">
-        Message statistics begin when the new Ibi counter is deployed;
-        historical totals are not available.
+        Messages are counted from 12/09/2026
       </p>
     </div>
   )

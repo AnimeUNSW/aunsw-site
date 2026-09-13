@@ -91,7 +91,11 @@ export function AccountPage() {
       <PageHeader
         badge="Members"
         title="Your account"
-        description="Sign in with Discord to view your AnimeUNSW server activity, XP, rank, and event attendance."
+        description={
+          state.status === "ready"
+            ? undefined
+            : "Sign in with Discord to view your AnimeUNSW server activity, XP, rank, and event attendance."
+        }
       />
 
       {loginErrorMessage ? (

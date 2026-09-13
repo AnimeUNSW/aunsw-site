@@ -3,7 +3,7 @@ import { Badge } from "@/components/ui/badge"
 interface PageHeaderProps {
   badge?: string
   title: string
-  description: string
+  description?: string
 }
 
 export function PageHeader({ badge, title, description }: PageHeaderProps) {
@@ -22,9 +22,11 @@ export function PageHeader({ badge, title, description }: PageHeaderProps) {
           {title}
         </h1>
         <div className="h-px w-32 bg-gradient-to-r from-primary via-accent to-transparent" />
-        <p className="max-w-3xl text-sm text-muted-foreground md:text-base">
-          {description}
-        </p>
+        {description ? (
+          <p className="max-w-3xl text-sm text-muted-foreground md:text-base">
+            {description}
+          </p>
+        ) : null}
       </div>
     </header>
   )
