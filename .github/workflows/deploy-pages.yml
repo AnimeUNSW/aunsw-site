@@ -31,7 +31,7 @@ jobs:
         run: npm ci
 
       - name: Build website
-        run: npm run build
+        run: npx vite build
         env:
           VITE_API_BASE_URL: https://api.animeunsw.net
 
