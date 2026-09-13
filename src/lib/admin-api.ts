@@ -21,6 +21,10 @@ export interface AttendanceImportResult {
   ambiguous_zids: number
 }
 
+export interface AttendanceRemovalResult {
+  removed: number
+}
+
 export class AdminAccessError extends Error {}
 
 async function adminRequest<T>(path: string, init?: RequestInit): Promise<T> {
@@ -95,6 +99,14 @@ export function uploadEventAttendance(
     method: "POST",
     headers: { "Content-Type": file.type || "text/csv" },
     body: file,
+  })
+}
+
+export function removeEventAttendance(
+  id: string
+): Promise<AttendanceRemovalResult> {
+  return adminRequest(`/v1/admin/events/${encodeURIComponent(id)}/attendance`, {
+    method: "DELETE",
   })
 }
 

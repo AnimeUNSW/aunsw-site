@@ -13,6 +13,7 @@ import {
   createEvent,
   deleteEvent,
   getAdminEvents,
+  removeEventAttendance,
   updateEvent,
   type AdminEvent,
   type EventInput,
@@ -129,6 +130,42 @@ export function AdminPage() {
     })
   }
 
+  async function removeAttendance(event: AdminEvent) {
+    if (state.status !== "ready" || event.attendanceCount === 0) return
+    if (
+      !window.confirm(
+        `Remove the attendance form for “${event.title}”? This will delete all ${event.attendanceCount} recorded attendance entries for this event.`
+      )
+    ) {
+      return
+    }
+
+    setSaving(true)
+    setNotice(null)
+    try {
+      const result = await removeEventAttendance(event.id)
+      setState({
+        status: "ready",
+        events: state.events.map((existing) =>
+          existing.id === event.id
+            ? { ...existing, attendanceCount: 0 }
+            : existing
+        ),
+      })
+      setNotice(
+        `${result.removed} attendance ${result.removed === 1 ? "record" : "records"} removed from “${event.title}”.`
+      )
+    } catch (error) {
+      setNotice(
+        error instanceof Error
+          ? error.message
+          : "Could not remove the attendance form."
+      )
+    } finally {
+      setSaving(false)
+    }
+  }
+
   return (
     <div className="page-container space-y-6">
       <PageHeader
@@ -236,6 +273,16 @@ export function AdminPage() {
                         addAttendance(event.id, result.newly_recorded)
                       }
                     />
+                    {event.attendanceCount > 0 ? (
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        disabled={saving}
+                        onClick={() => void removeAttendance(event)}
+                      >
+                        Remove attendance form
+                      </Button>
+                    ) : null}
                     <Button
                       size="sm"
                       variant="outline"
