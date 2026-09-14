@@ -245,6 +245,21 @@
       "image": "/events/animania-26t2-4a39a5f3817d.png",
       "featured": false,
       "id": "evt-931fbd7dca934cefa2f76d12f5f69741"
+    },
+    {
+      "slug": "ibi-game-26t2",
+      "title": "Ibi Game 2",
+      "description": "Think you've got what it takes to shine under pressure?\ud83d\ude35\u200d\ud83d\udcab\n\nGet ready for a gameshow-style showdown, where teams will face off in a series of mysterious (and top-secret \ud83d\udc40) challenges, competing for points, and the approval of both our judges and the audience!\ud83d\udc4f\n\nEach segment will test your creative thinking and ability to adapt on the spot. Whether you're a strategic thinker\ud83d\udcca, a creative genius\ud83c\udfa8, or just someone who loves a good challenge\ud83d\udc7e, there's something for everyone to contribute.\n\nWhilst we'd love to invite everyone to compete, depending on demand, not everyone will get a chance to play\ud83d\ude22. However, that doesn't mean the fun will stop there. Audience members will still have opportunities to participate throughout the event and even win prizes of their own\ud83c\udfc6.\n\nExpect laughs, friendly competition, and plenty of unforgettable moments\u2728. The only thing we can reveal is that you won't want to miss it.",
+      "category": [
+        "competition",
+        "past"
+      ],
+      "startDateTime": "2026-06-12T08:30:00Z",
+      "endDateTime": "2026-06-12T10:30:00Z",
+      "location": "Law Theatre G23",
+      "image": "/events/ibi-game-26t2-f78bc4e3b707.png",
+      "featured": false,
+      "id": "evt-a065f4e51b264fd583f7c0936f1dffb1"
     }
   ]
 }
