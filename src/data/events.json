@@ -1,127 +1,175 @@
 {
-  "categoryOptions": ["weekly", "collab", "anisyd", "cosplay", "competition", "past"],
+  "categoryOptions": [
+    "weekly",
+    "collab",
+    "anisyd",
+    "cosplay",
+    "competition",
+    "past"
+  ],
   "events": [
     {
-      "id": "evt-weekly-ramen",
       "slug": "weekly-ramen",
       "title": "Weekly Ramen",
       "description": "Come join us weekly (excluding week 6) on Thursdays 1-3pm at Colombo Theatres Foyer for some free ramen!",
-      "category": ["weekly"],
+      "category": [
+        "weekly"
+      ],
       "recurringStartTime": "thursday 13:00",
       "recurringEndTime": "thursday 15:00",
       "location": "Colombo Theatres Foyer",
       "image": "../src/assets/event-pics/weekly-ramen.jpg",
       "imageAlt": "Weekly ramen setup feat. Nam",
       "featured": true,
-      "registerLink": "https://campus.hellorubric.com/?eid=55949"
+      "registerLink": "https://campus.hellorubric.com/?eid=55949",
+      "id": "evt-weekly-ramen"
     },
     {
-      "id": "evt-chill-lounge",
       "slug": "chill-lounge",
       "title": "Ibi's Chill Lounge",
       "description": "Our weekly hangout session, where you can socialise with fellow AUNSW members, participate in craft activities and more!",
-      "category": ["weekly"],
+      "category": [
+        "weekly"
+      ],
       "recurringStartTime": "thursday 14:00",
       "recurringEndTime": "thursday 16:00",
       "location": "Lawrence East (H13) 2063",
       "image": "../src/assets/event-pics/chill-lounge.png",
       "imageAlt": "AnimeUNSW chill lounge arc photo",
       "featured": false,
-      "registerLink": "https://campus.hellorubric.com/?s=12432"
+      "registerLink": "https://campus.hellorubric.com/?s=12432",
+      "id": "evt-chill-lounge"
     },
     {
-      "id": "evt-anisyd-artmart-2026",
       "slug": "anisyd-artmart",
       "title": "Anisyd Art Mart",
       "description": "In partnership with Anime Manga Artists Australia (AMAA), we present a TWO-day (16th & 17th) Anime/Train-themed Artist Market full of fun prizes, cosplays, and activities, sponsored by SMASH! With over 100 wonderful artists, tickets are gonna run out soon so make sure to get your tickets early!",
-      "category": ["anisyd"],
+      "category": [
+        "anisyd"
+      ],
       "startDateTime": "2026-05-16T10:00:00+11:00",
       "endDateTime": "2026-05-17T16:00:00+11:00",
       "location": "Sydney Lower Town Hall",
       "image": "../src/assets/event-pics/anisyd-artmart-2026.png",
       "imageAlt": "Anisyd 2026 art mart poster",
       "featured": true,
-      "registerLink": "https://events.humanitix.com/anisyd-express-art-mart"
+      "registerLink": "https://events.humanitix.com/anisyd-express-art-mart",
+      "id": "evt-anisyd-artmart-2026"
     },
     {
-      "id": "evt-cosplay-casino-1-2026",
       "slug": "cosplay-casino-1-2026",
       "title": "Cosplay Casino",
       "description": "The fourth instalment of one of our most popular collabs - the Cosplay Casino with TTG Soc! You are encouraged to cosplay, and will enter a special cosplay raffle if you do! Come along to wear your favourite cosplay, play some casino games, and win some prizes! There's even free pizza!",
-      "category": ["collab", "cosplay"],
+      "category": [
+        "collab",
+        "cosplay"
+      ],
       "startDateTime": "2026-03-13T17:00:00+11:00",
       "endDateTime": "2026-03-13T21:00:00+11:00",
       "location": "Rupert Myers (M15) 520, 540",
       "image": "../src/assets/event-pics/cosplay-casino-1-2026.png",
       "imageAlt": "AnimeUNSW x TTGSoc Cosplay Casino Banner",
       "featured": false,
-      "registerLink": "https://campus.hellorubric.com/?eid=57212"
+      "registerLink": "https://campus.hellorubric.com/?eid=57212",
+      "id": "evt-cosplay-casino-1-2026"
     },
     {
-      "id": "evt-ita-bag-1-2026",
       "slug": "ita-bag-1-2026",
       "title": "Ita Bag Meetup",
       "description": "Join SanrioSoc and AUNSW for our ita bag meet up! A fun afternoon to show off your ita bags, celebrate your favourite characters, and meet fellow fans!",
-      "category": ["collab"],
+      "category": [
+        "collab"
+      ],
       "startDateTime": "2026-03-20T14:00:00+11:00",
       "endDateTime": "2026-03-20T16:00:00+11:00",
       "location": "UNSW Business School (E12) 215",
       "image": "../src/assets/event-pics/ita-bag-1-2026.png",
       "imageAlt": "AnimeUNSW x SanrioSoc Ita Bag Meetup Banner",
       "featured": false,
-      "registerLink": "https://campus.hellorubric.com/?eid=57072"
+      "registerLink": "https://campus.hellorubric.com/?eid=57072",
+      "id": "evt-ita-bag-1-2026"
     },
     {
-      "id": "evt-anisyd-welcome-2026",
       "slug": "anisyd-welcome-2026",
       "title": "Anisyd Welcome Party",
       "description": "Join the biggest anime societies in Sydney for a night of anime-themed games and challenges. Each society hosts various games and activities, an amazing opportunity to meet like-minded people from other universities. There are even two SMASH! Con tickets up for grabs for the winners of the cosplay competition!",
-      "category": ["anisyd", "past"],
+      "category": [
+        "anisyd",
+        "past"
+      ],
       "startDateTime": "2026-03-10T18:00:00+11:00",
       "endDateTime": "2026-03-10T22:00:00+11:00",
       "location": "Manning House, USYD",
       "image": "../src/assets/event-pics/anisyd-welcome-2026.png",
       "imageAlt": "Anisyd welcome party banner",
-      "featured": false
+      "featured": false,
+      "id": "evt-anisyd-welcome-2026"
     },
     {
-      "id": "evt-mooting-1-2026",
       "slug": "mooting-1-2026",
       "title": "AUNSW Mooting",
       "description": "In this courtroom, you will compete in a simulated court setting in teams of 3-4. You will argue for or against a specific anime prompt while completing challenges. The jury will be the audience, and there are even some prizes up for grabs for the best lawyers!",
-      "category": ["past", "competition"],
+      "category": [
+        "past",
+        "competition"
+      ],
       "startDateTime": "2026-03-06T18:00:00+11:00",
       "endDateTime": "2026-03-06T20:00:00+11:00",
       "location": "Law Theatre G02",
       "image": "../src/assets/event-pics/mooting-1-2026.png",
       "imageAlt": "AnimeUNSW mooting banner",
-      "featured": false
+      "featured": false,
+      "id": "evt-mooting-1-2026"
     },
     {
-      "id": "evt-kickoff",
       "slug": "kickoff-2026",
       "title": "Kickoff 2026",
       "description": "AUNSW's annual welcome event! Hundreds of anime fans come together to make new friends, test their anime knowledge in a competition, and show off their favourite cosplays in our cosplay competition!",
-      "category": ["past", "competition", "cosplay"],
+      "category": [
+        "past",
+        "competition",
+        "cosplay"
+      ],
       "startDateTime": "2026-02-27T17:30:00+11:00",
       "endDateTime": "2026-02-27T21:30:00+11:00",
       "location": "Leighton Hall",
       "image": "../src/assets/event-pics/kickoff-26.jpg",
       "imageAlt": "AnimeUNSW kickoff crowd picture",
-      "featured": true
-    }, 
+      "featured": true,
+      "id": "evt-kickoff"
+    },
     {
-      "id": "evt-spicy-ramen-1-2026",
       "slug": "spicy-ramen-1-2026",
       "title": "Spicy Ramen Challenge",
       "description": "After fun icebreakers that will help you meet like-minded anime fans, prepare to meet Ibi's spicy concoction if you sign up below! Only the best of the best will make it through to the final round. But other than a unique speedfriending experience, what else is in it for you? We have some great prizes up for grabs, so come and try to win!",
-      "category": ["past", "competition"],
+      "category": [
+        "past",
+        "competition"
+      ],
       "startDateTime": "2026-02-19T18:00:00+11:00",
       "endDateTime": "2026-02-19T20:00:00+11:00",
       "location": "Ainsworth201",
       "image": "../src/assets/event-pics/spicy-ramen-1-2026.png",
       "imageAlt": "AnimeUNSW spicy ramen challenge banner",
-      "featured": false
+      "featured": false,
+      "id": "evt-spicy-ramen-1-2026"
+    },
+    {
+      "slug": "dodgeball-derby-26t1",
+      "title": "Dodgeball Derby",
+      "description": "Dodgeball derby competition against usyd",
+      "category": [
+        "competition",
+        "collab",
+        "past"
+      ],
+      "startDateTime": "2026-03-28T01:00:00Z",
+      "endDateTime": "2026-03-28T05:30:00Z",
+      "location": "Prince Alfred Park",
+      "image": "/events/dodgeball-derby-26t1-bc478d8770eb.png",
+      "imageAlt": "NAM DODGEBALL",
+      "featured": false,
+      "id": "evt-1a2babddd5f74cc3bb02554a538aeca0"
     }
   ]
 }
