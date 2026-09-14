@@ -45,14 +45,15 @@
       "title": "Anisyd Art Mart",
       "description": "In partnership with Anime Manga Artists Australia (AMAA), we present a TWO-day (16th & 17th) Anime/Train-themed Artist Market full of fun prizes, cosplays, and activities, sponsored by SMASH! With over 100 wonderful artists, tickets are gonna run out soon so make sure to get your tickets early!",
       "category": [
-        "anisyd"
+        "anisyd",
+        "past"
       ],
-      "startDateTime": "2026-05-16T10:00:00+11:00",
-      "endDateTime": "2026-05-17T16:00:00+11:00",
+      "startDateTime": "2026-05-15T23:00:00Z",
+      "endDateTime": "2026-05-17T05:00:00Z",
       "location": "Sydney Lower Town Hall",
       "image": "../src/assets/event-pics/anisyd-artmart-2026.png",
       "imageAlt": "Anisyd 2026 art mart poster",
-      "featured": true,
+      "featured": false,
       "registerLink": "https://events.humanitix.com/anisyd-express-art-mart",
       "id": "evt-anisyd-artmart-2026"
     },
