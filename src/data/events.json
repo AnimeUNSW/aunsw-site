@@ -214,6 +214,22 @@
       "image": "/events/mixology-26t1-bfc5cd79dd00.png",
       "featured": false,
       "id": "evt-56632d9eaf8642bdb707cdb1f559b6e8"
+    },
+    {
+      "slug": "raqsoc-collab-26t2",
+      "title": "That Time I Went Questing In Another World",
+      "description": "You wake up to find yourself transported into another world\ud83c\udf00. You scramble to your feet\u2014only to realize you're not alone.\ud83d\udc65 Strangers, cosplayers, surround you, all just as lost, just as confused\ud83d\ude30. Then you hear a voice, it echoes through the darkness. Cold. Regal. And otherworldly\u2026\n\n\u201c Welcome, Players. \u201d\n\nThe mysterious king has summoned you for his immersive game\ud83c\udccf. The rules? Deceptively simple. Complete your quests. Earn points\ud83d\udcdd. But here's the twist: only one can claim victory\ud83c\udfc6 . Only one gets to go home. Will that one be you?",
+      "category": [
+        "past",
+        "competition",
+        "collab"
+      ],
+      "startDateTime": "2026-06-05T07:00:00Z",
+      "endDateTime": "2026-06-05T09:00:00Z",
+      "location": "June Griffith M18",
+      "image": "/events/raqsoc-collab-26t2-e19567ec3c5d.png",
+      "featured": true,
+      "id": "evt-5c77f263e14640dfa9619e10c9a4e8da"
     }
   ]
 }
