@@ -170,6 +170,21 @@
       "imageAlt": "NAM DODGEBALL",
       "featured": false,
       "id": "evt-1a2babddd5f74cc3bb02554a538aeca0"
+    },
+    {
+      "slug": "mcsoc-collab-26t1",
+      "title": "base building with mcsoc",
+      "description": "base building with mcsoc",
+      "category": [
+        "collab",
+        "past"
+      ],
+      "startDateTime": "2026-04-17T06:00:00Z",
+      "endDateTime": "2026-04-17T09:00:00Z",
+      "location": "Law 301",
+      "image": "/events/mcsoc-collab-26t1-efc3cb095a83.png",
+      "featured": false,
+      "id": "evt-f4b1ab6b235e4ba7802d51810ab8cfc8"
     }
   ]
 }
