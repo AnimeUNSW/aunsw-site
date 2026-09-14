@@ -18,6 +18,7 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import type { Account } from "@/lib/account-api"
+import { getEvents } from "@/lib/content-repository"
 
 interface AccountDashboardProps {
   account: Account
@@ -54,6 +55,10 @@ export function AccountDashboard({
   isLoggingOut,
   onLogout,
 }: AccountDashboardProps) {
+  const eventTitles = new Map(
+    getEvents().map((event) => [event.id, event.title])
+  )
+
   return (
     <div className="space-y-6">
       <Card className="bg-gradient-to-br from-card via-card to-primary/10 py-0">
@@ -159,6 +164,40 @@ export function AccountDashboard({
           </CardContent>
         </Card>
       ) : null}
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Events attended</CardTitle>
+          <CardDescription>
+            Each weekly attendance form appears as a separate event.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          {account.attendance_history.length > 0 ? (
+            <div className="divide-y">
+              {account.attendance_history.map((attendance) => (
+                <div
+                  key={attendance.upload_id}
+                  className="flex flex-wrap items-center justify-between gap-2 py-3 first:pt-0 last:pb-0"
+                >
+                  <span className="font-medium">
+                    {eventTitles.get(attendance.event_id) ?? "Past event"}
+                  </span>
+                  <span className="text-sm text-muted-foreground">
+                    {new Intl.DateTimeFormat("en-AU", {
+                      dateStyle: "long",
+                    }).format(new Date(attendance.attended_at))}
+                  </span>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p className="text-sm text-muted-foreground">
+              No uploaded event attendance yet.
+            </p>
+          )}
+        </CardContent>
+      </Card>
 
       <p className="text-sm text-muted-foreground">
         Messages are counted from 12/09/2026

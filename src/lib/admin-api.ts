@@ -2,7 +2,15 @@ import { API_BASE_URL } from "@/lib/account-api"
 import type { Event } from "@/types/content"
 
 export type EventInput = Omit<Event, "id" | "isRecurring">
-export type AdminEvent = Event & { attendanceCount: number }
+export interface AttendanceUpload {
+  id: string
+  importedAt: string
+  attendanceCount: number
+}
+export type AdminEvent = Event & {
+  attendanceCount: number
+  attendanceUploads: AttendanceUpload[]
+}
 
 export interface EventImageUploadResult {
   image: string
@@ -19,6 +27,8 @@ export interface AttendanceImportResult {
   already_recorded: number
   unmatched_zids: number
   ambiguous_zids: number
+  upload_id: string
+  imported_at: string
 }
 
 export interface AttendanceRemovalResult {
@@ -103,11 +113,13 @@ export function uploadEventAttendance(
 }
 
 export function removeEventAttendance(
-  id: string
+  eventId: string,
+  uploadId: string
 ): Promise<AttendanceRemovalResult> {
-  return adminRequest(`/v1/admin/events/${encodeURIComponent(id)}/attendance`, {
-    method: "DELETE",
-  })
+  return adminRequest(
+    `/v1/admin/events/${encodeURIComponent(eventId)}/attendance/${encodeURIComponent(uploadId)}`,
+    { method: "DELETE" }
+  )
 }
 
 export function uploadEventImage(

@@ -1,12 +1,7 @@
-<?xml version="1.0" standalone="no"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
- "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
-<svg version="1.0" xmlns="http://www.w3.org/2000/svg"
- width="2100.000000pt" height="2100.000000pt" viewBox="0 0 2100.000000 2100.000000"
- preserveAspectRatio="xMidYMid meet">
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2100 2100" role="img" aria-label="AnimeUNSW">
+<rect width="2100" height="2100" rx="280" fill="#ffffff"/>
 <g transform="translate(0.000000,2100.000000) scale(0.100000,-0.100000)"
-fill="#000000" stroke="none">
+fill="#7c3aed" stroke="none">
 <path d="M0 10500 l0 -10500 10500 0 10500 0 0 10500 0 10500 -10500 0 -10500
 0 0 -10500z m19954 9449 c3 -3 3 -936 -1 -2072 l-6 -2067 -8117 0 c-4464 0
 -8718 3 -9453 7 l-1337 6 0 2069 0 2068 9454 -2 c5200 -2 9457 -6 9460 -9z
@@ -18,3 +13,6 @@ l-133 -6 0 -2119 0 -2118 103 0 c244 0 661 39 964 90 1719 290 3249 1276 4235
 416 58 375 62 1761 l4 1277 -1923 0 c-1058 0 -2014 3 -2125 7 l-203 6 0 -1074
 c0 -620 -4 -1133 -10 -1213 -36 -498 -238 -942 -586 -1290 -281 -282 -615
 -461 -1027 -553 l-122 -27 -2262 -3 -2263 -3 0 3110 0 3110 7340 0 7340 0 0
+-73z"/>
+</g>
+</svg>

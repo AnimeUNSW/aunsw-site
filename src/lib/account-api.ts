@@ -15,7 +15,14 @@ export interface AccountStats {
   term_exp: number | null
 }
 
+export interface AttendanceHistoryItem {
+  event_id: string
+  upload_id: string
+  attended_at: string
+}
+
 export interface Account {
+  attendance_history: AttendanceHistoryItem[]
   avatar_url: string | null
   discord_id: string
   display_name: string

@@ -16,6 +16,8 @@ import {
   removeEventAttendance,
   updateEvent,
   type AdminEvent,
+  type AttendanceImportResult,
+  type AttendanceUpload,
   type EventInput,
 } from "@/lib/admin-api"
 import { getAccount } from "@/lib/account-api"
@@ -77,6 +79,7 @@ export function AdminPage() {
       const savedWithAttendance: AdminEvent = {
         ...saved,
         attendanceCount: editing === "new" ? 0 : editing.attendanceCount,
+        attendanceUploads: editing === "new" ? [] : editing.attendanceUploads,
       }
       setState({
         status: "ready",
@@ -116,25 +119,39 @@ export function AdminPage() {
     }
   }
 
-  function addAttendance(eventId: string, count: number) {
+  function addAttendance(eventId: string, result: AttendanceImportResult) {
     setState((current) => {
       if (current.status !== "ready") return current
       return {
         ...current,
         events: current.events.map((event) =>
           event.id === eventId
-            ? { ...event, attendanceCount: event.attendanceCount + count }
+            ? {
+                ...event,
+                attendanceCount: event.attendanceCount + result.newly_recorded,
+                attendanceUploads:
+                  result.newly_recorded > 0
+                    ? [
+                        {
+                          id: result.upload_id,
+                          importedAt: result.imported_at,
+                          attendanceCount: result.newly_recorded,
+                        },
+                        ...event.attendanceUploads,
+                      ]
+                    : event.attendanceUploads,
+              }
             : event
         ),
       }
     })
   }
 
-  async function removeAttendance(event: AdminEvent) {
-    if (state.status !== "ready" || event.attendanceCount === 0) return
+  async function removeAttendance(event: AdminEvent, upload: AttendanceUpload) {
+    if (state.status !== "ready") return
     if (
       !window.confirm(
-        `Remove the attendance form for “${event.title}”? This will delete all ${event.attendanceCount} recorded attendance entries for this event.`
+        `Remove this attendance form from “${event.title}”? This will delete ${upload.attendanceCount} recorded attendance ${upload.attendanceCount === 1 ? "entry" : "entries"}.`
       )
     ) {
       return
@@ -143,18 +160,25 @@ export function AdminPage() {
     setSaving(true)
     setNotice(null)
     try {
-      const result = await removeEventAttendance(event.id)
+      const result = await removeEventAttendance(event.id, upload.id)
       setState({
         status: "ready",
         events: state.events.map((existing) =>
           existing.id === event.id
-            ? { ...existing, attendanceCount: 0 }
+            ? {
+                ...existing,
+                attendanceCount: Math.max(
+                  0,
+                  existing.attendanceCount - result.removed
+                ),
+                attendanceUploads: existing.attendanceUploads.filter(
+                  (existingUpload) => existingUpload.id !== upload.id
+                ),
+              }
             : existing
         ),
       })
-      setNotice(
-        `${result.removed} attendance ${result.removed === 1 ? "record" : "records"} removed from “${event.title}”.`
-      )
+      setNotice(`Attendance form removed from “${event.title}”.`)
     } catch (error) {
       setNotice(
         error instanceof Error
@@ -256,9 +280,41 @@ export function AdminPage() {
                       {event.featured ? <Badge>featured</Badge> : null}
                     </div>
                     {event.attendanceCount > 0 ? (
-                      <Badge variant="outline">
-                        Attendance uploaded · {event.attendanceCount}
-                      </Badge>
+                      <div className="space-y-2">
+                        <Badge variant="outline">
+                          {event.attendanceUploads.length} attendance{" "}
+                          {event.attendanceUploads.length === 1
+                            ? "form"
+                            : "forms"}{" "}
+                          · {event.attendanceCount} total attendances
+                        </Badge>
+                        <div className="space-y-1.5">
+                          {event.attendanceUploads.map((upload) => (
+                            <div
+                              key={upload.id}
+                              className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground"
+                            >
+                              <span>
+                                {new Intl.DateTimeFormat("en-AU", {
+                                  dateStyle: "medium",
+                                  timeStyle: "short",
+                                }).format(new Date(upload.importedAt))}{" "}
+                                · {upload.attendanceCount} attendees
+                              </span>
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                disabled={saving}
+                                onClick={() =>
+                                  void removeAttendance(event, upload)
+                                }
+                              >
+                                Remove form
+                              </Button>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
                     ) : null}
                     <p className="text-sm text-muted-foreground">
                       {event.location} · /events#{event.slug}
@@ -269,20 +325,8 @@ export function AdminPage() {
                       eventId={event.id}
                       eventTitle={event.title}
                       disabled={saving}
-                      onUploaded={(result) =>
-                        addAttendance(event.id, result.newly_recorded)
-                      }
+                      onUploaded={(result) => addAttendance(event.id, result)}
                     />
-                    {event.attendanceCount > 0 ? (
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        disabled={saving}
-                        onClick={() => void removeAttendance(event)}
-                      >
-                        Remove attendance form
-                      </Button>
-                    ) : null}
                     <Button
                       size="sm"
                       variant="outline"
