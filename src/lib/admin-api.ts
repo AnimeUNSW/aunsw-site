@@ -5,6 +5,7 @@ export type EventInput = Omit<Event, "id" | "isRecurring">
 export type TeamProfileInput = Omit<TeamProfile, "id">
 export interface AttendanceUpload {
   id: string
+  fileName: string
   importedAt: string
   attendanceCount: number
 }
@@ -34,6 +35,7 @@ export interface AttendanceImportResult {
   ambiguous_zids: number
   upload_id: string
   imported_at: string
+  file_name: string
 }
 
 export interface AttendanceRemovalResult {
@@ -110,11 +112,14 @@ export function uploadEventAttendance(
   id: string,
   file: File
 ): Promise<AttendanceImportResult> {
-  return adminRequest(`/v1/admin/events/${encodeURIComponent(id)}/attendance`, {
-    method: "POST",
-    headers: { "Content-Type": file.type || "text/csv" },
-    body: file,
-  })
+  return adminRequest(
+    `/v1/admin/events/${encodeURIComponent(id)}/attendance?filename=${encodeURIComponent(file.name)}`,
+    {
+      method: "POST",
+      headers: { "Content-Type": file.type || "text/csv" },
+      body: file,
+    }
+  )
 }
 
 export function removeEventAttendance(

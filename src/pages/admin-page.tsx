@@ -135,6 +135,7 @@ export function AdminPage() {
                     ? [
                         {
                           id: result.upload_id,
+                          fileName: result.file_name,
                           importedAt: result.imported_at,
                           attendanceCount: result.newly_recorded,
                         },
@@ -152,7 +153,7 @@ export function AdminPage() {
     if (state.status !== "ready") return
     if (
       !window.confirm(
-        `Remove this attendance form from “${event.title}”? This will delete ${upload.attendanceCount} recorded attendance ${upload.attendanceCount === 1 ? "entry" : "entries"}.`
+        `Remove “${upload.fileName}” from “${event.title}”? This will delete ${upload.attendanceCount} recorded attendance ${upload.attendanceCount === 1 ? "entry" : "entries"}.`
       )
     ) {
       return
@@ -296,6 +297,9 @@ export function AdminPage() {
                               className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground"
                             >
                               <span>
+                                <span className="font-medium text-foreground">
+                                  {upload.fileName}
+                                </span>{" "}
                                 {new Intl.DateTimeFormat("en-AU", {
                                   dateStyle: "medium",
                                   timeStyle: "short",
