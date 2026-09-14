@@ -1,7 +1,8 @@
 import { API_BASE_URL } from "@/lib/account-api"
-import type { Event } from "@/types/content"
+import type { Event, TeamProfile } from "@/types/content"
 
 export type EventInput = Omit<Event, "id" | "isRecurring">
+export type TeamProfileInput = Omit<TeamProfile, "id">
 export interface AttendanceUpload {
   id: string
   importedAt: string
@@ -14,6 +15,10 @@ export type AdminEvent = Event & {
 
 export interface EventImageUploadResult {
   image: string
+}
+
+export interface TeamImageUploadResult {
+  portraitImage: string
 }
 
 export interface AttendanceImportResult {
@@ -128,6 +133,55 @@ export function uploadEventImage(
 ): Promise<EventImageUploadResult> {
   return adminRequest(
     `/v1/admin/event-images?slug=${encodeURIComponent(slug)}`,
+    {
+      method: "POST",
+      headers: { "Content-Type": file.type },
+      body: file,
+    }
+  )
+}
+
+export async function getAdminTeamProfiles(
+  signal?: AbortSignal
+): Promise<TeamProfile[]> {
+  const payload = await adminRequest<{ profiles: TeamProfile[] }>(
+    "/v1/admin/team",
+    { signal }
+  )
+  return payload.profiles
+}
+
+export function createTeamProfile(
+  profile: TeamProfileInput
+): Promise<TeamProfile> {
+  return adminRequest("/v1/admin/team", {
+    method: "POST",
+    body: JSON.stringify(profile),
+  })
+}
+
+export function updateTeamProfile(
+  id: string,
+  profile: TeamProfileInput
+): Promise<TeamProfile> {
+  return adminRequest(`/v1/admin/team/${encodeURIComponent(id)}`, {
+    method: "PUT",
+    body: JSON.stringify(profile),
+  })
+}
+
+export function deleteTeamProfile(id: string): Promise<void> {
+  return adminRequest(`/v1/admin/team/${encodeURIComponent(id)}`, {
+    method: "DELETE",
+  })
+}
+
+export function uploadTeamImage(
+  profileName: string,
+  file: File
+): Promise<TeamImageUploadResult> {
+  return adminRequest(
+    `/v1/admin/team-images?profile=${encodeURIComponent(profileName)}`,
     {
       method: "POST",
       headers: { "Content-Type": file.type },

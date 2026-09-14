@@ -4,6 +4,7 @@ import { Link } from "react-router-dom"
 
 import { AttendanceUploader } from "@/components/admin/attendance-uploader"
 import { EventEditor } from "@/components/admin/event-editor"
+import { TeamAdmin } from "@/components/admin/team-admin"
 import { PageHeader } from "@/components/shared/page-header"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -350,6 +351,7 @@ export function AdminPage() {
               </Card>
             ))}
           </div>
+          <TeamAdmin />
         </>
       ) : null}
     </div>
