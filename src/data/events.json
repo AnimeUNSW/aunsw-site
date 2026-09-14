@@ -131,10 +131,10 @@
         "competition",
         "cosplay"
       ],
-      "startDateTime": "2026-02-27T17:30:00+11:00",
-      "endDateTime": "2026-02-27T21:30:00+11:00",
+      "startDateTime": "2026-02-27T06:30:00Z",
+      "endDateTime": "2026-02-27T10:30:00Z",
       "location": "Leighton Hall",
-      "image": "../src/assets/event-pics/kickoff-26.jpg",
+      "image": "/events/kickoff-2026-2ad4a231f187.png",
       "imageAlt": "AnimeUNSW kickoff crowd picture",
       "featured": true,
       "id": "evt-kickoff"
