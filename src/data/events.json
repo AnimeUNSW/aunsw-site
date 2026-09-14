@@ -230,6 +230,21 @@
       "image": "/events/raqsoc-collab-26t2-e19567ec3c5d.png",
       "featured": true,
       "id": "evt-5c77f263e14640dfa9619e10c9a4e8da"
+    },
+    {
+      "slug": "animania-26t2",
+      "title": "Animania",
+      "description": "Join AUNSW and RGS for a night of of gaming \ud83c\udfae and trivia! Come by and try your hand at rhythm games such as Taiko and Chunithm, followed by trivia, where you can show off your AMQ, Vocaloid and J-pop knowledge! \n\nCome by at 4pm to socialise and have a go at some rhythm games, and participate in our trivia at 5pm! We'll be heading to the city for an unofficial dinner, karaoke and an arcade crawl after 6pm :IbiGuda~1:",
+      "category": [
+        "collab",
+        "past"
+      ],
+      "startDateTime": "2026-07-03T06:00:00Z",
+      "endDateTime": "2026-07-03T09:00:00Z",
+      "location": "Mathews 231",
+      "image": "/events/animania-26t2-4a39a5f3817d.png",
+      "featured": false,
+      "id": "evt-931fbd7dca934cefa2f76d12f5f69741"
     }
   ]
 }
