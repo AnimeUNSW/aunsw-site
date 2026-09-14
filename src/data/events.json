@@ -260,6 +260,20 @@
       "image": "/events/ibi-game-26t2-f78bc4e3b707.png",
       "featured": false,
       "id": "evt-a065f4e51b264fd583f7c0936f1dffb1"
+    },
+    {
+      "slug": "shoujo-26t2",
+      "title": "AUNSW Shoujo",
+      "description": "Calling all shoujo fans! Want to meet fellow shoujo lovers? Well don\u2019t fret, as there\u2019s only one more week till our AUNSW Shoujo Event! \ud83e\ude77 \n\nCome spend a cozy evening with us as we screen a beloved shoujo anime, alongside a fun photocard-decorating session \u22b9 \u08ea \u02d6. Stickers and toploaders will be provided, so all you\u2019ll need to bring are your cute cards and your creativity! \u2728 \n\nWhether you\u2019re a long-term fan or just started watching, everyone is welcome! \u22c6.\ud801\ude5a \u030a",
+      "category": [
+        "past"
+      ],
+      "startDateTime": "2026-06-09T06:30:00Z",
+      "endDateTime": "2026-06-09T09:30:00Z",
+      "location": "Mathews 231",
+      "image": "/events/shoujo-26t2-e1e2cea0d181.png",
+      "featured": false,
+      "id": "evt-934d8d531af243c5825d768dfef58ae2"
     }
   ]
 }
