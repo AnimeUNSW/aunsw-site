@@ -36,6 +36,7 @@ export interface AttendanceImportResult {
   upload_id: string
   imported_at: string
   file_name: string
+  xp_awarded: number
 }
 
 export interface AttendanceRemovalResult {

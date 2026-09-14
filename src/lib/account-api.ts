@@ -31,7 +31,26 @@ export interface Account {
   username: string
 }
 
+export type LeaderboardSort = "xp" | "events"
+
+export interface LeaderboardEntry {
+  rank: number
+  discord_id: string
+  username: string
+  display_name: string
+  avatar_url: string | null
+  xp: number
+  events_attended: number
+}
+
+export interface Leaderboard {
+  sort: LeaderboardSort
+  viewer_discord_id: string
+  entries: LeaderboardEntry[]
+}
+
 export class MembershipRequiredError extends Error {}
+export class AuthenticationRequiredError extends Error {}
 
 export function discordLoginUrl(frontendOrigin = window.location.origin) {
   const url = new URL(`${API_BASE_URL}/auth/discord/start`)
@@ -64,6 +83,31 @@ export async function getAccount(
   }
 
   return response.json() as Promise<Account>
+}
+
+export async function getLeaderboard(
+  sort: LeaderboardSort,
+  signal?: AbortSignal
+): Promise<Leaderboard> {
+  const response = await fetch(`${API_BASE_URL}/v1/leaderboard?sort=${sort}`, {
+    credentials: "include",
+    headers: { Accept: "application/json" },
+    signal,
+  })
+
+  if (response.status === 401) {
+    throw new AuthenticationRequiredError()
+  }
+  if (response.status === 403) {
+    throw new MembershipRequiredError(
+      "You must be a member of the AnimeUNSW Discord server to view the leaderboard."
+    )
+  }
+  if (!response.ok) {
+    throw new Error("The leaderboard is temporarily unavailable.")
+  }
+
+  return response.json() as Promise<Leaderboard>
 }
 
 export async function logOut(): Promise<void> {

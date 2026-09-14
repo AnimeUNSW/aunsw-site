@@ -83,6 +83,7 @@ export function AttendanceUploader({
             {result.newly_recorded === 1 ? "" : "s"} added
           </p>
           <p className="mt-1 text-muted-foreground">
+            {result.xp_awarded.toLocaleString()} XP awarded ·{" "}
             {result.already_recorded} already recorded · {result.unmatched_zids}{" "}
             zIDs not found · {result.invalid_rows} invalid ·{" "}
             {result.placeholder_rows} without a zID · {result.duplicate_rows}{" "}

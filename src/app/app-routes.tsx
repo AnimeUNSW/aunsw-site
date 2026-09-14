@@ -7,6 +7,7 @@ import { InfoPage } from "@/pages/info-page"
 import { NotFoundPage } from "@/pages/not-found-page"
 import { SponsorsPage } from "@/pages/sponsors-page"
 import { TeamPage } from "@/pages/team-page"
+import { LeaderboardPage } from "@/pages/leaderboard-page"
 import { AccountPage } from "@/pages/account-page"
 
 export function AppRoutes() {
@@ -18,6 +19,7 @@ export function AppRoutes() {
       <Route path="/team" element={<TeamPage />} />
       <Route path="/info" element={<InfoPage />} />
       <Route path="/account" element={<AccountPage />} />
+      <Route path="/leaderboard" element={<LeaderboardPage />} />
       <Route path="/admin" element={<AdminPage />} />
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
