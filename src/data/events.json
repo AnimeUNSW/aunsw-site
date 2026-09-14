@@ -274,6 +274,21 @@
       "image": "/events/shoujo-26t2-e1e2cea0d181.png",
       "featured": false,
       "id": "evt-934d8d531af243c5825d768dfef58ae2"
+    },
+    {
+      "slug": "trivia-26t2",
+      "title": "Term 2 Trivia",
+      "description": "AUNSW Trivia returns for Term 2! Gather your team and get ready to test how good (or bad \ud83d\ude2d ) your anime knowledge is! \n\nWe\u2019ll have a mix of questions, from badly translated titles, multiple-choice, guess the anime from TV tropes and iconic quotes. Expect a mix of mainstream hits and niche gems \ud83d\udc8e, so whether you\u2019re a seasoned veteran who watches all the seasonal animes or haven\u2019t watched anime for the past few years, everyone is welcome! \u2728",
+      "category": [
+        "competition",
+        "past"
+      ],
+      "startDateTime": "2026-07-17T07:30:00Z",
+      "endDateTime": "2026-07-17T10:00:00Z",
+      "location": "Mathews 231",
+      "image": "/events/trivia-26t2-8d4d551b6757.png",
+      "featured": false,
+      "id": "evt-2e91b4d9ef3a4f8298bae11fd66ce9cc"
     }
   ]
 }
