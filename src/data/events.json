@@ -18,7 +18,7 @@
       "recurringStartTime": "thursday 13:00",
       "recurringEndTime": "thursday 15:00",
       "location": "Colombo Theatres Foyer",
-      "image": "../src/assets/event-pics/weekly-ramen.jpg",
+      "image": "/events/weekly-ramen-52116ecc64e2.png",
       "imageAlt": "Weekly ramen setup feat. Nam",
       "featured": true,
       "registerLink": "https://campus.hellorubric.com/?eid=55949",
