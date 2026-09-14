@@ -199,6 +199,21 @@
       "image": "/events/26t1-trivia-d25db7b7e0fd.png",
       "featured": false,
       "id": "evt-7074e1806ff048e4aec50c5124280d50"
+    },
+    {
+      "slug": "mixology-26t1",
+      "title": "Mixology",
+      "description": "MIXOLOGY",
+      "category": [
+        "competition",
+        "past"
+      ],
+      "startDateTime": "2026-04-10T08:00:00Z",
+      "endDateTime": "2026-04-10T10:00:00Z",
+      "location": "Colombo LG01",
+      "image": "/events/mixology-26t1-bfc5cd79dd00.png",
+      "featured": false,
+      "id": "evt-56632d9eaf8642bdb707cdb1f559b6e8"
     }
   ]
 }
