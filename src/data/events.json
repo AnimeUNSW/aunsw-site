@@ -320,6 +320,22 @@
       "featured": false,
       "registerLink": "https://events.humanitix.com/anime-sydney-eclipse-ball",
       "id": "evt-9d997ddf41ec442bae2dac886ddac285"
+    },
+    {
+      "slug": "hoyosoc-26t2",
+      "title": "AUNSW x HoyoSoc: Cosplay Clash",
+      "description": "Picture this: a cosplay-making competition where creativity \u2728 beats expensive materials \ud83d\udcb8. Armed with a small budget , you'll shop for supplies, tackle a surprise prompt , and bring your vision to life by crafting cosplay accessories and props \ud83c\udfa9\ud83d\udde1\ufe0f\ud83d\udee1\ufe0f.\n\nWhether you're a seasoned cosplayer \ud83d\udc51 or just love a creative challenge \ud83c\udfa8, it's your chance to think outside the box \ud83d\udce6\ud83d\udca1, get hands-on , and see who can create the most impressive build without breaking the bank! \n\nReady to win? \ud83c\udfc6 Exciting prizes sponsored by Sugo Toys \u2728 are up for grabs for our winners!",
+      "category": [
+        "collab",
+        "cosplay",
+        "past"
+      ],
+      "startDateTime": "2026-07-24T07:30:00Z",
+      "endDateTime": "2026-07-24T10:30:00Z",
+      "location": "Colombo LG01",
+      "image": "/events/hoyosoc-26t2-875e2d9594ff.png",
+      "featured": false,
+      "id": "evt-5ef6b657d219423abe8cf68370e6da68"
     }
   ]
 }
