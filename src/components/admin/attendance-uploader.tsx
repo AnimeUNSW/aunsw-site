@@ -1,6 +1,8 @@
 import { useRef, useState, type ChangeEvent } from "react"
 import { UploadIcon } from "lucide-react"
 
+import { ActionNotice } from "@/components/shared/action-notice"
+import { ConfirmDialog } from "@/components/shared/confirm-dialog"
 import { Button } from "@/components/ui/button"
 import {
   uploadEventAttendance,
@@ -20,26 +22,25 @@ export function AttendanceUploader({
 }) {
   const inputRef = useRef<HTMLInputElement>(null)
   const [uploading, setUploading] = useState(false)
+  const [pendingFile, setPendingFile] = useState<File | null>(null)
   const [result, setResult] = useState<AttendanceImportResult | null>(null)
   const [error, setError] = useState<string | null>(null)
 
-  async function selectFile(change: ChangeEvent<HTMLInputElement>) {
+  function selectFile(change: ChangeEvent<HTMLInputElement>) {
     const file = change.target.files?.[0]
     change.target.value = ""
     if (!file) return
-    if (
-      !window.confirm(
-        `Import attendance from “${file.name}” for “${eventTitle}”?`
-      )
-    ) {
-      return
-    }
+    setPendingFile(file)
+  }
+
+  async function uploadPendingFile() {
+    if (!pendingFile) return
 
     setUploading(true)
     setError(null)
     setResult(null)
     try {
-      const uploadResult = await uploadEventAttendance(eventId, file)
+      const uploadResult = await uploadEventAttendance(eventId, pendingFile)
       setResult(uploadResult)
       onUploaded?.(uploadResult)
     } catch (uploadError) {
@@ -50,6 +51,7 @@ export function AttendanceUploader({
       )
     } finally {
       setUploading(false)
+      setPendingFile(null)
     }
   }
 
@@ -61,7 +63,7 @@ export function AttendanceUploader({
         type="file"
         accept=".csv,text/csv,application/vnd.ms-excel"
         disabled={disabled || uploading}
-        onChange={(change) => void selectFile(change)}
+        onChange={selectFile}
       />
       <Button
         size="sm"
@@ -74,10 +76,7 @@ export function AttendanceUploader({
       </Button>
 
       {result ? (
-        <div
-          className="max-w-md rounded-lg border bg-muted/40 p-3 text-sm"
-          role="status"
-        >
+        <ActionNotice kind="success">
           <p className="font-medium">
             {result.newly_recorded} new attendance record
             {result.newly_recorded === 1 ? "" : "s"} added
@@ -92,14 +91,31 @@ export function AttendanceUploader({
               ? ` · ${result.ambiguous_zids} ambiguous zIDs`
               : ""}
           </p>
-        </div>
+        </ActionNotice>
       ) : null}
 
       {error ? (
-        <p className="max-w-md text-sm text-destructive" role="alert">
-          {error}
-        </p>
+        <ActionNotice kind="error">
+          <p className="font-medium">Attendance upload failed</p>
+          <p className="mt-1 text-foreground/80">{error}</p>
+        </ActionNotice>
       ) : null}
+
+      <ConfirmDialog
+        open={pendingFile !== null}
+        title="Upload attendance form?"
+        description={
+          pendingFile
+            ? `Import “${pendingFile.name}” for “${eventTitle}”? Each matched attendee will receive attendance credit and XP.`
+            : "Confirm this attendance upload."
+        }
+        confirmLabel="Upload form"
+        busy={uploading}
+        onOpenChange={(open) => {
+          if (!open) setPendingFile(null)
+        }}
+        onConfirm={uploadPendingFile}
+      />
     </div>
   )
 }
