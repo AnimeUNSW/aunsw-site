@@ -83,7 +83,7 @@ export function AccountDashboard({
             </p>
           </div>
           <div className="flex flex-wrap justify-center gap-2 sm:justify-end">
-            {account.is_executive ? (
+            {account.is_admin ? (
               <Button asChild size="lg">
                 <Link to="/admin">
                   <SettingsIcon data-icon="inline-start" />

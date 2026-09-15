@@ -63,10 +63,10 @@ export function AdminPage() {
           })
           return
         }
-        if (!account.is_executive) {
+        if (!account.is_admin) {
           setState({
             status: "denied",
-            message: "The AnimeUNSW Executive role is required.",
+            message: "The AnimeUNSW Executive or Director role is required.",
           })
           return
         }
@@ -205,7 +205,7 @@ export function AdminPage() {
   return (
     <div className="page-container space-y-6">
       <PageHeader
-        badge="Executive"
+        badge="Committee admin"
         title="Admin dashboard"
         description="Manage website events, attendance forms, and Meet the Team profiles."
       />

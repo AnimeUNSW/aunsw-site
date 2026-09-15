@@ -10,6 +10,7 @@ const account: Account = {
   avatar_url: null,
   discord_id: "123",
   display_name: "Test Member",
+  is_admin: false,
   is_executive: false,
   username: "member",
   stats: {
@@ -41,7 +42,20 @@ describe("AccountDashboard", () => {
   it("shows the admin button to an Executive", () => {
     renderWithProviders(
       <AccountDashboard
-        account={{ ...account, is_executive: true }}
+        account={{ ...account, is_admin: true, is_executive: true }}
+        isLoggingOut={false}
+        onLogout={vi.fn()}
+      />
+    )
+    expect(
+      screen.getByRole("link", { name: "Admin dashboard" })
+    ).toHaveAttribute("href", "/admin")
+  })
+
+  it("shows the admin button to a Director without an Executive role", () => {
+    renderWithProviders(
+      <AccountDashboard
+        account={{ ...account, is_admin: true }}
         isLoggingOut={false}
         onLogout={vi.fn()}
       />

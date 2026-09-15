@@ -107,6 +107,7 @@ describe("app routes", () => {
       avatar_url: null,
       discord_id: "123",
       display_name: "Executive",
+      is_admin: true,
       is_executive: true,
       username: "exec",
       stats: {
@@ -153,5 +154,62 @@ describe("app routes", () => {
     expect(
       screen.getAllByRole("link", { name: "Admin" }).length
     ).toBeGreaterThan(0)
+  })
+
+  it("allows a Director without the Executive role to open the admin URL", async () => {
+    const account = {
+      attendance_history: [],
+      avatar_url: null,
+      discord_id: "456",
+      display_name: "Director",
+      is_admin: true,
+      is_executive: false,
+      username: "director",
+      stats: {
+        anilist_profile: null,
+        events_attended: 0,
+        exp: 0,
+        mal_profile: null,
+        message_count: 0,
+        quote: null,
+        rank: null,
+        term_exp: 0,
+      },
+    }
+    vi.stubGlobal(
+      "fetch",
+      vi.fn((input: RequestInfo | URL) => {
+        const url = String(input)
+        if (url.endsWith("/v1/me")) {
+          return Promise.resolve(
+            new Response(JSON.stringify(account), {
+              status: 200,
+              headers: { "Content-Type": "application/json" },
+            })
+          )
+        }
+        if (url.endsWith("/v1/admin/events")) {
+          return Promise.resolve(
+            new Response(JSON.stringify({ events: [] }), {
+              status: 200,
+              headers: { "Content-Type": "application/json" },
+            })
+          )
+        }
+        return Promise.reject(new Error(`Unexpected request: ${url}`))
+      })
+    )
+
+    renderRoute("/admin")
+
+    expect(
+      await screen.findByRole("button", { name: "Add event" })
+    ).toBeInTheDocument()
+    expect(
+      screen.getAllByRole("link", { name: "Admin" }).length
+    ).toBeGreaterThan(0)
+    expect(
+      screen.queryByRole("heading", { name: "Access denied" })
+    ).not.toBeInTheDocument()
   })
 })
