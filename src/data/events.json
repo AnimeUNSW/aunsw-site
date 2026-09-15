@@ -147,10 +147,10 @@
         "past",
         "competition"
       ],
-      "startDateTime": "2026-02-19T18:00:00+11:00",
-      "endDateTime": "2026-02-19T20:00:00+11:00",
+      "startDateTime": "2026-02-19T07:00:00Z",
+      "endDateTime": "2026-02-19T09:00:00Z",
       "location": "Ainsworth201",
-      "image": "../src/assets/event-pics/spicy-ramen-1-2026.png",
+      "image": "/events/spicy-ramen-1-2026-c201bcd95723.png",
       "imageAlt": "AnimeUNSW spicy ramen challenge banner",
       "featured": false,
       "id": "evt-spicy-ramen-1-2026"
