@@ -65,10 +65,10 @@
         "collab",
         "cosplay"
       ],
-      "startDateTime": "2026-03-13T17:00:00+11:00",
-      "endDateTime": "2026-03-13T21:00:00+11:00",
+      "startDateTime": "2026-03-13T06:00:00Z",
+      "endDateTime": "2026-03-13T10:00:00Z",
       "location": "Rupert Myers (M15) 520, 540",
-      "image": "../src/assets/event-pics/cosplay-casino-1-2026.png",
+      "image": "/events/cosplay-casino-1-2026-482550d74ebc.png",
       "imageAlt": "AnimeUNSW x TTGSoc Cosplay Casino Banner",
       "featured": false,
       "registerLink": "https://campus.hellorubric.com/?eid=57212",
