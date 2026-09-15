@@ -114,10 +114,10 @@
         "past",
         "competition"
       ],
-      "startDateTime": "2026-03-06T18:00:00+11:00",
-      "endDateTime": "2026-03-06T20:00:00+11:00",
+      "startDateTime": "2026-03-06T07:00:00Z",
+      "endDateTime": "2026-03-06T09:00:00Z",
       "location": "Law Theatre G02",
-      "image": "../src/assets/event-pics/mooting-1-2026.png",
+      "image": "/events/mooting-1-2026-a88e522ae535.png",
       "imageAlt": "AnimeUNSW mooting banner",
       "featured": false,
       "id": "evt-mooting-1-2026"
