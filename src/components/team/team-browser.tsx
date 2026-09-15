@@ -180,8 +180,7 @@ export function TeamBrowser({ profiles }: TeamBrowserProps) {
             Executive and Director Gallery
           </h2>
           <p className="mt-2 max-w-3xl text-sm text-muted-foreground md:text-base">
-            Swipe or use buttons to move through one profile at a time. Autoplay
-            is enabled, and all intro sheet content stays visible in each frame.
+            Swipe or use buttons to move through one profile at a time (autoplay is also enabled).
           </p>
         </section>
         :
@@ -213,8 +212,7 @@ export function TeamBrowser({ profiles }: TeamBrowserProps) {
             Subcommittee Gallery
           </h2>
           <p className="mt-2 max-w-3xl text-sm text-muted-foreground md:text-base">
-            Swipe or use buttons to move through one profile at a time. Autoplay
-            is enabled, and all intro sheet content stays visible in each frame.
+            Swipe or use buttons to move through one profile at a time (autoplay is also enabled).
           </p>
         </section>
 
