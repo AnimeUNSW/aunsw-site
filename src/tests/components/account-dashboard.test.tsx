@@ -12,6 +12,13 @@ const account: Account = {
   display_name: "Test Member",
   is_admin: false,
   is_executive: false,
+  profile: {
+    first_name: "",
+    last_name: "",
+    zid: null,
+    email: null,
+    phone_number: null,
+  },
   username: "member",
   stats: {
     anilist_profile: null,
@@ -32,6 +39,7 @@ describe("AccountDashboard", () => {
         account={account}
         isLoggingOut={false}
         onLogout={vi.fn()}
+        onSaved={vi.fn()}
       />
     )
     expect(
@@ -45,6 +53,7 @@ describe("AccountDashboard", () => {
         account={{ ...account, is_admin: true, is_executive: true }}
         isLoggingOut={false}
         onLogout={vi.fn()}
+        onSaved={vi.fn()}
       />
     )
     expect(
@@ -58,6 +67,7 @@ describe("AccountDashboard", () => {
         account={{ ...account, is_admin: true }}
         isLoggingOut={false}
         onLogout={vi.fn()}
+        onSaved={vi.fn()}
       />
     )
     expect(
