@@ -81,10 +81,10 @@
       "category": [
         "collab"
       ],
-      "startDateTime": "2026-03-20T14:00:00+11:00",
-      "endDateTime": "2026-03-20T16:00:00+11:00",
+      "startDateTime": "2026-03-20T03:00:00Z",
+      "endDateTime": "2026-03-20T05:00:00Z",
       "location": "UNSW Business School (E12) 215",
-      "image": "../src/assets/event-pics/ita-bag-1-2026.png",
+      "image": "/events/ita-bag-1-2026-8e8f17c335c1.png",
       "imageAlt": "AnimeUNSW x SanrioSoc Ita Bag Meetup Banner",
       "featured": false,
       "registerLink": "https://campus.hellorubric.com/?eid=57072",
