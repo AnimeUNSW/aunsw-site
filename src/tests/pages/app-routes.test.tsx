@@ -103,6 +103,7 @@ describe("app routes", () => {
 
   it("shows the admin dashboard only for an Executive account", async () => {
     const account = {
+      attendance_history: [],
       avatar_url: null,
       discord_id: "123",
       display_name: "Executive",
@@ -119,23 +120,27 @@ describe("app routes", () => {
         term_exp: 0,
       },
     }
-    vi.stubGlobal(
-      "fetch",
-      vi
-        .fn()
-        .mockResolvedValueOnce(
+    const fetchMock = vi.fn((input: RequestInfo | URL) => {
+      const url = String(input)
+      if (url.endsWith("/v1/me")) {
+        return Promise.resolve(
           new Response(JSON.stringify(account), {
             status: 200,
             headers: { "Content-Type": "application/json" },
           })
         )
-        .mockResolvedValueOnce(
+      }
+      if (url.endsWith("/v1/admin/events")) {
+        return Promise.resolve(
           new Response(JSON.stringify({ events: [] }), {
             status: 200,
             headers: { "Content-Type": "application/json" },
           })
         )
-    )
+      }
+      return Promise.reject(new Error(`Unexpected request: ${url}`))
+    })
+    vi.stubGlobal("fetch", fetchMock)
 
     renderRoute("/admin")
 
@@ -145,5 +150,8 @@ describe("app routes", () => {
     expect(
       screen.queryByRole("heading", { name: "Access denied" })
     ).not.toBeInTheDocument()
+    expect(
+      screen.getAllByRole("link", { name: "Admin" }).length
+    ).toBeGreaterThan(0)
   })
 })

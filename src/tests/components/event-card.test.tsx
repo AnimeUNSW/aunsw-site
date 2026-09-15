@@ -4,6 +4,7 @@ import { screen } from "@testing-library/react"
 import { EventCard } from "@/components/events/event-card"
 import { getEvents } from "@/lib/content-repository"
 import { renderWithProviders } from "@/tests/render-with-providers"
+import type { Event } from "@/types/content"
 
 describe("EventCard", () => {
   it("shows event metadata", () => {
@@ -34,7 +35,7 @@ describe("EventCard", () => {
   })
 
   it("auto-adds Past Events badge when event end time has already passed", () => {
-    const pastEvent = {
+    const pastEvent: Event = {
       id: "evt-past-test",
       slug: "past-test",
       title: "Past test event",
@@ -42,6 +43,7 @@ describe("EventCard", () => {
       category: ["weekly"],
       startDateTime: "2010-01-01T10:00:00.000Z",
       endDateTime: "2010-01-01T12:00:00.000Z",
+      isRecurring: false,
       location: "Test Venue",
       featured: false,
     }
@@ -52,7 +54,7 @@ describe("EventCard", () => {
   })
 
   it("disables Register button for past events", () => {
-    const pastEvent = {
+    const pastEvent: Event = {
       id: "evt-past-test-2",
       slug: "past-test-2",
       title: "Past test event 2",
@@ -60,6 +62,7 @@ describe("EventCard", () => {
       category: ["collab"],
       startDateTime: "2010-01-01T10:00:00.000Z",
       endDateTime: "2010-01-01T12:00:00.000Z",
+      isRecurring: false,
       location: "Test Venue",
       featured: false,
       registerLink: "https://campus.hellorubric.com",

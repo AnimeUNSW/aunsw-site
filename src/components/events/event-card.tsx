@@ -27,7 +27,7 @@ import {
 import { cn } from "@/lib/utils"
 import { formatDateTime } from "@/lib/format"
 import { isEventPast } from "@/lib/events"
-import type { Event } from "@/types/content"
+import type { Event, EventCategory } from "@/types/content"
 
 interface CategoryMeta {
   label: string
@@ -88,16 +88,16 @@ const EVENT_CARD_CLASS =
   "relative h-full w-full overflow-hidden border-primary/30 bg-[linear-gradient(180deg,color-mix(in_oklab,var(--color-card)_96%,var(--color-primary)),var(--color-card))] shadow-[0_22px_44px_-30px_var(--color-primary)] transition-all duration-300 hover:-translate-y-1.5 hover:border-primary/45 hover:shadow-[0_34px_62px_-30px_var(--color-primary)]"
 const EVENT_CARD_OVERLAY_CLASS =
   "pointer-events-none absolute inset-0 bg-[radial-gradient(18rem_9rem_at_88%_8%,color-mix(in_oklab,var(--color-accent)_22%,transparent),transparent_70%)]"
-const EVENT_IMAGE_FRAME_CLASS = "overflow-hidden border-b border-border/60 bg-muted/35"
+const EVENT_IMAGE_FRAME_CLASS =
+  "overflow-hidden border-b border-border/60 bg-muted/35"
 const EVENT_IMAGE_CLASS = "aspect-[16/9] w-full object-cover"
 const EVENT_IMAGE_FALLBACK_CLASS =
   "flex aspect-[16/9] w-full items-center justify-center bg-gradient-to-br from-muted/60 to-background text-xs tracking-[0.12em] text-muted-foreground uppercase"
 
 export function EventCard({ event }: { event: Event }) {
-  const hasPastCategory = event.category.includes("past")
   const isPast = isEventPast(event)
-  const categories = isPast
-    ? Array.from(new Set([...event.category, "past"]))
+  const categories: EventCategory[] = isPast
+    ? Array.from(new Set<EventCategory>([...event.category, "past"]))
     : event.category
   const primaryCategory = categories[0]
   const meta = CATEGORY_META[primaryCategory]
@@ -105,10 +105,7 @@ export function EventCard({ event }: { event: Event }) {
 
   return (
     <Card className={EVENT_CARD_CLASS}>
-      <div
-        className={EVENT_CARD_OVERLAY_CLASS}
-        aria-hidden
-      />
+      <div className={EVENT_CARD_OVERLAY_CLASS} aria-hidden />
       <div className={cn("h-1 w-full", meta.ribbonClass)} aria-hidden />
       <div className={EVENT_IMAGE_FRAME_CLASS}>
         {event.image ? (

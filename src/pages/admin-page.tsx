@@ -1,5 +1,12 @@
 import { useEffect, useState } from "react"
-import { PencilIcon, PlusIcon, ShieldAlertIcon, Trash2Icon } from "lucide-react"
+import {
+  CalendarDaysIcon,
+  PencilIcon,
+  PlusIcon,
+  ShieldAlertIcon,
+  Trash2Icon,
+  UsersIcon,
+} from "lucide-react"
 import { Link } from "react-router-dom"
 
 import { AttendanceUploader } from "@/components/admin/attendance-uploader"
@@ -9,6 +16,7 @@ import { PageHeader } from "@/components/shared/page-header"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import {
   AdminAccessError,
   createEvent,
@@ -31,6 +39,7 @@ type PageState =
 
 export function AdminPage() {
   const [state, setState] = useState<PageState>({ status: "loading" })
+  const [section, setSection] = useState<"events" | "team">("events")
   const [editing, setEditing] = useState<AdminEvent | "new" | null>(null)
   const [saving, setSaving] = useState(false)
   const [notice, setNotice] = useState<string | null>(null)
@@ -196,8 +205,8 @@ export function AdminPage() {
     <div className="page-container space-y-6">
       <PageHeader
         badge="Executive"
-        title="Event administration"
-        description="Add, edit, and remove events stored in the website’s events.json file."
+        title="Admin dashboard"
+        description="Manage website events, attendance forms, and Meet the Team profiles."
       />
 
       {state.status === "loading" ? (
@@ -232,131 +241,181 @@ export function AdminPage() {
       ) : null}
 
       {state.status === "ready" ? (
-        <>
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <p className="text-sm text-muted-foreground">
-              {state.events.length}{" "}
-              {state.events.length === 1 ? "event" : "events"}
-            </p>
-            <Button
-              onClick={() => {
-                setNotice(null)
-                setEditing("new")
-              }}
-            >
-              <PlusIcon data-icon="inline-start" /> Add event
-            </Button>
-          </div>
+        <Tabs
+          value={section}
+          onValueChange={(value) => {
+            setSection(value as "events" | "team")
+            setEditing(null)
+            setNotice(null)
+          }}
+          className="gap-6"
+        >
+          <TabsList
+            className="h-auto w-full max-w-xl p-1"
+            aria-label="Admin tools"
+          >
+            <TabsTrigger value="events" className="min-h-11 px-4">
+              <CalendarDaysIcon aria-hidden /> Manage events
+            </TabsTrigger>
+            <TabsTrigger value="team" className="min-h-11 px-4">
+              <UsersIcon aria-hidden /> Manage team
+            </TabsTrigger>
+          </TabsList>
 
-          {notice ? (
-            <p
-              role="status"
-              className="rounded-lg border bg-muted/40 p-3 text-sm"
-            >
-              {notice}
-            </p>
-          ) : null}
+          <TabsContent value="events" className="space-y-5">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <p className="text-sm text-muted-foreground">
+                {state.events.length}{" "}
+                {state.events.length === 1 ? "event" : "events"}
+              </p>
+              <Button
+                onClick={() => {
+                  setNotice(null)
+                  setEditing("new")
+                }}
+              >
+                <PlusIcon data-icon="inline-start" /> Add event
+              </Button>
+            </div>
 
-          {editing ? (
-            <EventEditor
-              key={editing === "new" ? "new" : editing.id}
-              event={editing === "new" ? undefined : editing}
-              saving={saving}
-              onSave={saveEvent}
-              onCancel={() => setEditing(null)}
-            />
-          ) : null}
+            {notice ? (
+              <p
+                role="status"
+                className="rounded-lg border bg-muted/40 p-3 text-sm"
+              >
+                {notice}
+              </p>
+            ) : null}
 
-          <div className="grid gap-3">
-            {state.events.map((event) => (
-              <Card key={event.id}>
-                <CardHeader className="gap-3 sm:flex-row sm:items-start sm:justify-between">
-                  <div className="space-y-2">
-                    <CardTitle>{event.title}</CardTitle>
-                    <div className="flex flex-wrap gap-1.5">
-                      {event.category.map((category) => (
-                        <Badge key={category} variant="secondary">
-                          {category}
-                        </Badge>
-                      ))}
-                      {event.featured ? <Badge>featured</Badge> : null}
-                    </div>
-                    {event.attendanceCount > 0 ? (
+            {editing === "new" ? (
+              <EventEditor
+                key="new"
+                saving={saving}
+                onSave={saveEvent}
+                onCancel={() => setEditing(null)}
+              />
+            ) : null}
+
+            <div className="grid gap-3">
+              {state.events.map((event) => (
+                <div key={event.id} className="space-y-3">
+                  <Card>
+                    <CardHeader className="gap-3 sm:flex-row sm:items-start sm:justify-between">
                       <div className="space-y-2">
-                        <Badge variant="outline">
-                          {event.attendanceUploads.length} attendance{" "}
-                          {event.attendanceUploads.length === 1
-                            ? "form"
-                            : "forms"}{" "}
-                          · {event.attendanceCount} total attendances
-                        </Badge>
-                        <div className="space-y-1.5">
-                          {event.attendanceUploads.map((upload) => (
-                            <div
-                              key={upload.id}
-                              className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground"
-                            >
-                              <span>
-                                <span className="font-medium text-foreground">
-                                  {upload.fileName}
-                                </span>{" "}
-                                {new Intl.DateTimeFormat("en-AU", {
-                                  dateStyle: "medium",
-                                  timeStyle: "short",
-                                }).format(new Date(upload.importedAt))}{" "}
-                                · {upload.attendanceCount} attendees
-                              </span>
-                              <Button
-                                size="sm"
-                                variant="outline"
-                                disabled={saving}
-                                onClick={() =>
-                                  void removeAttendance(event, upload)
-                                }
-                              >
-                                Remove form
-                              </Button>
-                            </div>
+                        <CardTitle>{event.title}</CardTitle>
+                        <div className="flex flex-wrap gap-1.5">
+                          {event.category.map((category) => (
+                            <Badge key={category} variant="secondary">
+                              {category}
+                            </Badge>
                           ))}
+                          {event.featured ? <Badge>featured</Badge> : null}
                         </div>
+                        {event.attendanceCount > 0 ? (
+                          <div className="space-y-2">
+                            <Badge variant="outline">
+                              {event.attendanceUploads.length} attendance{" "}
+                              {event.attendanceUploads.length === 1
+                                ? "form"
+                                : "forms"}{" "}
+                              · {event.attendanceCount} total attendances
+                            </Badge>
+                            <div className="space-y-1.5">
+                              {event.attendanceUploads.map((upload) => (
+                                <div
+                                  key={upload.id}
+                                  className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground"
+                                >
+                                  <span>
+                                    <span className="font-medium text-foreground">
+                                      {upload.fileName}
+                                    </span>{" "}
+                                    {new Intl.DateTimeFormat("en-AU", {
+                                      dateStyle: "medium",
+                                      timeStyle: "short",
+                                    }).format(new Date(upload.importedAt))}{" "}
+                                    · {upload.attendanceCount} attendees
+                                  </span>
+                                  <Button
+                                    size="sm"
+                                    variant="outline"
+                                    disabled={saving}
+                                    onClick={() =>
+                                      void removeAttendance(event, upload)
+                                    }
+                                  >
+                                    Remove form
+                                  </Button>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        ) : null}
+                        <p className="text-sm text-muted-foreground">
+                          {event.location} · /events#{event.slug}
+                        </p>
                       </div>
-                    ) : null}
-                    <p className="text-sm text-muted-foreground">
-                      {event.location} · /events#{event.slug}
-                    </p>
-                  </div>
-                  <div className="flex flex-wrap justify-end gap-2">
-                    <AttendanceUploader
-                      eventId={event.id}
-                      eventTitle={event.title}
-                      disabled={saving}
-                      onUploaded={(result) => addAttendance(event.id, result)}
-                    />
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      onClick={() => {
-                        setNotice(null)
-                        setEditing(event)
-                      }}
+                      <div className="flex flex-wrap justify-end gap-2">
+                        <AttendanceUploader
+                          eventId={event.id}
+                          eventTitle={event.title}
+                          disabled={saving}
+                          onUploaded={(result) =>
+                            addAttendance(event.id, result)
+                          }
+                        />
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => {
+                            setNotice(null)
+                            setEditing(event)
+                            window.requestAnimationFrame(() => {
+                              document
+                                .getElementById(`event-editor-${event.id}`)
+                                ?.scrollIntoView({
+                                  behavior: "smooth",
+                                  block: "start",
+                                })
+                            })
+                          }}
+                        >
+                          <PencilIcon data-icon="inline-start" /> Edit
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="destructive"
+                          disabled={saving}
+                          onClick={() => void removeEvent(event)}
+                        >
+                          <Trash2Icon data-icon="inline-start" /> Remove
+                        </Button>
+                      </div>
+                    </CardHeader>
+                  </Card>
+                  {editing !== "new" && editing?.id === event.id ? (
+                    <div
+                      id={`event-editor-${event.id}`}
+                      className="scroll-mt-24"
                     >
-                      <PencilIcon data-icon="inline-start" /> Edit
-                    </Button>
-                    <Button
-                      size="sm"
-                      variant="destructive"
-                      disabled={saving}
-                      onClick={() => void removeEvent(event)}
-                    >
-                      <Trash2Icon data-icon="inline-start" /> Remove
-                    </Button>
-                  </div>
-                </CardHeader>
-              </Card>
-            ))}
-          </div>
-          <TeamAdmin />
-        </>
+                      <EventEditor
+                        key={event.id}
+                        event={editing}
+                        saving={saving}
+                        onSave={saveEvent}
+                        onCancel={() => setEditing(null)}
+                      />
+                    </div>
+                  ) : null}
+                </div>
+              ))}
+            </div>
+          </TabsContent>
+
+          <TabsContent value="team">
+            <TeamAdmin />
+          </TabsContent>
+        </Tabs>
       ) : null}
     </div>
   )

@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState, type TouchEventHandler } from "react"
-import { ChevronLeftIcon, ChevronRightIcon, SparklesIcon } from "lucide-react"
+import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react"
 
 import { TeamMemberCard } from "@/components/team/team-member-card"
 import { Badge } from "@/components/ui/badge"
@@ -158,9 +158,7 @@ export function TeamBrowser({ profiles }: TeamBrowserProps) {
 
   return (
     <div className="space-y-6">
-
-      {
-        leadCount > 0 ?
+      {leadCount > 0 ? (
         <section
           className="rounded-2xl border border-primary/20 bg-[linear-gradient(145deg,color-mix(in_oklab,var(--color-card)_95%,var(--color-primary)),var(--color-card))] p-5 md:p-7"
           aria-labelledby="team-intro-title"
@@ -180,10 +178,11 @@ export function TeamBrowser({ profiles }: TeamBrowserProps) {
             Executive and Director Gallery
           </h2>
           <p className="mt-2 max-w-3xl text-sm text-muted-foreground md:text-base">
-            Swipe or use buttons to move through one profile at a time (autoplay is also enabled).
+            Swipe or use buttons to move through one profile at a time (autoplay
+            is also enabled).
           </p>
         </section>
-        :
+      ) : (
         <section
           className="rounded-2xl border border-primary/20 bg-[linear-gradient(145deg,color-mix(in_oklab,var(--color-card)_95%,var(--color-primary)),var(--color-card))] p-5 md:p-7"
           aria-labelledby="team-intro-title"
@@ -212,11 +211,11 @@ export function TeamBrowser({ profiles }: TeamBrowserProps) {
             Subcommittee Gallery
           </h2>
           <p className="mt-2 max-w-3xl text-sm text-muted-foreground md:text-base">
-            Swipe or use buttons to move through one profile at a time (autoplay is also enabled).
+            Swipe or use buttons to move through one profile at a time (autoplay
+            is also enabled).
           </p>
         </section>
-
-      }
+      )}
 
       <section className="space-y-4" aria-label="Team profile carousel">
         <div className="flex flex-wrap items-center justify-between gap-2">

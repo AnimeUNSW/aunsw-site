@@ -6,6 +6,7 @@ import { renderWithProviders } from "@/tests/render-with-providers"
 import type { Account } from "@/lib/account-api"
 
 const account: Account = {
+  attendance_history: [],
   avatar_url: null,
   discord_id: "123",
   display_name: "Test Member",
