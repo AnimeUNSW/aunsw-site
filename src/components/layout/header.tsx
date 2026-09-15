@@ -22,7 +22,7 @@ export function Header() {
     typeof window !== "undefined" ? window.scrollY > 56 : false
   )
   const [isTopHoverActive, setIsTopHoverActive] = useState(false)
-  const [isExecutive, setIsExecutive] = useState(false)
+  const [isAdmin, setIsAdmin] = useState(false)
   const isHomeRoute = location.pathname === "/"
 
   useEffect(() => {
@@ -30,8 +30,8 @@ export function Header() {
 
     const refreshAccountAccess = () => {
       void getAccount(controller.signal)
-        .then((account) => setIsExecutive(Boolean(account?.is_executive)))
-        .catch(() => setIsExecutive(false))
+        .then((account) => setIsAdmin(Boolean(account?.is_admin)))
+        .catch(() => setIsAdmin(false))
     }
 
     refreshAccountAccess()
@@ -131,11 +131,11 @@ export function Header() {
             </Link>
           </div>
           <nav className="hidden md:block" aria-label="Main navigation">
-            <Navbar showAdmin={isExecutive} />
+            <Navbar showAdmin={isAdmin} />
           </nav>
           <div className="flex items-center gap-2">
             <ThemeToggle />
-            <MobileNavSheet showAdmin={isExecutive} />
+            <MobileNavSheet showAdmin={isAdmin} />
           </div>
         </div>
       </div>

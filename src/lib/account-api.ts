@@ -26,6 +26,7 @@ export interface Account {
   avatar_url: string | null
   discord_id: string
   display_name: string
+  is_admin: boolean
   is_executive: boolean
   stats: AccountStats
   username: string

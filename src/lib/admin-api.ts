@@ -60,7 +60,7 @@ async function adminRequest<T>(path: string, init?: RequestInit): Promise<T> {
     throw new AdminAccessError(
       response.status === 401
         ? "Sign in with Discord to access the admin dashboard."
-        : "The AnimeUNSW Executive role is required."
+        : "The AnimeUNSW Executive or Director role is required."
     )
   }
   if (!response.ok) {
