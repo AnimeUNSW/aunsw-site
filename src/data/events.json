@@ -304,6 +304,22 @@
       "image": "/events/online-games-night-26-0ccfd5eecd3b.png",
       "featured": false,
       "id": "evt-eeb4dbb69ba746c0b109373a80780ef6"
+    },
+    {
+      "slug": "masquerade-26t3",
+      "title": "Anisyd Eclipse Ball",
+      "description": "Be prepared for an unforgettable night, filled with activities that get your blood pumping, tasty food to satiate your hunger, and a soothing waltz on the dance floor accompanied by the ambiance of a live band. Here\u2019s are some activities you can expect during our event:\n\ud83d\udde1\ufe0f A thrilling Murder Mystery for all to enjoy.\n\ud83d\udcac An exciting Trivia to keep everyone's minds sharp.\n\ud83e\ude70 A Best Mask + Best Dressed competition.\nStart planning your outfits now and get excited, as this wonderful event will be coming to you late September. More details will be announced very soon, so stay tuned!",
+      "category": [
+        "anisyd",
+        "collab"
+      ],
+      "startDateTime": "2026-09-20T08:00:00Z",
+      "endDateTime": "2026-09-20T13:00:00Z",
+      "location": "Dockside, Cockle Bay Wharf",
+      "image": "/events/masquerade-26t3-a1a78fa91349.png",
+      "featured": false,
+      "registerLink": "https://events.humanitix.com/anime-sydney-eclipse-ball",
+      "id": "evt-9d997ddf41ec442bae2dac886ddac285"
     }
   ]
 }
