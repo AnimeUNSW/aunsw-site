@@ -13,8 +13,7 @@ const MEMBERSHIP_STYLES: Record<TeamProfile["membership"], string> = {
     "bg-violet-200/55 text-violet-950 dark:bg-violet-400/20 dark:text-violet-100",
   executive:
     "bg-fuchsia-200/60 text-fuchsia-950 dark:bg-fuchsia-400/20 dark:text-fuchsia-100",
-  top5:
-    "bg-fuchsia-200/60 text-fuchsia-950 dark:bg-fuchsia-400/20 dark:text-fuchsia-100",
+  top5: "bg-fuchsia-200/60 text-fuchsia-950 dark:bg-fuchsia-400/20 dark:text-fuchsia-100",
   other:
     "bg-slate-200/60 text-slate-900 dark:bg-slate-400/20 dark:text-slate-100",
 }
@@ -38,25 +37,29 @@ export function TeamMemberCard({ profile, isActive }: TeamMemberCardProps) {
   const { resolvedTheme } = useTheme()
   const discordIcon =
     resolvedTheme === "dark" ? discordIconWhite : discordIconBlack
-  const totalInfoLength = profile.funFacts.length + profile.favoriteAnime.length
-  const factLength = totalInfoLength > 8 && profile.funFacts.length > 4 ? 8 - Math.min(profile.favoriteAnime.length + 1, 4  ) : profile.funFacts.length + 1
-  const animeLength = totalInfoLength > 8 && profile.favoriteAnime.length > 4 ? 8 - Math.min(profile.funFacts.length + 1, 4) : profile.favoriteAnime.length + 1
+  const maxDetailItems = profile.membership === "other" ? 3 : 4
+  const visibleFunFacts = profile.funFacts.slice(0, maxDetailItems)
+  const visibleFavoriteAnime = profile.favoriteAnime.slice(0, maxDetailItems)
+  const hiddenFunFacts = profile.funFacts.length - visibleFunFacts.length
+  const hiddenFavoriteAnime =
+    profile.favoriteAnime.length - visibleFavoriteAnime.length
+
   return (
-    <article className="grid gap-5 p-4 md:grid-cols-[minmax(0,0.84fr)_minmax(0,1.16fr)] md:gap-7 md:p-6">
-      <div className="relative overflow-hidden rounded-2xl border border-border/60 bg-muted/35">
+    <article className="grid h-full grid-rows-[minmax(0,24rem)_minmax(0,1fr)] gap-5 p-4 md:grid-cols-[minmax(0,0.84fr)_minmax(0,1.16fr)] md:grid-rows-1 md:gap-7 md:p-6">
+      <div className="relative h-full overflow-hidden rounded-2xl border border-border/60 bg-muted/35">
         <div className="pointer-events-none absolute inset-0 z-10 bg-[radial-gradient(18rem_10rem_at_18%_10%,color-mix(in_oklab,var(--color-accent)_35%,transparent),transparent_70%),linear-gradient(180deg,transparent,rgba(0,0,0,0.2))]" />
         <img
           src={profile.portraitImage}
           alt={profile.portraitAlt}
           className={cn(
-            "aspect-[4/5] w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]",
+            "h-full w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]",
             isActive ? "[transform:scale(1.03)]" : "[transform:scale(1)]"
           )}
           loading="lazy"
         />
       </div>
 
-      <div className="space-y-5">
+      <div className="min-h-0 space-y-4 overflow-hidden">
         <div className="flex flex-wrap items-center gap-2">
           <Badge
             variant="secondary"
@@ -114,11 +117,18 @@ export function TeamMemberCard({ profile, isActive }: TeamMemberCardProps) {
           >
             Fun Facts
           </h3>
-          <ul className={`list-disc space-y-1 pl-5 text-sm text-muted-foreground max-h-[calc(${factLength}*1.625rem)] overflow-y-auto`}>
-            {profile.funFacts.map((line, index) => (
-              <li key={`${profile.id}-fun-${index}`}>{line}</li>
+          <ul className="list-disc space-y-1 pl-5 text-sm text-muted-foreground">
+            {visibleFunFacts.map((line, index) => (
+              <li key={`${profile.id}-fun-${index}`} className="line-clamp-2">
+                {line}
+              </li>
             ))}
           </ul>
+          {hiddenFunFacts > 0 ? (
+            <p className="text-xs text-muted-foreground">
+              +{hiddenFunFacts} more
+            </p>
+          ) : null}
         </section>
 
         <Separator />
@@ -133,11 +143,18 @@ export function TeamMemberCard({ profile, isActive }: TeamMemberCardProps) {
           >
             Fav Anime
           </h3>
-          <ul className={`list-disc space-y-1 pl-5 text-sm text-muted-foreground max-h-[calc(${animeLength}*1.625rem)] overflow-y-auto`}>
-            {profile.favoriteAnime.map((line, index) => (
-              <li key={`${profile.id}-anime-${index}`}>{line}</li>
+          <ul className="list-disc space-y-1 pl-5 text-sm text-muted-foreground">
+            {visibleFavoriteAnime.map((line, index) => (
+              <li key={`${profile.id}-anime-${index}`} className="line-clamp-2">
+                {line}
+              </li>
             ))}
           </ul>
+          {hiddenFavoriteAnime > 0 ? (
+            <p className="text-xs text-muted-foreground">
+              +{hiddenFavoriteAnime} more
+            </p>
+          ) : null}
         </section>
 
         {profile.extras?.length ? (

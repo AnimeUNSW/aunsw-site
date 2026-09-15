@@ -251,23 +251,23 @@ export function TeamBrowser({ profiles }: TeamBrowserProps) {
         </div>
 
         <div
-          className="relative overflow-hidden rounded-[1.75rem] border border-primary/30 bg-[linear-gradient(145deg,color-mix(in_oklab,var(--color-card)_95%,var(--color-primary)),var(--color-card))] shadow-[0_26px_45px_-28px_var(--color-primary)]"
+          className="relative h-[60rem] overflow-hidden rounded-[1.75rem] border border-primary/30 bg-[linear-gradient(145deg,color-mix(in_oklab,var(--color-card)_95%,var(--color-primary)),var(--color-card))] shadow-[0_26px_45px_-28px_var(--color-primary)] sm:h-[58rem] md:h-[44rem]"
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
         >
           <div className="pointer-events-none absolute inset-0 z-10 bg-[radial-gradient(28rem_12rem_at_12%_8%,color-mix(in_oklab,var(--color-accent)_32%,transparent),transparent_70%)]" />
           <div
-            className="flex transition-transform duration-700 ease-[cubic-bezier(0.2,1,0.22,1)]"
+            className="flex h-full transition-transform duration-700 ease-[cubic-bezier(0.2,1,0.22,1)]"
             style={{ transform: `translateX(-${activeSafeIndex * 100}%)` }}
           >
             {profiles.map((profile, index) => {
               const isActive = index === activeSafeIndex
 
               return (
-                <div key={profile.id} className="min-w-full">
+                <div key={profile.id} className="h-full min-w-full">
                   <div
                     className={cn(
-                      "transition-[opacity,transform,filter] duration-700 ease-[cubic-bezier(0.2,1,0.22,1)]",
+                      "h-full transition-[opacity,transform,filter] duration-700 ease-[cubic-bezier(0.2,1,0.22,1)]",
                       isActive
                         ? "blur-0 [transform:scale(1)_rotate(0deg)] opacity-100"
                         : "[transform:scale(0.985)_rotate(-0.25deg)] opacity-70 blur-[0.5px]"
