@@ -290,6 +290,19 @@
       "image": "/events/trivia-26t2-8d4d551b6757.png",
       "featured": false,
       "id": "evt-2e91b4d9ef3a4f8298bae11fd66ce9cc"
+    },
+    {
+      "slug": "online-games-night-26",
+      "title": "Online Games Night",
+      "description": "ONLINE GAMES",
+      "category": [
+        "weekly"
+      ],
+      "recurringStartTime": "friday 21:00",
+      "recurringEndTime": "friday 22:00",
+      "location": "Discord",
+      "featured": false,
+      "id": "evt-eeb4dbb69ba746c0b109373a80780ef6"
     }
   ]
 }
