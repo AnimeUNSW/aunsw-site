@@ -12,6 +12,7 @@ import { Link } from "react-router-dom"
 import { AttendanceUploader } from "@/components/admin/attendance-uploader"
 import { EventEditor } from "@/components/admin/event-editor"
 import { TeamAdmin } from "@/components/admin/team-admin"
+import { ConfirmDialog } from "@/components/shared/confirm-dialog"
 import { PageHeader } from "@/components/shared/page-header"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -37,12 +38,19 @@ type PageState =
   | { status: "error"; message: string }
   | { status: "ready"; events: AdminEvent[] }
 
+type PendingRemoval =
+  | { kind: "event"; event: AdminEvent }
+  | { kind: "attendance"; event: AdminEvent; upload: AttendanceUpload }
+
 export function AdminPage() {
   const [state, setState] = useState<PageState>({ status: "loading" })
   const [section, setSection] = useState<"events" | "team">("events")
   const [editing, setEditing] = useState<AdminEvent | "new" | null>(null)
   const [saving, setSaving] = useState(false)
   const [notice, setNotice] = useState<string | null>(null)
+  const [pendingRemoval, setPendingRemoval] = useState<PendingRemoval | null>(
+    null
+  )
 
   useEffect(() => {
     const controller = new AbortController()
@@ -109,7 +117,6 @@ export function AdminPage() {
 
   async function removeEvent(event: AdminEvent) {
     if (state.status !== "ready") return
-    if (!window.confirm(`Remove “${event.title}” from the website?`)) return
     setSaving(true)
     setNotice(null)
     try {
@@ -126,6 +133,7 @@ export function AdminPage() {
       )
     } finally {
       setSaving(false)
+      setPendingRemoval(null)
     }
   }
 
@@ -160,14 +168,6 @@ export function AdminPage() {
 
   async function removeAttendance(event: AdminEvent, upload: AttendanceUpload) {
     if (state.status !== "ready") return
-    if (
-      !window.confirm(
-        `Remove “${upload.fileName}” from “${event.title}”? This will delete ${upload.attendanceCount} recorded attendance ${upload.attendanceCount === 1 ? "entry" : "entries"}.`
-      )
-    ) {
-      return
-    }
-
     setSaving(true)
     setNotice(null)
     try {
@@ -198,6 +198,7 @@ export function AdminPage() {
       )
     } finally {
       setSaving(false)
+      setPendingRemoval(null)
     }
   }
 
@@ -341,7 +342,11 @@ export function AdminPage() {
                                     variant="outline"
                                     disabled={saving}
                                     onClick={() =>
-                                      void removeAttendance(event, upload)
+                                      setPendingRemoval({
+                                        kind: "attendance",
+                                        event,
+                                        upload,
+                                      })
                                     }
                                   >
                                     Remove form
@@ -386,7 +391,9 @@ export function AdminPage() {
                           size="sm"
                           variant="destructive"
                           disabled={saving}
-                          onClick={() => void removeEvent(event)}
+                          onClick={() =>
+                            setPendingRemoval({ kind: "event", event })
+                          }
                         >
                           <Trash2Icon data-icon="inline-start" /> Remove
                         </Button>
@@ -417,6 +424,36 @@ export function AdminPage() {
           </TabsContent>
         </Tabs>
       ) : null}
+
+      <ConfirmDialog
+        open={pendingRemoval !== null}
+        title={
+          pendingRemoval?.kind === "attendance"
+            ? "Remove attendance form?"
+            : "Remove event?"
+        }
+        description={
+          pendingRemoval?.kind === "attendance"
+            ? `Remove “${pendingRemoval.upload.fileName}” from “${pendingRemoval.event.title}”? This removes ${pendingRemoval.upload.attendanceCount} attendance ${pendingRemoval.upload.attendanceCount === 1 ? "entry" : "entries"} and reverses its XP.`
+            : pendingRemoval
+              ? `Remove “${pendingRemoval.event.title}” from the website? This action cannot be undone from the dashboard.`
+              : "Confirm this removal."
+        }
+        confirmLabel="Remove"
+        destructive
+        busy={saving}
+        onOpenChange={(open) => {
+          if (!open) setPendingRemoval(null)
+        }}
+        onConfirm={() => {
+          if (pendingRemoval?.kind === "attendance") {
+            return removeAttendance(pendingRemoval.event, pendingRemoval.upload)
+          }
+          if (pendingRemoval?.kind === "event") {
+            return removeEvent(pendingRemoval.event)
+          }
+        }}
+      />
     </div>
   )
 }

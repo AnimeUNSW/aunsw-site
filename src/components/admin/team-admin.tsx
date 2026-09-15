@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react"
 import { PencilIcon, PlusIcon, Trash2Icon } from "lucide-react"
 
 import { TeamEditor } from "@/components/admin/team-editor"
+import { ConfirmDialog } from "@/components/shared/confirm-dialog"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -34,6 +35,7 @@ export function TeamAdmin() {
   const [saving, setSaving] = useState(false)
   const [notice, setNotice] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
+  const [pendingRemoval, setPendingRemoval] = useState<TeamProfile | null>(null)
 
   useEffect(() => {
     const controller = new AbortController()
@@ -86,13 +88,6 @@ export function TeamAdmin() {
 
   async function removeProfile(profile: TeamProfile) {
     if (!profiles) return
-    if (
-      !window.confirm(
-        `Remove “${profile.name}” from the Meet the Team section?`
-      )
-    ) {
-      return
-    }
     setSaving(true)
     setNotice(null)
     try {
@@ -110,6 +105,7 @@ export function TeamAdmin() {
       )
     } finally {
       setSaving(false)
+      setPendingRemoval(null)
     }
   }
 
@@ -169,7 +165,7 @@ export function TeamAdmin() {
                       size="sm"
                       variant="destructive"
                       disabled={saving}
-                      onClick={() => void removeProfile(profile)}
+                      onClick={() => setPendingRemoval(profile)}
                     >
                       <Trash2Icon data-icon="inline-start" /> Remove
                     </Button>
@@ -259,6 +255,25 @@ export function TeamAdmin() {
           {renderGroup("Subcommittee carousel", subcommittee)}
         </div>
       ) : null}
+
+      <ConfirmDialog
+        open={pendingRemoval !== null}
+        title="Remove team profile?"
+        description={
+          pendingRemoval
+            ? `Remove “${pendingRemoval.name}” from Meet the Team? This action cannot be undone from the dashboard.`
+            : "Confirm this removal."
+        }
+        confirmLabel="Remove profile"
+        destructive
+        busy={saving}
+        onOpenChange={(open) => {
+          if (!open) setPendingRemoval(null)
+        }}
+        onConfirm={() => {
+          if (pendingRemoval) return removeProfile(pendingRemoval)
+        }}
+      />
     </section>
   )
 }
