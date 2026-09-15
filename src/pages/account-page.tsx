@@ -73,6 +73,7 @@ export function AccountPage() {
     try {
       await logOut()
       setState({ status: "guest" })
+      window.dispatchEvent(new Event("aunsw:account-changed"))
     } catch (error) {
       setState({
         status: "error",

@@ -4,7 +4,8 @@ import type {
   EventCategory,
   FAQ,
   FAQCategory,
-  MembershipPath,
+  MembershipSteps,
+  MembershipTab,
   SiteContent,
   SocialLinks,
   Sponsor,
@@ -30,7 +31,12 @@ const FAQ_CATEGORIES: FAQCategory[] = [
   "general",
 ]
 
-const TEAM_MEMBERSHIPS: TeamMembership[] = ["executive", "director", "top5", "other"]
+const TEAM_MEMBERSHIPS: TeamMembership[] = [
+  "executive",
+  "director",
+  "top5",
+  "other",
+]
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) {
@@ -52,7 +58,10 @@ function expectString(value: unknown, path: string): string {
   return value
 }
 
-function expectOptionalString(value: unknown, path: string): string | undefined {
+function expectOptionalString(
+  value: unknown,
+  path: string
+): string | undefined {
   if (typeof value === "undefined") {
     return undefined
   }
@@ -61,7 +70,10 @@ function expectOptionalString(value: unknown, path: string): string | undefined 
 }
 
 function expectNumber(value: unknown, path: string): number {
-  assert(typeof value === "number" && Number.isFinite(value), `${path} must be a finite number`)
+  assert(
+    typeof value === "number" && Number.isFinite(value),
+    `${path} must be a finite number`
+  )
   return value
 }
 
@@ -114,8 +126,14 @@ function expectEnumArray<T extends string>(
 
 function parseEvent(value: unknown, path: string): Event {
   const raw = expectObject(value, path)
-  const startDateTime = expectOptionalString(raw.startDateTime, `${path}.startDateTime`)
-  const endDateTime = expectOptionalString(raw.endDateTime, `${path}.endDateTime`)
+  const startDateTime = expectOptionalString(
+    raw.startDateTime,
+    `${path}.startDateTime`
+  )
+  const endDateTime = expectOptionalString(
+    raw.endDateTime,
+    `${path}.endDateTime`
+  )
   const recurringStartTime = expectOptionalString(
     raw.recurringStartTime,
     `${path}.recurringStartTime`
@@ -141,7 +159,11 @@ function parseEvent(value: unknown, path: string): Event {
     slug: expectString(raw.slug, `${path}.slug`),
     title: expectString(raw.title, `${path}.title`),
     description: expectString(raw.description, `${path}.description`),
-    category: expectEnumArray(raw.category, EVENT_CATEGORIES, `${path}.category`),
+    category: expectEnumArray(
+      raw.category,
+      EVENT_CATEGORIES,
+      `${path}.category`
+    ),
     startDateTime,
     endDateTime,
     recurringStartTime,
@@ -151,7 +173,10 @@ function parseEvent(value: unknown, path: string): Event {
     image: expectOptionalString(raw.image, `${path}.image`),
     imageAlt: expectOptionalString(raw.imageAlt, `${path}.imageAlt`),
     featured: expectBoolean(raw.featured, `${path}.featured`),
-    registerLink: expectOptionalString(raw.registerLink, `${path}.registerLink`),
+    registerLink: expectOptionalString(
+      raw.registerLink,
+      `${path}.registerLink`
+    ),
   }
 }
 
@@ -165,7 +190,10 @@ function parseSponsor(value: unknown, path: string): Sponsor {
     websiteUrl: expectString(raw.websiteUrl, `${path}.websiteUrl`),
     image: expectOptionalString(raw.image, `${path}.image`),
     imageAlt: expectOptionalString(raw.imageAlt, `${path}.imageAlt`),
-    discountDescription: expectString(raw.discountDescription, `${path}.discountDescription`),
+    discountDescription: expectString(
+      raw.discountDescription,
+      `${path}.discountDescription`
+    ),
     promoCode: expectOptionalString(raw.promoCode, `${path}.promoCode`),
     terms: expectString(raw.terms, `${path}.terms`),
     validUntil: expectOptionalString(raw.validUntil, `${path}.validUntil`),
@@ -214,7 +242,9 @@ function parseMembershipSteps(value: unknown, path: string): MembershipSteps {
     label: expectString(raw.label, `${path}.label`),
     summary: expectString(raw.summary, `${path}.summary`),
     tabs: Array.isArray(raw.tabs)
-      ? raw.tabs.map((tab, index) => parseMembershipStepTab(tab, `${path}.tabs[${index}]`))
+      ? raw.tabs.map((tab, index) =>
+          parseMembershipStepTab(tab, `${path}.tabs[${index}]`)
+        )
       : [
           {
             id: "join",
@@ -270,7 +300,11 @@ function parseTeamProfile(value: unknown, path: string): TeamProfile {
     id: expectString(raw.id, `${path}.id`),
     name: expectString(raw.name, `${path}.name`),
     role: expectString(raw.role, `${path}.role`),
-    membership: expectEnum(raw.membership, TEAM_MEMBERSHIPS, `${path}.membership`),
+    membership: expectEnum(
+      raw.membership,
+      TEAM_MEMBERSHIPS,
+      `${path}.membership`
+    ),
     portfolio: expectString(raw.portfolio, `${path}.portfolio`),
     displayOrder: expectNumber(raw.displayOrder, `${path}.displayOrder`),
     pronouns: expectOptionalString(raw.pronouns, `${path}.pronouns`),
@@ -278,9 +312,15 @@ function parseTeamProfile(value: unknown, path: string): TeamProfile {
     portraitAlt: expectString(raw.portraitAlt, `${path}.portraitAlt`),
     degree: expectStringArray(raw.degree, `${path}.degree`),
     funFacts: expectStringArray(raw.funFacts, `${path}.funFacts`),
-    favoriteAnime: expectStringArray(raw.favoriteAnime, `${path}.favoriteAnime`),
+    favoriteAnime: expectStringArray(
+      raw.favoriteAnime,
+      `${path}.favoriteAnime`
+    ),
     extras,
-    discordHandle: expectOptionalString(raw.discordHandle, `${path}.discordHandle`),
+    discordHandle: expectOptionalString(
+      raw.discordHandle,
+      `${path}.discordHandle`
+    ),
   }
 }
 
@@ -292,7 +332,9 @@ export function parseEvents(value: unknown): Event[] {
 
 export function parseSponsors(value: unknown): Sponsor[] {
   assert(Array.isArray(value), "sponsors must be an array")
-  return value.map((sponsor, index) => parseSponsor(sponsor, `sponsors[${index}]`))
+  return value.map((sponsor, index) =>
+    parseSponsor(sponsor, `sponsors[${index}]`)
+  )
 }
 
 export function parseFaqs(value: unknown): FAQ[] {
@@ -303,19 +345,31 @@ export function parseFaqs(value: unknown): FAQ[] {
 export function parseSiteContent(value: unknown): SiteContent {
   const raw = expectObject(value, "siteContent")
   const clubStats = expectObject(raw.clubStats, "siteContent.clubStats")
-  assert(typeof raw.membershipSteps === "object" && raw.membershipSteps !== null, "siteContent.membershipSteps must be an object")
+  assert(
+    typeof raw.membershipSteps === "object" && raw.membershipSteps !== null,
+    "siteContent.membershipSteps must be an object"
+  )
   assert(Array.isArray(raw.contacts), "siteContent.contacts must be an array")
 
   return {
     clubName: expectString(raw.clubName, "siteContent.clubName"),
     hero: parseHero(raw.hero, "siteContent.hero"),
-    clubDescription: expectString(raw.clubDescription, "siteContent.clubDescription"),
-    eventsOverview: expectString(raw.eventsOverview, "siteContent.eventsOverview"),
+    clubDescription: expectString(
+      raw.clubDescription,
+      "siteContent.clubDescription"
+    ),
+    eventsOverview: expectString(
+      raw.eventsOverview,
+      "siteContent.eventsOverview"
+    ),
     sponsorPerksOverview: expectString(
       raw.sponsorPerksOverview,
       "siteContent.sponsorPerksOverview"
     ),
-    discordOverview: expectString(raw.discordOverview, "siteContent.discordOverview"),
+    discordOverview: expectString(
+      raw.discordOverview,
+      "siteContent.discordOverview"
+    ),
     socialLinks: parseSocialLinks(raw.socialLinks, "siteContent.socialLinks"),
     clubStats: {
       memberCount: expectStringOrNumber(
@@ -334,9 +388,15 @@ export function parseSiteContent(value: unknown): SiteContent {
         clubStats.sponsorCount,
         "siteContent.clubStats.sponsorCount"
       ),
-      lastUpdated: expectString(clubStats.lastUpdated, "siteContent.clubStats.lastUpdated"),
+      lastUpdated: expectString(
+        clubStats.lastUpdated,
+        "siteContent.clubStats.lastUpdated"
+      ),
     },
-    membershipSteps: parseMembershipSteps(raw.membershipSteps, "siteContent.membershipSteps"),
+    membershipSteps: parseMembershipSteps(
+      raw.membershipSteps,
+      "siteContent.membershipSteps"
+    ),
     contacts: raw.contacts.map((contact, index) =>
       parseContact(contact, `siteContent.contacts[${index}]`)
     ),

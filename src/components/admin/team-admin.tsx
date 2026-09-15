@@ -4,7 +4,7 @@ import { PencilIcon, PlusIcon, Trash2Icon } from "lucide-react"
 import { TeamEditor } from "@/components/admin/team-editor"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import {
   createTeamProfile,
   deleteTeamProfile,
@@ -118,6 +118,17 @@ export function TeamAdmin() {
     setEditing({ membership, displayOrder: nextDisplayOrder })
   }
 
+  function startEditing(profile: TeamProfile) {
+    setNotice(null)
+    setEditing(profile)
+    window.requestAnimationFrame(() => {
+      document.getElementById(`team-editor-${profile.id}`)?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      })
+    })
+  }
+
   function renderGroup(title: string, group: TeamProfile[]) {
     return (
       <section className="space-y-3">
@@ -127,46 +138,58 @@ export function TeamAdmin() {
         </div>
         <div className="grid gap-2">
           {group.map((profile) => (
-            <Card key={profile.id} className="py-4">
-              <CardContent className="flex flex-wrap items-center justify-between gap-3 px-4">
-                <div className="flex min-w-0 items-center gap-3">
-                  <img
-                    className="size-12 rounded-lg object-cover"
-                    src={profile.portraitImage}
-                    alt=""
-                  />
-                  <div className="min-w-0">
-                    <p className="truncate font-medium">{profile.name}</p>
-                    <p className="truncate text-sm text-muted-foreground">
-                      #{profile.displayOrder} · {profile.role} ·{" "}
-                      {profile.portfolio} ·{" "}
-                      {membershipLabel(profile.membership)}
-                    </p>
+            <div key={profile.id} className="space-y-3">
+              <Card className="py-4">
+                <CardContent className="flex flex-wrap items-center justify-between gap-3 px-4">
+                  <div className="flex min-w-0 items-center gap-3">
+                    <img
+                      className="size-12 rounded-lg object-cover"
+                      src={profile.portraitImage}
+                      alt=""
+                    />
+                    <div className="min-w-0">
+                      <p className="truncate font-medium">{profile.name}</p>
+                      <p className="truncate text-sm text-muted-foreground">
+                        #{profile.displayOrder} · {profile.role} ·{" "}
+                        {profile.portfolio} ·{" "}
+                        {membershipLabel(profile.membership)}
+                      </p>
+                    </div>
                   </div>
+                  <div className="flex gap-2">
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      disabled={saving}
+                      onClick={() => startEditing(profile)}
+                    >
+                      <PencilIcon data-icon="inline-start" /> Edit
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="destructive"
+                      disabled={saving}
+                      onClick={() => void removeProfile(profile)}
+                    >
+                      <Trash2Icon data-icon="inline-start" /> Remove
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+              {editing && "id" in editing && editing.id === profile.id ? (
+                <div id={`team-editor-${profile.id}`} className="scroll-mt-24">
+                  <TeamEditor
+                    key={profile.id}
+                    profile={editing}
+                    defaultMembership={editing.membership}
+                    defaultDisplayOrder={editing.displayOrder}
+                    saving={saving}
+                    onSave={saveProfile}
+                    onCancel={() => setEditing(null)}
+                  />
                 </div>
-                <div className="flex gap-2">
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    disabled={saving}
-                    onClick={() => {
-                      setNotice(null)
-                      setEditing(profile)
-                    }}
-                  >
-                    <PencilIcon data-icon="inline-start" /> Edit
-                  </Button>
-                  <Button
-                    size="sm"
-                    variant="destructive"
-                    disabled={saving}
-                    onClick={() => void removeProfile(profile)}
-                  >
-                    <Trash2Icon data-icon="inline-start" /> Remove
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
+              ) : null}
+            </div>
           ))}
         </div>
       </section>
@@ -216,10 +239,9 @@ export function TeamAdmin() {
         </p>
       ) : null}
 
-      {editing ? (
+      {editing && !("id" in editing) ? (
         <TeamEditor
-          key={"id" in editing ? editing.id : `new-${editing.membership}`}
-          profile={"id" in editing ? editing : undefined}
+          key={`new-${editing.membership}`}
           defaultMembership={editing.membership}
           defaultDisplayOrder={editing.displayOrder}
           saving={saving}

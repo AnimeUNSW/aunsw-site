@@ -16,8 +16,11 @@ import { cn } from "@/lib/utils"
 
 import { NAV_ITEMS } from "./nav-items"
 
-export function MobileNavSheet() {
+export function MobileNavSheet({ showAdmin = false }: { showAdmin?: boolean }) {
   const location = useLocation()
+  const items = showAdmin
+    ? [...NAV_ITEMS, { label: "Admin", to: "/admin" }]
+    : NAV_ITEMS
 
   return (
     <Sheet>
@@ -43,7 +46,7 @@ export function MobileNavSheet() {
         </SheetHeader>
         <nav aria-label="Mobile navigation" className="px-4 pb-4">
           <ul className="space-y-2">
-            {NAV_ITEMS.map((item) => {
+            {items.map((item) => {
               const isActive = location.pathname === item.to
 
               return (

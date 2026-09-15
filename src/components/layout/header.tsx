@@ -11,6 +11,7 @@ import purpleLogo from "@/assets/purple_logo.gif"
 import { MobileNavSheet } from "@/components/navigation/mobile-nav-sheet"
 import { Navbar } from "@/components/navigation/navbar"
 import { ThemeToggle } from "@/components/navigation/theme-toggle"
+import { getAccount } from "@/lib/account-api"
 import { cn } from "@/lib/utils"
 
 export function Header() {
@@ -18,10 +19,28 @@ export function Header() {
   const siteContent = useSiteContent()
   const location = useLocation()
   const [hasScrolled, setHasScrolled] = useState(
-    typeof window !== "undefined" ? window.scrollY > 56 : false,
+    typeof window !== "undefined" ? window.scrollY > 56 : false
   )
   const [isTopHoverActive, setIsTopHoverActive] = useState(false)
+  const [isExecutive, setIsExecutive] = useState(false)
   const isHomeRoute = location.pathname === "/"
+
+  useEffect(() => {
+    const controller = new AbortController()
+
+    const refreshAccountAccess = () => {
+      void getAccount(controller.signal)
+        .then((account) => setIsExecutive(Boolean(account?.is_executive)))
+        .catch(() => setIsExecutive(false))
+    }
+
+    refreshAccountAccess()
+    window.addEventListener("aunsw:account-changed", refreshAccountAccess)
+    return () => {
+      controller.abort()
+      window.removeEventListener("aunsw:account-changed", refreshAccountAccess)
+    }
+  }, [location.pathname])
 
   useEffect(() => {
     if (!isHomeRoute) {
@@ -34,7 +53,7 @@ export function Header() {
     const onMouseMove = (event: MouseEvent) => {
       const insideTopTriggerZone = event.clientY <= 88
       setIsTopHoverActive((current) =>
-        current === insideTopTriggerZone ? current : insideTopTriggerZone,
+        current === insideTopTriggerZone ? current : insideTopTriggerZone
       )
     }
     const onMouseLeave = () => {
@@ -64,7 +83,7 @@ export function Header() {
     <header
       className={cn(
         "z-40",
-        isHomeRoute ? "fixed inset-x-0 top-0" : "sticky top-0",
+        isHomeRoute ? "fixed inset-x-0 top-0" : "sticky top-0"
       )}
     >
       <div
@@ -72,7 +91,7 @@ export function Header() {
           "w-full border-b border-border/60 bg-background/80 backdrop-blur-md transition-all duration-500 ease-out",
           showHeader
             ? "translate-y-0 opacity-100"
-            : "pointer-events-none -translate-y-full opacity-0",
+            : "pointer-events-none -translate-y-full opacity-0"
         )}
       >
         <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-4 px-4 py-3 md:px-6">
@@ -90,10 +109,7 @@ export function Header() {
                 className="h-8 w-auto shrink-0 object-contain transition-transform duration-200 group-hover:scale-105"
               />
             </a>
-            <span
-              aria-hidden
-              className="h-7 w-px shrink-0 bg-border/70"
-            />
+            <span aria-hidden className="h-7 w-px shrink-0 bg-border/70" />
             <Link
               to="/"
               className="group flex items-center gap-2"
@@ -115,11 +131,11 @@ export function Header() {
             </Link>
           </div>
           <nav className="hidden md:block" aria-label="Main navigation">
-            <Navbar />
+            <Navbar showAdmin={isExecutive} />
           </nav>
           <div className="flex items-center gap-2">
             <ThemeToggle />
-            <MobileNavSheet />
+            <MobileNavSheet showAdmin={isExecutive} />
           </div>
         </div>
       </div>

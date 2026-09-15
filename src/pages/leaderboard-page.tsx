@@ -10,7 +10,6 @@ import {
   AuthenticationRequiredError,
   discordLoginUrl,
   getLeaderboard,
-  MembershipRequiredError,
   type Leaderboard,
   type LeaderboardSort,
 } from "@/lib/account-api"
@@ -21,14 +20,16 @@ type LeaderboardState =
   | { status: "ready"; leaderboard: Leaderboard }
   | { status: "error"; message: string }
 
+const PAGE_SIZE = 25
+
 export function LeaderboardPage() {
   const [sort, setSort] = useState<LeaderboardSort>("xp")
+  const [page, setPage] = useState(1)
   const [state, setState] = useState<LeaderboardState>({ status: "loading" })
 
   useEffect(() => {
     const controller = new AbortController()
-    setState({ status: "loading" })
-    void getLeaderboard(sort, controller.signal)
+    void getLeaderboard(sort, page, PAGE_SIZE, controller.signal)
       .then((leaderboard) => setState({ status: "ready", leaderboard }))
       .catch((error: unknown) => {
         if (controller.signal.aborted) return
@@ -45,7 +46,7 @@ export function LeaderboardPage() {
         })
       })
     return () => controller.abort()
-  }, [sort])
+  }, [page, sort])
 
   return (
     <div className="page-container space-y-7">
@@ -57,7 +58,11 @@ export function LeaderboardPage() {
 
       <Tabs
         value={sort}
-        onValueChange={(value) => setSort(value as LeaderboardSort)}
+        onValueChange={(value) => {
+          setState({ status: "loading" })
+          setSort(value as LeaderboardSort)
+          setPage(1)
+        }}
       >
         <TabsList aria-label="Leaderboard ranking">
           <TabsTrigger value="xp">
@@ -165,6 +170,41 @@ export function LeaderboardPage() {
               <p className="py-10 text-center text-muted-foreground">
                 No members have activity recorded yet.
               </p>
+            ) : null}
+            {state.leaderboard.total_entries > 0 ? (
+              <div className="flex flex-wrap items-center justify-between gap-3 border-t px-4 py-4">
+                <p className="text-sm text-muted-foreground">
+                  Page {state.leaderboard.page} of{" "}
+                  {state.leaderboard.total_pages} ·{" "}
+                  {state.leaderboard.total_entries.toLocaleString()} members
+                </p>
+                <div className="flex gap-2">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    disabled={state.leaderboard.page <= 1}
+                    onClick={() => {
+                      setState({ status: "loading" })
+                      setPage((current) => Math.max(1, current - 1))
+                    }}
+                  >
+                    Previous
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    disabled={
+                      state.leaderboard.page >= state.leaderboard.total_pages
+                    }
+                    onClick={() => {
+                      setState({ status: "loading" })
+                      setPage((current) => current + 1)
+                    }}
+                  >
+                    Next
+                  </Button>
+                </div>
+              </div>
             ) : null}
           </CardContent>
         </Card>

@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react"
+import { useState } from "react"
 import { ExternalLinkIcon } from "lucide-react"
 
 import {
@@ -44,7 +44,7 @@ export function MembershipInstructions({ steps }: MembershipInstructionsProps) {
       </CardHeader>
       <CardContent>
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="w-full grid grid-cols-2">
+          <TabsList className="grid w-full grid-cols-2">
             {tabs.map((tab) => (
               <TabsTrigger key={tab.id} value={tab.id} className="w-full">
                 {tab.label}
@@ -56,10 +56,13 @@ export function MembershipInstructions({ steps }: MembershipInstructionsProps) {
               <ol className="space-y-2" aria-label={`${tab.label} steps`}>
                 {tab.steps.map((step, index) => {
                   const renderedStep = (() => {
-                    if (path.linkUrl && step === "Open the Rubric app or website") {
+                    if (
+                      path.linkUrl &&
+                      step === "Open the Rubric app or website"
+                    ) {
                       return (
                         <span>
-                          Open the Rubric mobile app or {' '}
+                          Open the Rubric mobile app or{" "}
                           <a
                             href={path.linkUrl}
                             target="_blank"

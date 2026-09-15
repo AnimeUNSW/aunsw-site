@@ -10,13 +10,16 @@ import { cn } from "@/lib/utils"
 
 import { NAV_ITEMS } from "./nav-items"
 
-export function Navbar() {
+export function Navbar({ showAdmin = false }: { showAdmin?: boolean }) {
   const location = useLocation()
+  const items = showAdmin
+    ? [...NAV_ITEMS, { label: "Admin", to: "/admin" }]
+    : NAV_ITEMS
 
   return (
     <NavigationMenu viewport={false}>
       <NavigationMenuList className="gap-1">
-        {NAV_ITEMS.map((item) => {
+        {items.map((item) => {
           const isActive = location.pathname === item.to
 
           return (

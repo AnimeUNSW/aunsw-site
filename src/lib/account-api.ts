@@ -46,6 +46,10 @@ export interface LeaderboardEntry {
 export interface Leaderboard {
   sort: LeaderboardSort
   viewer_discord_id: string
+  page: number
+  page_size: number
+  total_entries: number
+  total_pages: number
   entries: LeaderboardEntry[]
 }
 
@@ -87,9 +91,15 @@ export async function getAccount(
 
 export async function getLeaderboard(
   sort: LeaderboardSort,
+  page: number,
+  pageSize: number,
   signal?: AbortSignal
 ): Promise<Leaderboard> {
-  const response = await fetch(`${API_BASE_URL}/v1/leaderboard?sort=${sort}`, {
+  const url = new URL(`${API_BASE_URL}/v1/leaderboard`)
+  url.searchParams.set("sort", sort)
+  url.searchParams.set("page", String(page))
+  url.searchParams.set("page_size", String(pageSize))
+  const response = await fetch(url, {
     credentials: "include",
     headers: { Accept: "application/json" },
     signal,
