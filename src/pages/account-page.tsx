@@ -40,6 +40,7 @@ export function AccountPage() {
   const [state, setState] = useState<AccountState>({ status: "loading" })
   const [isLoggingOut, setIsLoggingOut] = useState(false)
   const loginErrorCode = searchParams.get("error")
+  const verificationStatus = searchParams.get("verification")
   const loginErrorMessage = loginErrorCode
     ? loginErrorMessages[loginErrorCode] ||
       (loginErrorCode === "not_member"
@@ -115,6 +116,18 @@ export function AccountPage() {
           ) : null}
         </div>
       ) : null}
+      {verificationStatus ? (
+        <p
+          role={verificationStatus === "success" ? "status" : "alert"}
+          className="rounded-xl border border-primary/40 bg-primary/10 p-4 text-sm"
+        >
+          {verificationStatus === "success"
+            ? "Your account detail was verified and updated."
+            : verificationStatus === "claimed"
+              ? "That zID is already linked to another member. Your account was not changed."
+              : "This verification link has expired or has already been used. Request a new one in account settings."}
+        </p>
+      ) : null}
 
       {state.status === "loading" ? (
         <Card aria-live="polite">
@@ -155,6 +168,10 @@ export function AccountPage() {
           account={state.account}
           isLoggingOut={isLoggingOut}
           onLogout={() => void handleLogout()}
+          onSaved={async () => {
+            const updated = await getAccount()
+            if (updated) setState({ status: "ready", account: updated })
+          }}
         />
       ) : null}
 

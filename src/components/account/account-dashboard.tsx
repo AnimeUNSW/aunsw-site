@@ -19,11 +19,13 @@ import {
 } from "@/components/ui/card"
 import type { Account } from "@/lib/account-api"
 import { getEvents } from "@/lib/content-repository"
+import { AccountSettings } from "@/components/account/account-settings"
 
 interface AccountDashboardProps {
   account: Account
   isLoggingOut: boolean
   onLogout: () => void
+  onSaved: () => Promise<void>
 }
 
 const stats = [
@@ -54,6 +56,7 @@ export function AccountDashboard({
   account,
   isLoggingOut,
   onLogout,
+  onSaved,
 }: AccountDashboardProps) {
   const eventTitles = new Map(
     getEvents().map((event) => [event.id, event.title])
@@ -91,6 +94,12 @@ export function AccountDashboard({
                 </Link>
               </Button>
             ) : null}
+            <Button asChild variant="outline" size="lg">
+              <a href="#account-settings">
+                <SettingsIcon data-icon="inline-start" />
+                Edit profile
+              </a>
+            </Button>
             <Button
               type="button"
               variant="outline"
@@ -164,6 +173,8 @@ export function AccountDashboard({
           </CardContent>
         </Card>
       ) : null}
+
+      <AccountSettings account={account} onSaved={onSaved} />
 
       <Card>
         <CardHeader>

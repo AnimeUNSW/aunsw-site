@@ -28,8 +28,61 @@ export interface Account {
   display_name: string
   is_admin: boolean
   is_executive: boolean
+  profile: {
+    first_name: string
+    last_name: string
+    zid: string | null
+    email: string | null
+    phone_number: string | null
+  }
   stats: AccountStats
   username: string
+}
+
+export interface AccountProfileChanges {
+  first_name: string
+  last_name: string
+  phone_number: string | null
+  quote: string | null
+  mal_profile: string | null
+  anilist_profile: string | null
+}
+
+async function accountWrite(response: Response) {
+  if (response.ok) return response.json()
+  const body = await response.json().catch(() => null)
+  const detail = body?.detail
+  if (typeof detail === "string") throw new Error(detail)
+  if (Array.isArray(detail) && typeof detail[0]?.msg === "string") {
+    throw new Error(detail[0].msg.replace(/^Value error, /, ""))
+  }
+  throw new Error("Could not save your account details. Please try again.")
+}
+
+export async function updateAccountProfile(
+  changes: AccountProfileChanges
+): Promise<void> {
+  const response = await fetch(`${API_BASE_URL}/v1/me/profile`, {
+    method: "PATCH",
+    credentials: "include",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(changes),
+  })
+  await accountWrite(response)
+}
+
+export async function requestAccountEmailChange(change: {
+  kind: "email" | "zid"
+  email?: string
+  zid?: string
+}): Promise<{ sent_to: string }> {
+  const response = await fetch(`${API_BASE_URL}/v1/me/email-changes`, {
+    method: "POST",
+    credentials: "include",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(change),
+  })
+  return accountWrite(response) as Promise<{ sent_to: string }>
 }
 
 export type LeaderboardSort = "xp" | "events"
