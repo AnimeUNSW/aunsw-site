@@ -98,10 +98,10 @@
         "anisyd",
         "past"
       ],
-      "startDateTime": "2026-03-10T18:00:00+11:00",
-      "endDateTime": "2026-03-10T22:00:00+11:00",
+      "startDateTime": "2026-03-10T07:00:00Z",
+      "endDateTime": "2026-03-10T11:00:00Z",
       "location": "Manning House, USYD",
-      "image": "../src/assets/event-pics/anisyd-welcome-2026.png",
+      "image": "/events/anisyd-welcome-2026-dc1499f30757.png",
       "imageAlt": "Anisyd welcome party banner",
       "featured": false,
       "id": "evt-anisyd-welcome-2026"
