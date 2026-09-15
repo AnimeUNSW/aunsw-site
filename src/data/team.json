@@ -1,6 +1,5 @@
 [
   {
-    "id": "aurelia-zixi-han-president",
     "name": "Aurelia",
     "role": "President",
     "membership": "top5",
@@ -23,10 +22,36 @@
       "Bungo Stray Dogs",
       "Mo Dao Zu Shi"
     ],
-    "discordHandle": "Dobby"
+    "discordHandle": "Dobby",
+    "id": "aurelia-zixi-han-president"
   },
   {
-    "id": "felix-vice-president",
+    "name": "Rianne",
+    "role": "Externals Subcom",
+    "membership": "other",
+    "portfolio": "Externals",
+    "displayOrder": 0,
+    "pronouns": "She/They",
+    "portraitImage": "/team/portraits/rianne.png",
+    "portraitAlt": "Rianne making a heart with their hands",
+    "degree": [
+      "Computer Science"
+    ],
+    "funFacts": [
+      "i *might* be obsessed with pjsk idk if you can tell",
+      "i like cosplay! and fashion please give me some recs for pieces!!!!",
+      "i spend most of my time on my hyperfixations or with my loved ones <3",
+      "something something i like rust and blahaj :P"
+    ],
+    "favoriteAnime": [
+      "Sound! Euphonium + Sound! Euphonium 2 + Liz and the Blue Bird",
+      "Serial Experiments Lain",
+      "Project Sekai (the movie came out it counts!!!!)"
+    ],
+    "discordHandle": "raoli",
+    "id": "rianne-externals-subcom"
+  },
+  {
     "name": "Felix",
     "role": "Vice President",
     "membership": "top5",
@@ -48,10 +73,38 @@
       "Isekai (peak and slop)",
       "RomComs"
     ],
-    "discordHandle": "Felix"
+    "discordHandle": "Felix",
+    "id": "felix-vice-president"
   },
   {
-    "id": "polmao-secretary",
+    "name": "Annabelle",
+    "role": "Externals Subcom",
+    "membership": "other",
+    "portfolio": "Externals",
+    "displayOrder": 1,
+    "pronouns": "She/Her",
+    "portraitImage": "/team/portraits/annabelle.png",
+    "portraitAlt": "A mirror selfie of Annabelle",
+    "degree": [
+      "bachelor of science / majoring in ecology and conservation"
+    ],
+    "funFacts": [
+      "I FRIGGIN LOVE ORANGE CATS.",
+      "AND GOJO.",
+      "i have a million gfs SHOUT OUT TO MY BAES OUT THERE!! \ud83d\ude1c",
+      "ayesha erotica runs through my pink and glittery veins",
+      "I WANNA DYE MY HAIR NEOPOLITAN SOO BADUH \ud83d\udc94\ud83d\udc94but it needs a DESPERATE dye break.. SOB"
+    ],
+    "favoriteAnime": [
+      "JJK\ud83d\ude3b\ud83d\ude3b\ud83d\ude3b",
+      "summer hikaru died",
+      "COSMIC PRINCESS KAGUYA WHOS W ME?!?",
+      "HEAVEN OFFICIALS BLESSING AUUGH"
+    ],
+    "discordHandle": "chuuyas left booty cheek",
+    "id": "annabelle-externals-subcom"
+  },
+  {
     "name": "Polmao",
     "role": "Secretary",
     "membership": "top5",
@@ -60,7 +113,9 @@
     "pronouns": "They/Them",
     "portraitImage": "/team/portraits/polmao.png",
     "portraitAlt": "Polmao seated with Kuromi plush",
-    "degree": ["3rd Year City Planning"],
+    "degree": [
+      "3rd Year City Planning"
+    ],
     "funFacts": [
       "I love J-Fashion! Specifically Lolita and Jirai",
       "I love artmarts!!!",
@@ -76,10 +131,35 @@
       "Insomniacs After School",
       "Mob Psycho 100"
     ],
-    "discordHandle": "polmao"
+    "discordHandle": "polmao",
+    "id": "polmao-secretary"
   },
   {
-    "id": "yiming-treasurer",
+    "name": "Han",
+    "role": "Externals Subcom",
+    "membership": "other",
+    "portfolio": "Externals",
+    "displayOrder": 2,
+    "pronouns": "He/They",
+    "portraitImage": "/team/portraits/han.jpg",
+    "portraitAlt": "Han in an angel devil cosplay",
+    "degree": [
+      "Fine Arts / Media (Animation + Moving Image / Screen Production)"
+    ],
+    "funFacts": [
+      "cos-ed angel devil + did troublemaker @ kickoff",
+      "i won btw",
+      "david xu lost to me in bowling, chris & oli beat me",
+      "i'm part of the UNSW Marvel Rivals Howl team"
+    ],
+    "favoriteAnime": [
+      "bungo stray dogs!!! soukoku my beloved",
+      "hm: jjk, csm, blue period, haikyuu"
+    ],
+    "discordHandle": "han needs to be sedated",
+    "id": "han-externals-subcom"
+  },
+  {
     "name": "Yiming",
     "role": "Treasurer",
     "membership": "top5",
@@ -101,363 +181,10 @@
       "Sound! Euphonium",
       "Sound! Euphonium 2"
     ],
-    "discordHandle": "aardcat"
+    "discordHandle": "aardcat",
+    "id": "yiming-treasurer"
   },
   {
-    "id": "annie-yang-external-relations",
-    "name": "Annie",
-    "role": "External Relations",
-    "membership": "top5",
-    "portfolio": "Top 5",
-    "displayOrder": 4,
-    "pronouns": "She/Her",
-    "portraitImage": "/team/portraits/annie-yang.webp",
-    "portraitAlt": "Annie Yang standing near a fountain",
-    "degree": ["2nd Year Bachelor of Criminology & Criminal Justice / Psychology Hons"],
-    "funFacts": [
-      "Mitochondria is the powerhouse of the cell",
-      "Dolphins 😱😱😱😱"
-    ],
-    "favoriteAnime": [
-      "Death Note!!!",
-      "Moriarty the Patriot",
-      "Code Geass",
-      "Those trashy power fantasies everyone hates"
-    ],
-    "discordHandle": "Rexxi"
-  },
-  {
-    "id": "eri-creatives-executive",
-    "name": "Eri",
-    "role": "Creatives Executive",
-    "membership": "executive",
-    "portfolio": "Creatives",
-    "displayOrder": 5,
-    "pronouns": "She/Her",
-    "portraitImage": "/team/portraits/eri.webp",
-    "portraitAlt": "Eri in cosplay holding a winged staff",
-    "degree": ["3rd Year Education (Secondary)/Fine Arts"],
-    "funFacts": [
-      "Gravity Circuit's biggest glazer",
-      "Loves power metal",
-      "Playing The Battle Cats for 10 years"
-    ],
-    "favoriteAnime": ["Gachiakuta", "Saint Seiya", "Demon Slayer"],
-    "discordHandle": "Eri"
-  },
-  {
-    "id": "miranda-creatives-director",
-    "name": "Miranda",
-    "role": "Creatives Director",
-    "membership": "director",
-    "portfolio": "Creatives",
-    "displayOrder": 6,
-    "pronouns": "She/Her",
-    "portraitImage": "/team/portraits/miranda.webp",
-    "portraitAlt": "Miranda seated at a cafe table",
-    "degree": ["4th Year Education (Secondary)/Fine Arts"],
-    "funFacts": [
-      "I have 800 cats",
-      "Cinamoroll lover",
-      "Best fisher in Stardew"
-    ],
-    "favoriteAnime": [
-      "Heavens Official Blessing",
-      "Akatsuki No Yona",
-      "Little Mushroom!!",
-      "One Piece"
-    ],
-    "discordHandle": "mrandaa"
-  },
-  {
-    "id": "daniel-lin-creatives-director",
-    "name": "Daniel",
-    "role": "Creatives Director",
-    "membership": "director",
-    "portfolio": "Creatives",
-    "displayOrder": 7,
-    "pronouns": "He/Him",
-    "portraitImage": "/team/portraits/daniel-lin.webp",
-    "portraitAlt": "Daniel Lin posing indoors",
-    "degree": ["3rd Year Law and Commerce", "Doctorate in Nasuverse Lore"],
-    "funFacts": [
-      "90gbs worth of procreate, my gachas are cooked.",
-      "100gbs worth of wuwa update, my phone is a death game"
-    ],
-    "favoriteAnime": [
-      "86",
-      "Vivy flourite eye's song",
-      "revue starlight",
-      "Mygo/ave, mujica"
-    ],
-    "discordHandle": "salted degenerate biggest glazer"
-  },
-  {
-    "id": "raisah-raspery-creatives-director",
-    "name": "Raisah",
-    "role": "Creatives Director",
-    "membership": "director",
-    "portfolio": "Creatives",
-    "displayOrder": 8,
-    "pronouns": "She/Her",
-    "portraitImage": "/team/portraits/raisah-raspery.webp",
-    "portraitAlt": "Raisah taking a selfie while holding a cat",
-    "degree": ["3rd Year Law/Computer Science"],
-    "funFacts": [
-      "I used to play bedwars religiously in high school and broke my hand. At least I was on the leaderboard next to gb80!"
-    ],
-    "favoriteAnime": ["Erased", "Fairy Tail", "Ponyo", "Spy x Family"],
-    "discordHandle": "RASPERY"
-  },
-  {
-    "id": "david-events-executive",
-    "name": "David",
-    "role": "Events Executive",
-    "membership": "executive",
-    "portfolio": "Events",
-    "displayOrder": 9,
-    "pronouns": "He/Him",
-    "portraitImage": "/team/portraits/david.webp",
-    "portraitAlt": "David taking a selfie indoors with a cat photo on a monitor",
-    "degree": ["3rd Year Computer Science/Economics"],
-    "funFacts": [
-      "my cat can do hand tricks 😱",
-      "i love glazing niche side characters 😭"
-    ],
-    "favoriteAnime": ["LOOKISM (goated manhwa)"],
-    "discordHandle": "VIN JIN #1"
-  },
-  {
-    "id": "ewen-events-director",
-    "name": "Ewen",
-    "role": "Events Director",
-    "membership": "director",
-    "portfolio": "Events",
-    "displayOrder": 10,
-    "pronouns": "He/Him",
-    "portraitImage": "/team/portraits/ewen.webp",
-    "portraitAlt": "Ewen with a snowman outdoors",
-    "degree": ["3rd Year Advanced Science/Engineering"],
-    "funFacts": [
-      "Fan of all things public transport related",
-      "Tangara = PEAKgara"
-    ],
-    "favoriteAnime": ["Oshi no ko", "Horimiya"],
-    "discordHandle": "YouWinGG"
-  },
-  {
-    "id": "ho-nam-events-director",
-    "name": "Nam",
-    "role": "Events Director",
-    "membership": "director",
-    "portfolio": "Events",
-    "displayOrder": 11,
-    "pronouns": "He/Him",
-    "portraitImage": "/team/portraits/ho-nam.webp",
-    "portraitAlt": "Ho Nam holding food at a cafe",
-    "degree": ["3rd Year Information Systems"],
-    "funFacts": ["i still play genshin", "dnd nerd", "power metal rahhh"],
-    "favoriteAnime": ["VIVY"],
-    "discordHandle": "Mixed"
-  },
-  {
-    "id": "claudia-events-director",
-    "name": "Claudia",
-    "role": "Events Director",
-    "membership": "director",
-    "portfolio": "Events",
-    "displayOrder": 12,
-    "pronouns": "She/Her",
-    "portraitImage": "/team/portraits/claudia.webp",
-    "portraitAlt": "Claudia at a restaurant table with food",
-    "degree": ["3rd Year Science - Zoology 😺🦍🐸🐥🐈‍⬛"],
-    "funFacts": [
-      "i love udon :3",
-      "i have a chewing gum addiction 😔",
-      "i spam emojis stickers & gifs 😆😛"
-    ],
-    "favoriteAnime": [
-      "Doraemon",
-      "Crayon Shin-Chan",
-      "Pretty Rhythm",
-      "Love Live! School Idol Project!"
-    ],
-    "discordHandle": "SHITRAWBERRY"
-  },
-  {
-    "id": "cathy-marketing-executive",
-    "name": "Cathy",
-    "role": "Marketing Executive",
-    "membership": "executive",
-    "portfolio": "Marketing",
-    "displayOrder": 13,
-    "pronouns": "She/They",
-    "portraitImage": "/team/portraits/cathy.webp",
-    "portraitAlt": "Cathy standing outdoors near a pavilion and frozen lake",
-    "degree": ["3rd Year Computer Science"],
-    "funFacts": [
-      "china is goated",
-      "chagee and molly tea >>>>>",
-      "cats are cool"
-    ],
-    "favoriteAnime": ["Chainsaw Man", "Jujutsu Kaisen", "Violet Evergarden"],
-    "discordHandle": "Maru!"
-  },
-  {
-    "id": "laurenc-media-director",
-    "name": "Laurenc",
-    "role": "Media Director",
-    "membership": "director",
-    "portfolio": "Marketing",
-    "displayOrder": 14,
-    "pronouns": "He/Him",
-    "portraitImage": "/team/portraits/laurence.webp",
-    "portraitAlt": "Laurenc standing in front of a life-size Gundam statue",
-    "degree": ["3rd Year Commerce (Finance)/Computer Science (AI)"],
-    "funFacts": [
-      "Went to Japan in 2024!",
-      "Fav Gacha: Uma, ToF, HSR",
-      "Knows how to tune Kasane Teto (maybe Hatsune Miku too) for songs!"
-    ],
-    "favoriteAnime": [
-      "Umamusume: Pretty Derby",
-      "Love Live!",
-      "Girls und Panzer",
-      "Shikanoko Nokonoko Koshitantan"
-    ],
-    "discordHandle": "Laurenc"
-  },
-  {
-    "id": "kevin-fang-international-student-engagement-director",
-    "name": "Kevin",
-    "role": "International Student Engagement Director",
-    "membership": "director",
-    "portfolio": "Marketing",
-    "displayOrder": 15,
-    "pronouns": "He/Him",
-    "portraitImage": "/team/portraits/kevin-fang.webp",
-    "portraitAlt": "Kevin Fang in a leather jacket outdoors",
-    "degree": ["2nd Year Aerospace Engineering"],
-    "funFacts": ["The goated photographer in AUNSW", "I love Formula 1"],
-    "favoriteAnime": ["Case Closed", "Girls Und Panzer"],
-    "discordHandle": "xd Mc"
-  },
-  {
-    "id": "ethan-khisa-sponsorships-director",
-    "name": "Ethan",
-    "role": "Sponsorships Director",
-    "membership": "director",
-    "portfolio": "Externals",
-    "displayOrder": 16,
-    "pronouns": "He/Him",
-    "portraitImage": "/team/portraits/ethan-khisa.webp",
-    "portraitAlt": "Ethan Khisa in front of the Statue of Liberty",
-    "degree": ["3rd Year Robotics and Mechatronics"],
-    "funFacts": [
-      "I like eat",
-      "i like cat, attacks me tho",
-      "reading manga > watcing anime"
-    ],
-    "favoriteAnime": [
-      "A silent voice",
-      "My girl",
-      "Haikyu!!",
-      "Lookisim(i got influenced)"
-    ],
-    "discordHandle": "Ethan"
-  },
-  {
-    "id": "oliver-technical-executive",
-    "name": "Oliver",
-    "role": "Technical Executive",
-    "membership": "executive",
-    "portfolio": "IT",
-    "displayOrder": 17,
-    "pronouns": "He/Him",
-    "portraitImage": "/team/portraits/oliver.webp",
-    "portraitAlt": "Oliver standing in a neon-lit mini golf venue",
-    "degree": ["3rd Year Physics/Computer Science"],
-    "funFacts": [
-      "I like D&D & F1 & I'm known to give many good riddles & quests"
-    ],
-    "favoriteAnime": ["MASHLE: M&M"],
-    "discordHandle": "Oliver"
-  },
-  {
-    "id": "rianne-externals-subcom",
-    "name": "Rianne",
-    "role": "Externals Subcom",
-    "membership": "other",
-    "portfolio": "Externals",
-    "displayOrder": 0,
-    "pronouns": "She/They",
-    "portraitImage": "/team/portraits/rianne.png",
-    "portraitAlt": "Rianne making a heart with their hands",
-    "degree": ["Computer Science"],
-    "funFacts": [
-      "i *might* be obsessed with pjsk idk if you can tell", 
-      "i like cosplay! and fashion please give me some recs for pieces!!!!",
-      "i spend most of my time on my hyperfixations or with my loved ones <3",
-      "something something i like rust and blahaj :P"
-    ],
-    "favoriteAnime": [
-      "Sound! Euphonium + Sound! Euphonium 2 + Liz and the Blue Bird",
-      "Serial Experiments Lain",
-      "Project Sekai (the movie came out it counts!!!!)"
-    ],
-    "discordHandle": "raoli"
-  },
-  {
-    "id": "annabelle-externals-subcom",
-    "name": "Annabelle",
-    "role": "Externals Subcom",
-    "membership": "other",
-    "portfolio": "Externals",
-    "displayOrder": 1,
-    "pronouns": "She/Her",
-    "portraitImage": "/team/portraits/annabelle.png",
-    "portraitAlt": "A mirror selfie of Annabelle",
-    "degree": ["bachelor of science / majoring in ecology and conservation"],
-    "funFacts": [
-      "I FRIGGIN LOVE ORANGE CATS.",
-      "AND GOJO.",
-      "i have a million gfs SHOUT OUT TO MY BAES OUT THERE!! 😜",
-      "ayesha erotica runs through my pink and glittery veins",
-      "I WANNA DYE MY HAIR NEOPOLITAN SOO BADUH 💔💔but it needs a DESPERATE dye break.. SOB"
-    ],
-    "favoriteAnime": [
-      "JJK😻😻😻",
-      "summer hikaru died",
-      "COSMIC PRINCESS KAGUYA WHOS W ME?!?",
-      "HEAVEN OFFICIALS BLESSING AUUGH"
-    ],
-    "discordHandle": "chuuyas left booty cheek"
-  },
-  {
-    "id": "han-externals-subcom",
-    "name": "Han",
-    "role": "Externals Subcom",
-    "membership": "other",
-    "portfolio": "Externals",
-    "displayOrder": 2,
-    "pronouns": "He/They",
-    "portraitImage": "/team/portraits/han.jpg",
-    "portraitAlt": "Han in an angel devil cosplay",
-    "degree": ["Fine Arts / Media (Animation + Moving Image / Screen Production)"],
-    "funFacts": [
-      "cos-ed angel devil + did troublemaker @ kickoff",
-      "i won btw",
-      "david xu lost to me in bowling, chris & oli beat me",
-      "i'm part of the UNSW Marvel Rivals Howl team"
-    ],
-    "favoriteAnime": [
-      "bungo stray dogs!!! soukoku my beloved",
-      "hm: jjk, csm, blue period, haikyuu"
-    ],
-    "discordHandle": "han needs to be sedated"
-  },
-  {
-    "id": "yuk-externals-subcom",
     "name": "Yuk",
     "role": "Externals Subcom",
     "membership": "other",
@@ -466,7 +193,9 @@
     "pronouns": "He/Him",
     "portraitImage": "/team/portraits/yuk.jpg",
     "portraitAlt": "Yuk looking down on the camera",
-    "degree": ["Aerospace Engineering / Materials Science"],
+    "degree": [
+      "Aerospace Engineering / Materials Science"
+    ],
     "funFacts": [
       "amateur music producer (...pls buy me a good midi keyboard someone)",
       "persona and gacha game enjoyer",
@@ -478,10 +207,35 @@
       "frieren: beyond journey's end",
       "ghibli movies"
     ],
-    "discordHandle": "Deleted User"
+    "discordHandle": "Deleted User",
+    "id": "yuk-externals-subcom"
   },
   {
-    "id": "janice-externals-subcom",
+    "name": "Annie",
+    "role": "External Relations",
+    "membership": "top5",
+    "portfolio": "Top 5",
+    "displayOrder": 4,
+    "pronouns": "She/Her",
+    "portraitImage": "/team/portraits/annie-yang.webp",
+    "portraitAlt": "Annie Yang standing near a fountain",
+    "degree": [
+      "2nd Year Bachelor of Criminology & Criminal Justice / Psychology Hons"
+    ],
+    "funFacts": [
+      "Mitochondria is the powerhouse of the cell",
+      "Dolphins \ud83d\ude31\ud83d\ude31\ud83d\ude31\ud83d\ude31"
+    ],
+    "favoriteAnime": [
+      "Death Note!!!",
+      "Moriarty the Patriot",
+      "Code Geass",
+      "Those trashy power fantasies everyone hates"
+    ],
+    "discordHandle": "Rexxi",
+    "id": "annie-yang-external-relations"
+  },
+  {
     "name": "Janice",
     "role": "Externals Subcom",
     "membership": "other",
@@ -490,11 +244,13 @@
     "pronouns": "She/Her",
     "portraitImage": "/team/portraits/janice.png",
     "portraitAlt": "Janice holding up a peace sign",
-    "degree": ["2nd Year B med sci"],
+    "degree": [
+      "2nd Year B med sci"
+    ],
     "funFacts": [
       "i recently started learning digital art",
       "my dog is very very cute :)",
-      "i tried to teach my dog how to do a backflip ",
+      "i tried to teach my dog how to do a backflip",
       "sense of direction is not that great",
       "have a lot of shows and games which needs catching up on"
     ],
@@ -503,10 +259,35 @@
       "Fate Series",
       "Frieren :Beyond Journey's End"
     ],
-    "discordHandle": "pebble"
+    "discordHandle": "pebble",
+    "id": "janice-externals-subcom"
   },
   {
-    "id": "callum-externals-subcom",
+    "name": "Eri",
+    "role": "Creatives Executive",
+    "membership": "executive",
+    "portfolio": "Creatives",
+    "displayOrder": 5,
+    "pronouns": "She/Her",
+    "portraitImage": "/team/portraits/eri.webp",
+    "portraitAlt": "Eri in cosplay holding a winged staff",
+    "degree": [
+      "3rd Year Education (Secondary)/Fine Arts"
+    ],
+    "funFacts": [
+      "Gravity Circuit's biggest glazer",
+      "Loves power metal",
+      "Playing The Battle Cats for 10 years"
+    ],
+    "favoriteAnime": [
+      "Gachiakuta",
+      "Saint Seiya",
+      "Demon Slayer"
+    ],
+    "discordHandle": "Eri",
+    "id": "eri-creatives-executive"
+  },
+  {
     "name": "Callum",
     "role": "Externals Subcom",
     "membership": "other",
@@ -515,10 +296,12 @@
     "pronouns": "He/Him",
     "portraitImage": "/team/portraits/callum.png",
     "portraitAlt": "Callum taking a mirror selfie",
-    "degree": ["2nd Year B med sci"],
+    "degree": [
+      "2nd Year B med sci"
+    ],
     "funFacts": [
       "fun facts:",
-      "I have too many plants ",
+      "I have too many plants",
       "I have watched 200ish days of anime (according to mal last time i updated it, i gave up a while ago)",
       "david yuk is a femboy ????? (or so I hear)",
       "I hateeee taking photos of myself (aaaaaaaaaaa)",
@@ -531,10 +314,36 @@
       "FMAB",
       "Death note"
     ],
-    "discordHandle": "callahan"
+    "discordHandle": "callahan",
+    "id": "callum-externals-subcom"
   },
   {
-    "id": "lilian-creatives-subcom",
+    "name": "Miranda",
+    "role": "Creatives Director",
+    "membership": "director",
+    "portfolio": "Creatives",
+    "displayOrder": 6,
+    "pronouns": "She/Her",
+    "portraitImage": "/team/portraits/miranda.webp",
+    "portraitAlt": "Miranda seated at a cafe table",
+    "degree": [
+      "4th Year Education (Secondary)/Fine Arts"
+    ],
+    "funFacts": [
+      "I have 800 cats",
+      "Cinamoroll lover",
+      "Best fisher in Stardew"
+    ],
+    "favoriteAnime": [
+      "Heavens Official Blessing",
+      "Akatsuki No Yona",
+      "Little Mushroom!!",
+      "One Piece"
+    ],
+    "discordHandle": "mrandaa",
+    "id": "miranda-creatives-director"
+  },
+  {
     "name": "Lilian",
     "role": "Creatives Subcom",
     "membership": "other",
@@ -543,11 +352,13 @@
     "pronouns": "Any",
     "portraitImage": "/team/portraits/Lilian.jpg",
     "portraitAlt": "Lilian posing in a cosplay",
-    "degree": ["Bachelor of Design/Commerce"],
+    "degree": [
+      "Bachelor of Design/Commerce"
+    ],
     "funFacts": [
       "I love my shonens",
       "favourite food is bloodclams",
-      "Deciding to hop on in my final year 💀"
+      "Deciding to hop on in my final year \ud83d\udc80"
     ],
     "favoriteAnime": [
       "Oran HS started it all,",
@@ -556,10 +367,36 @@
       "Frieren",
       "my favs change from season to season..."
     ],
-    "discordHandle": "bogi"
+    "discordHandle": "bogi",
+    "id": "lilian-creatives-subcom"
   },
   {
-    "id": "lachlan-creatives-subcom",
+    "name": "Daniel",
+    "role": "Creatives Director",
+    "membership": "director",
+    "portfolio": "Creatives",
+    "displayOrder": 7,
+    "pronouns": "He/Him",
+    "portraitImage": "/team/portraits/daniel-lin.webp",
+    "portraitAlt": "Daniel Lin posing indoors",
+    "degree": [
+      "3rd Year Law and Commerce",
+      "Doctorate in Nasuverse Lore"
+    ],
+    "funFacts": [
+      "90gbs worth of procreate, my gachas are cooked.",
+      "100gbs worth of wuwa update, my phone is a death game"
+    ],
+    "favoriteAnime": [
+      "86",
+      "Vivy flourite eye's song",
+      "revue starlight",
+      "Mygo/ave, mujica"
+    ],
+    "discordHandle": "salted degenerate biggest glazer",
+    "id": "daniel-lin-creatives-director"
+  },
+  {
     "name": "Lachlan",
     "role": "Creatives Subcom",
     "membership": "other",
@@ -568,9 +405,11 @@
     "pronouns": "Any",
     "portraitImage": "/team/portraits/Lachlan.jpg",
     "portraitAlt": "Lachlan posing in a cosplay",
-    "degree": ["3rd Year Bcom (International)"],
+    "degree": [
+      "3rd Year Bcom (International)"
+    ],
     "funFacts": [
-      "Bassist enjoyer ",
+      "Bassist enjoyer",
       "I LOVE YURI",
       "1250 hours on hoi4",
       "Cosplay enjoyer",
@@ -588,10 +427,34 @@
       "Makeine",
       "Watanare"
     ],
-    "discordHandle": "Top Tailor Worshipper"
+    "discordHandle": "Top Tailor Worshipper",
+    "id": "lachlan-creatives-subcom"
   },
   {
-    "id": "natalie-creatives-subcom",
+    "name": "Raisah",
+    "role": "Creatives Director",
+    "membership": "director",
+    "portfolio": "Creatives",
+    "displayOrder": 8,
+    "pronouns": "She/Her",
+    "portraitImage": "/team/portraits/raisah-raspery.webp",
+    "portraitAlt": "Raisah taking a selfie while holding a cat",
+    "degree": [
+      "3rd Year Law/Computer Science"
+    ],
+    "funFacts": [
+      "I used to play bedwars religiously in high school and broke my hand. At least I was on the leaderboard next to gb80!"
+    ],
+    "favoriteAnime": [
+      "Erased",
+      "Fairy Tail",
+      "Ponyo",
+      "Spy x Family"
+    ],
+    "discordHandle": "RASPERY",
+    "id": "raisah-raspery-creatives-director"
+  },
+  {
     "name": "Natalie",
     "role": "Creatives Subcom",
     "membership": "other",
@@ -600,11 +463,13 @@
     "pronouns": "Any",
     "portraitImage": "/team/portraits/natalie.png",
     "portraitAlt": "Natalie smiling at the camera in a train",
-    "degree": ["2nd Year Bachelor of Primary Education (Honours)"],
+    "degree": [
+      "2nd Year Bachelor of Primary Education (Honours)"
+    ],
     "funFacts": [
-      "ive watched over 250 anime ",
+      "ive watched over 250 anime",
       "i currently own 11 birds. live laugh love brid",
-      "im trying to learn chinese help me ",
+      "im trying to learn chinese help me",
       "fav webtoons are PIGPEN and Killer Peter"
     ],
     "favoriteAnime": [
@@ -617,10 +482,32 @@
       "Ajin",
       "NieR Automata"
     ],
-    "discordHandle": "DemonDerp"
+    "discordHandle": "DemonDerp",
+    "id": "natalie-creatives-subcom"
   },
   {
-    "id": "gigi-creatives-subcom",
+    "name": "David",
+    "role": "Events Executive",
+    "membership": "executive",
+    "portfolio": "Events",
+    "displayOrder": 9,
+    "pronouns": "He/Him",
+    "portraitImage": "/team/portraits/david.webp",
+    "portraitAlt": "David taking a selfie indoors with a cat photo on a monitor",
+    "degree": [
+      "3rd Year Computer Science/Economics"
+    ],
+    "funFacts": [
+      "my cat can do hand tricks \ud83d\ude31",
+      "i love glazing niche side characters \ud83d\ude2d"
+    ],
+    "favoriteAnime": [
+      "LOOKISM (goated manhwa)"
+    ],
+    "discordHandle": "VIN JIN #1",
+    "id": "david-events-executive"
+  },
+  {
     "name": "Gigi",
     "role": "Creatives Subcom",
     "membership": "other",
@@ -629,7 +516,9 @@
     "pronouns": "She/Her",
     "portraitImage": "/team/portraits/gigi.jpg",
     "portraitAlt": "Gigi taking a selfie",
-    "degree": ["1st year Bachelor of Arts, majoring in sociology and gender studies!"],
+    "degree": [
+      "1st year Bachelor of Arts, majoring in sociology and gender studies!"
+    ],
     "funFacts": [
       "my family owns a restaurant",
       "I've read over 300 manhwas!!"
@@ -639,12 +528,35 @@
       "Chainsaw man",
       "Gachiakuta",
       "Violet Evergarden",
-      "Apothecary Diaries" 
+      "Apothecary Diaries"
     ],
-    "discordHandle": "miya"
+    "discordHandle": "miya",
+    "id": "gigi-creatives-subcom"
   },
   {
-    "id": "chimo-creatives-subcom",
+    "name": "Ewen",
+    "role": "Events Director",
+    "membership": "director",
+    "portfolio": "Events",
+    "displayOrder": 10,
+    "pronouns": "He/Him",
+    "portraitImage": "/team/portraits/ewen.webp",
+    "portraitAlt": "Ewen with a snowman outdoors",
+    "degree": [
+      "3rd Year Advanced Science/Engineering"
+    ],
+    "funFacts": [
+      "Fan of all things public transport related",
+      "Tangara = PEAKgara"
+    ],
+    "favoriteAnime": [
+      "Oshi no ko",
+      "Horimiya"
+    ],
+    "discordHandle": "YouWinGG",
+    "id": "ewen-events-director"
+  },
+  {
     "name": "Chimo",
     "role": "Creatives Subcom",
     "membership": "other",
@@ -653,24 +565,49 @@
     "pronouns": "They/Them",
     "portraitImage": "/team/portraits/chimo.png",
     "portraitAlt": "A digital artwork of Chimo",
-    "degree": ["Media Arts / Education (secondary)"],
+    "degree": [
+      "Media Arts / Education (secondary)"
+    ],
     "funFacts": [
       "I like fish (pets, not food)",
       "I love murder mysteries and romance stories (will recount a whole mystery story for the whole day if permitted)"
     ],
     "favoriteAnime": [
-      "Gachiakuta ",
-      "Kaijuu no 8 ",
-      "Kamonohashi Ron ",
-      "Windbreaker ",
-      "Legend of Hei ",
-      "Tamon’s B Side",
+      "Gachiakuta",
+      "Kaijuu no 8",
+      "Kamonohashi Ron",
+      "Windbreaker",
+      "Legend of Hei",
+      "Tamon\u2019s B Side",
       "Sasaki to Miyano"
     ],
-    "discordHandle": "Chimo"
+    "discordHandle": "Chimo",
+    "id": "chimo-creatives-subcom"
   },
   {
-    "id": "tea-creatives-subcom",
+    "name": "Nam",
+    "role": "Events Director",
+    "membership": "director",
+    "portfolio": "Events",
+    "displayOrder": 11,
+    "pronouns": "He/Him",
+    "portraitImage": "/team/portraits/ho-nam.webp",
+    "portraitAlt": "Ho Nam holding food at a cafe",
+    "degree": [
+      "3rd Year Information Systems"
+    ],
+    "funFacts": [
+      "i still play genshin",
+      "dnd nerd",
+      "power metal rahhh"
+    ],
+    "favoriteAnime": [
+      "VIVY"
+    ],
+    "discordHandle": "Mixed",
+    "id": "ho-nam-events-director"
+  },
+  {
     "name": "Tea",
     "role": "Creatives Subcom",
     "membership": "other",
@@ -679,7 +616,9 @@
     "pronouns": "She/Her",
     "portraitImage": "/team/portraits/Tea.jpeg",
     "portraitAlt": "Cameraman pointing at Tea as she is sitting on the grass",
-    "degree": ["Faculty of Medicine & Health"],
+    "degree": [
+      "Faculty of Medicine & Health"
+    ],
     "funFacts": [
       "0 lectures watched",
       "0 hours studied",
@@ -689,10 +628,36 @@
     "favoriteAnime": [
       "Naruto, Death Note and many more!"
     ],
-    "discordHandle": "Tea"
+    "discordHandle": "Tea",
+    "id": "tea-creatives-subcom"
   },
   {
-    "id": "cathy-creatives-subcom",
+    "name": "Claudia",
+    "role": "Events Director",
+    "membership": "director",
+    "portfolio": "Events",
+    "displayOrder": 12,
+    "pronouns": "She/Her",
+    "portraitImage": "/team/portraits/claudia.webp",
+    "portraitAlt": "Claudia at a restaurant table with food",
+    "degree": [
+      "3rd Year Science - Zoology \ud83d\ude3a\ud83e\udd8d\ud83d\udc38\ud83d\udc25\ud83d\udc08\u200d\u2b1b"
+    ],
+    "funFacts": [
+      "i love udon :3",
+      "i have a chewing gum addiction \ud83d\ude14",
+      "i spam emojis stickers & gifs \ud83d\ude06\ud83d\ude1b"
+    ],
+    "favoriteAnime": [
+      "Doraemon",
+      "Crayon Shin-Chan",
+      "Pretty Rhythm",
+      "Love Live! School Idol Project!"
+    ],
+    "discordHandle": "SHITRAWBERRY",
+    "id": "claudia-events-director"
+  },
+  {
     "name": "Cathy",
     "role": "Creatives Subcom",
     "membership": "other",
@@ -701,7 +666,9 @@
     "pronouns": "She/Her",
     "portraitImage": "/team/portraits/cathy.png",
     "portraitAlt": "Cathy sipping on matcha",
-    "degree": ["3rd Year Physiotherapy"],
+    "degree": [
+      "3rd Year Physiotherapy"
+    ],
     "funFacts": [
       "I don't go to UNSW",
       "I get called 'yansalt' more often than my actual name"
@@ -709,10 +676,35 @@
     "favoriteAnime": [
       "Bungo Stray Dogs"
     ],
-    "discordHandle": "caticecreme"
+    "discordHandle": "caticecreme",
+    "id": "cathy-creatives-subcom"
   },
   {
-    "id": "rina-events-subcom",
+    "name": "Cathy",
+    "role": "Marketing Executive",
+    "membership": "executive",
+    "portfolio": "Marketing",
+    "displayOrder": 13,
+    "pronouns": "She/They",
+    "portraitImage": "/team/portraits/cathy.webp",
+    "portraitAlt": "Cathy standing outdoors near a pavilion and frozen lake",
+    "degree": [
+      "3rd Year Computer Science"
+    ],
+    "funFacts": [
+      "china is goated",
+      "chagee and molly tea >>>>>",
+      "cats are cool"
+    ],
+    "favoriteAnime": [
+      "Chainsaw Man",
+      "Jujutsu Kaisen",
+      "Violet Evergarden"
+    ],
+    "discordHandle": "Maru!",
+    "id": "cathy-marketing-executive"
+  },
+  {
     "name": "Rina",
     "role": "Events Subcom",
     "membership": "other",
@@ -721,7 +713,9 @@
     "pronouns": "They/Them",
     "portraitImage": "/team/portraits/rina.png",
     "portraitAlt": "Rina holding up a peace sign",
-    "degree": ["1st Year Actuarial Studies"],
+    "degree": [
+      "1st Year Actuarial Studies"
+    ],
     "funFacts": [
       "i love slander/agendaposting",
       "i do cosplays (mostly closet) and jirai",
@@ -734,10 +728,36 @@
       "The Summer Hikaru Died",
       "To be Hero X"
     ],
-    "discordHandle": "Chosoyuki's no1 defender (Rina)"
+    "discordHandle": "Chosoyuki's no1 defender (Rina)",
+    "id": "rina-events-subcom"
   },
   {
-    "id": "ling-events-subcom",
+    "name": "Laurenc",
+    "role": "Media Director",
+    "membership": "director",
+    "portfolio": "Marketing",
+    "displayOrder": 14,
+    "pronouns": "He/Him",
+    "portraitImage": "/team/portraits/laurence.webp",
+    "portraitAlt": "Laurenc standing in front of a life-size Gundam statue",
+    "degree": [
+      "3rd Year Commerce (Finance)/Computer Science (AI)"
+    ],
+    "funFacts": [
+      "Went to Japan in 2024!",
+      "Fav Gacha: Uma, ToF, HSR",
+      "Knows how to tune Kasane Teto (maybe Hatsune Miku too) for songs!"
+    ],
+    "favoriteAnime": [
+      "Umamusume: Pretty Derby",
+      "Love Live!",
+      "Girls und Panzer",
+      "Shikanoko Nokonoko Koshitantan"
+    ],
+    "discordHandle": "Laurenc",
+    "id": "laurenc-media-director"
+  },
+  {
     "name": "Ling (aka Carol)",
     "role": "Events Subcom",
     "membership": "other",
@@ -746,7 +766,9 @@
     "pronouns": "She/Her",
     "portraitImage": "/team/portraits/ling.png",
     "portraitAlt": "Ling posing in a cosplay",
-    "degree": ["2nd yr science (psyc) / science (compsci)"],
+    "degree": [
+      "2nd yr science (psyc) / science (compsci)"
+    ],
     "funFacts": [
       "casual chunithm player",
       "i love uta"
@@ -755,34 +777,59 @@
       "one piece",
       "gachiakuta"
     ],
-    "discordHandle": "linglingsixseven"
+    "discordHandle": "linglingsixseven",
+    "id": "ling-events-subcom"
   },
   {
-    "id": "henry-events-subcom",
-    "name": "Henry",
-    "role": "Events Subcom",
-    "membership": "other",
-    "portfolio": "Events",
+    "name": "Kevin",
+    "role": "International Student Engagement Director",
+    "membership": "director",
+    "portfolio": "Marketing",
     "displayOrder": 15,
     "pronouns": "He/Him",
-    "portraitImage": "/team/portraits/henry.png",
-    "portraitAlt": "Henry smiling at the camera covered in snow",
-    "degree": ["2nd Year Mechanical Engineering"],
+    "portraitImage": "/team/portraits/kevin-fang.webp",
+    "portraitAlt": "Kevin Fang in a leather jacket outdoors",
+    "degree": [
+      "2nd Year Aerospace Engineering"
+    ],
     "funFacts": [
-      "Certified Project Moon Glazer",
-      "I play Honkai: Star Rail & DnD",
-      "Building a Go-Kart",
-      "I “doom”read manhwa"
+      "The goated photographer in AUNSW",
+      "I love Formula 1"
     ],
     "favoriteAnime": [
-      "Jujutsu Kaisen",
-      "Hunter X Hunter",
-      "Clannad"
+      "Case Closed",
+      "Girls Und Panzer"
     ],
-    "discordHandle": "Henry"
+    "discordHandle": "xd Mc",
+    "id": "kevin-fang-international-student-engagement-director"
   },
   {
-    "id": "aria-events-subcom",
+    "name": "Ethan",
+    "role": "Sponsorships Director",
+    "membership": "director",
+    "portfolio": "Externals",
+    "displayOrder": 16,
+    "pronouns": "He/Him",
+    "portraitImage": "/team/portraits/ethan-khisa.webp",
+    "portraitAlt": "Ethan Khisa in front of the Statue of Liberty",
+    "degree": [
+      "3rd Year Robotics and Mechatronics"
+    ],
+    "funFacts": [
+      "I like eat",
+      "i like cat, attacks me tho",
+      "reading manga > watcing anime"
+    ],
+    "favoriteAnime": [
+      "A silent voice",
+      "My girl",
+      "Haikyu!!",
+      "Lookisim(i got influenced)"
+    ],
+    "discordHandle": "Ethan",
+    "id": "ethan-khisa-sponsorships-director"
+  },
+  {
     "name": "Aria",
     "role": "Events Subcom",
     "membership": "other",
@@ -791,10 +838,12 @@
     "pronouns": "She/Her",
     "portraitImage": "/team/portraits/aria.jpg",
     "portraitAlt": "Aria taking a selfie",
-    "degree": ["1st Year Business"],
+    "degree": [
+      "1st Year Business"
+    ],
     "funFacts": [
       "Love to crochet",
-      "Obsessed w Nanami💗",
+      "Obsessed w Nanami\ud83d\udc97",
       "Played the whole Danganronpa franchise 3x",
       "Love meeting new people",
       "Huge fan of The Weeknd, Chase Atlantic, and Tame Impala"
@@ -802,13 +851,34 @@
     "favoriteAnime": [
       "Hunter x Hunter",
       "Jujutsu Kaisen",
-      "Sailor Moon Crystal ",
+      "Sailor Moon Crystal",
       "Tokyo Revengers"
     ],
-    "discordHandle": "_Kira"
+    "discordHandle": "_Kira",
+    "id": "aria-events-subcom"
   },
   {
-    "id": "jason-events-subcom",
+    "name": "Oliver",
+    "role": "Technical Executive",
+    "membership": "executive",
+    "portfolio": "IT",
+    "displayOrder": 17,
+    "pronouns": "He/Him",
+    "portraitImage": "/team/portraits/oliver.webp",
+    "portraitAlt": "Oliver standing in a neon-lit mini golf venue",
+    "degree": [
+      "3rd Year Physics/Computer Science"
+    ],
+    "funFacts": [
+      "I like D&D & F1 & I'm known to give many good riddles & quests"
+    ],
+    "favoriteAnime": [
+      "MASHLE: M&M"
+    ],
+    "discordHandle": "Oliver",
+    "id": "oliver-technical-executive"
+  },
+  {
     "name": "Jason.Y",
     "role": "Events Subcom",
     "membership": "other",
@@ -817,7 +887,9 @@
     "pronouns": "He/Him",
     "portraitImage": "/team/portraits/jason.png",
     "portraitAlt": "Jason standing on the beach at sunset",
-    "degree": ["Mechanical Engineering"],
+    "degree": [
+      "Mechanical Engineering"
+    ],
     "funFacts": [
       "Likely to have played more anime games than amount of anime series watched"
     ],
@@ -825,12 +897,12 @@
       "86",
       "Girls und panzer",
       "Jojo's bazaar adventures",
-      "Grand Blue" 
+      "Grand Blue"
     ],
-    "discordHandle": "Jason"
+    "discordHandle": "Jason",
+    "id": "jason-events-subcom"
   },
   {
-    "id": "chris-events-subcom",
     "name": "Chris",
     "role": "Events Subcom",
     "membership": "other",
@@ -839,7 +911,9 @@
     "pronouns": "He/Him",
     "portraitImage": "/team/portraits/chris.png",
     "portraitAlt": "Chris holding a small minecraft diamond helmet on his thumb",
-    "degree": ["2nd Year City Planning"],
+    "degree": [
+      "2nd Year City Planning"
+    ],
     "funFacts": [
       "I love cooking, my le creuset is my son",
       "david loves me",
@@ -850,12 +924,12 @@
       "Edgerunners",
       "Neon Genesis Evangelion",
       "all the Ghiblis",
-      "Currently watching Dungeon Meshi" 
+      "Currently watching Dungeon Meshi"
     ],
-    "discordHandle": "Chuuya's ankle"
+    "discordHandle": "Chuuya's ankle",
+    "id": "chris-events-subcom"
   },
   {
-    "id": "kathy-marketing-subcom",
     "name": "Kathy",
     "role": "Marketing Subcom",
     "membership": "other",
@@ -864,26 +938,28 @@
     "pronouns": "She/Her",
     "portraitImage": "/team/portraits/kathy.png",
     "portraitAlt": "Kathy taking a mirror selfie",
-    "degree": ["2nd year law/commerce"],
+    "degree": [
+      "2nd year law/commerce"
+    ],
     "funFacts": [
       "I LOVEEEEEEEEEE SHOUJO ANIMANGAS",
-      "will make caleb from lads my entire personality ",
+      "will make caleb from lads my entire personality",
       "currently own 650+ volumes of manga",
       "chronic MAL user"
     ],
     "favoriteAnime": [
       "nana",
-      "heaven official’s blessing",
+      "heaven official\u2019s blessing",
       "blue lock",
       "jujutsu kaisen",
       "chainsaw man",
       "doukyuusei",
-      "requiem of the rose king" 
+      "requiem of the rose king"
     ],
-    "discordHandle": "kat_312"
+    "discordHandle": "kat_312",
+    "id": "kathy-marketing-subcom"
   },
   {
-    "id": "lynn-marketing-subcom",
     "name": "Lynn",
     "role": "Marketing Subcom",
     "membership": "other",
@@ -892,32 +968,34 @@
     "pronouns": "She/Her",
     "portraitImage": "/team/portraits/Lynn.png",
     "portraitAlt": "Lynn taking a selfie",
-    "degree": ["Engineering"],
+    "degree": [
+      "Engineering"
+    ],
     "funFacts": [
-      "I share the same bday as homura akemi and the same name as columbina’s jp seiyuu ",
+      "I share the same bday as homura akemi and the same name as columbina\u2019s jp seiyuu",
       "I might be an irl copy of Minori-  I love salmon and otters + also have multiple variants of her otter t-shirts- (ran around school in a jacket reading hanasato LYNori)",
-      "ILLIT (빌려온 고양이 + Cherish) MY BELOVED!! ",
+      "ILLIT (\ube4c\ub824\uc628 \uace0\uc591\uc774 + Cherish) MY BELOVED!!",
       "T484 Mino3 during exams (best decision ever)",
-      "MMJ and L/N oshi ",
-      "Classical music concerts + Yuki kaijura enthusiast ",
+      "MMJ and L/N oshi",
+      "Classical music concerts + Yuki kaijura enthusiast",
       "Also minoharu, madohomu, kyosaya, soukoku and mizisua oshi",
-      "I also quite happen to kin orange and black haired characters  ",
+      "I also quite happen to kin orange and black haired characters",
       "I spend my free time playing pjsk songs by ear on the piano + learning pjsk 3dmvs"
     ],
     "favoriteAnime": [
-      "Madoka Magica! (rebellion + magia record)  ",
-      "Pjsk movie! ",
-      "Bungo stray dogs ",
-      "Spy x family ",
-      "Horimiya ",
-      "The Apothecary Diaries ",
+      "Madoka Magica! (rebellion + magia record)",
+      "Pjsk movie!",
+      "Bungo stray dogs",
+      "Spy x family",
+      "Horimiya",
+      "The Apothecary Diaries",
       "Demon Slayer",
       "The Case Study of Vanitas"
     ],
-    "discordHandle": "bibori"
+    "discordHandle": "bibori",
+    "id": "lynn-marketing-subcom"
   },
   {
-    "id": "anne-marketing-subcom",
     "name": "Anne",
     "role": "Marketing Subcom",
     "membership": "other",
@@ -926,7 +1004,9 @@
     "pronouns": "She/Her",
     "portraitImage": "/team/portraits/Anne.jpg",
     "portraitAlt": "Anne sitting by a bookshelf looking back towards the camera",
-    "degree": ["Electrical Engineering"],
+    "degree": [
+      "Electrical Engineering"
+    ],
     "funFacts": [
       "I hate fruit",
       "I'm a sucker for romance"
@@ -937,10 +1017,10 @@
       "Your Name",
       "Frieren"
     ],
-    "discordHandle": "dirtandme"
+    "discordHandle": "dirtandme",
+    "id": "anne-marketing-subcom"
   },
   {
-    "id": "ivy-marketing-subcom",
     "name": "Ivy",
     "role": "Media Subcom",
     "membership": "other",
@@ -949,7 +1029,9 @@
     "pronouns": "They/Them",
     "portraitImage": "/team/portraits/Ivy.jpg",
     "portraitAlt": "Ivy's face on a photobooth screen",
-    "degree": ["3rd year Law/Crim"],
+    "degree": [
+      "3rd year Law/Crim"
+    ],
     "funFacts": [
       "mister donut",
       "i like to play ddr",
@@ -962,10 +1044,10 @@
       "case of hana & alice",
       "soremachi"
     ],
-    "discordHandle": "ib"
+    "discordHandle": "ib",
+    "id": "ivy-marketing-subcom"
   },
   {
-    "id": "lisa-marketing-subcom",
     "name": "Lisa",
     "role": "Media Subcom",
     "membership": "other",
@@ -974,7 +1056,9 @@
     "pronouns": "Any",
     "portraitImage": "/team/portraits/lisa.png",
     "portraitAlt": "A selfie of Lisa taken from a high angle",
-    "degree": ["Computer Science (3rd year)"],
+    "degree": [
+      "Computer Science (3rd year)"
+    ],
     "funFacts": [
       "chronically online",
       "reels",
@@ -990,12 +1074,12 @@
       "Vinland Saga",
       "Nana",
       "Soul Eater",
-      "Blue Lock" 
+      "Blue Lock"
     ],
-    "discordHandle": "zhonglislefttoe"
+    "discordHandle": "zhonglislefttoe",
+    "id": "lisa-marketing-subcom"
   },
   {
-    "id": "felix-marketing-subcom",
     "name": "Felix",
     "role": "International Subcom",
     "membership": "other",
@@ -1004,25 +1088,27 @@
     "pronouns": "He/Him",
     "portraitImage": "/team/portraits/felixX.jpg",
     "portraitAlt": "Felix posing dramatically in front of a lake",
-    "degree": ["1st yr Mechanical Engineering"],
+    "degree": [
+      "1st yr Mechanical Engineering"
+    ],
     "funFacts": [
       "Lead guitar of my band",
-      "(I have Bocchi’s Guitar)",
+      "(I have Bocchi\u2019s Guitar)",
       "ZmjjKK is the best duelist",
-      "Bin哥是世一上 马头nb",
+      "Bin\u54e5\u662f\u4e16\u4e00\u4e0a \u9a6c\u5934nb",
       "DM me if u play IdentityV"
     ],
     "favoriteAnime": [
       "JoJo's Bizarre Adventure",
       "Girls Band Cry",
       "It's MyGO!!!!!/Ave Mujica",
-      "Rascal Does Not Dream ",
+      "Rascal Does Not Dream",
       "love chunibyo & other delusions"
     ],
-    "discordHandle": "Flexiiax"
+    "discordHandle": "Flexiiax",
+    "id": "felix-marketing-subcom"
   },
   {
-    "id": "jade-it-subcom",
     "name": "Jade",
     "role": "IT Subcom",
     "membership": "other",
@@ -1031,7 +1117,9 @@
     "pronouns": "She/Her",
     "portraitImage": "/team/portraits/jade.jpg",
     "portraitAlt": "Jade taking a selfie",
-    "degree": ["3rd year Computer Science/Fine Arts"],
+    "degree": [
+      "3rd year Computer Science/Fine Arts"
+    ],
     "funFacts": [
       "I like to transcribe music in my free time",
       "David xu paid me $10 to make a zack lee slander image",
@@ -1040,16 +1128,16 @@
       "I still play brawl stars"
     ],
     "favoriteAnime": [
-      "Serial Experiments Lain", 
-      "Girl's Last Tour", 
-      "Michiko & Hatchin", 
-      "Beastars", 
-      "The Cat Returns"  
+      "Serial Experiments Lain",
+      "Girl's Last Tour",
+      "Michiko & Hatchin",
+      "Beastars",
+      "The Cat Returns"
     ],
-    "discordHandle": "Nephrite"
+    "discordHandle": "Nephrite",
+    "id": "jade-it-subcom"
   },
   {
-    "id": "brian-it-subcom",
     "name": "Brian",
     "role": "IT Subcom",
     "membership": "other",
@@ -1058,26 +1146,28 @@
     "pronouns": "He/Him",
     "portraitImage": "/team/portraits/brian.jpg",
     "portraitAlt": "Brian taking a selfie",
-    "degree": ["2nd year Cyber Security"],
+    "degree": [
+      "2nd year Cyber Security"
+    ],
     "funFacts": [
-      "i like tanks, ships, planes ",
+      "i like tanks, ships, planes",
       "can't drive",
       "figure collector",
       "amateur model kit builder",
       "can fish"
     ],
     "favoriteAnime": [
-      "Girls Und Panzer", 
-      "86", 
-      "Secrets of the silent witch", 
-      "Fate", 
-      "Tensura", 
-      "lycoris recoil"  
+      "Girls Und Panzer",
+      "86",
+      "Secrets of the silent witch",
+      "Fate",
+      "Tensura",
+      "lycoris recoil"
     ],
-    "discordHandle": "Bigmac"
+    "discordHandle": "Bigmac",
+    "id": "brian-it-subcom"
   },
   {
-    "id": "vlad-it-subcom",
     "name": "Vlad",
     "role": "IT Subcom",
     "membership": "other",
@@ -1086,7 +1176,9 @@
     "pronouns": "He/Him",
     "portraitImage": "/team/portraits/vlad.png",
     "portraitAlt": "Brian taking a selfie",
-    "degree": ["Computer science"],
+    "degree": [
+      "Computer science"
+    ],
     "funFacts": [
       "I love cooking",
       "My favourite thing to cook is dry soup",
@@ -1096,6 +1188,7 @@
     "favoriteAnime": [
       "Delicious dungeon"
     ],
-    "discordHandle": "Vladyslav"
+    "discordHandle": "Vladyslav",
+    "id": "vlad-it-subcom"
   }
 ]
