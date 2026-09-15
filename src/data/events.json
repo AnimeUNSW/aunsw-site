@@ -336,6 +336,21 @@
       "image": "/events/hoyosoc-26t2-875e2d9594ff.png",
       "featured": false,
       "id": "evt-5ef6b657d219423abe8cf68370e6da68"
+    },
+    {
+      "slug": "harujuku-26t2",
+      "title": "oshikatsu@Harajuku",
+      "description": "Join us and our friends at anime@UTS for a chill oshikatsu dinner at Harajuku Gyoza! \n\nFeel free to bring along your oshikatsu items, including itabags and plushies \ud83e\uddf8 Spot your fellow fans and make new friends through your shared oshiis! \n\nAdditionally, enjoy 20% OFF Harajuku Gyoza's menu if you're an AniSyd member!",
+      "category": [
+        "collab",
+        "past"
+      ],
+      "startDateTime": "2026-07-31T07:30:00Z",
+      "endDateTime": "2026-07-31T10:00:00Z",
+      "location": "Harajuku Gyoza, Darling Harbour",
+      "image": "/events/harujuku-26t2-dca242e76260.png",
+      "featured": false,
+      "id": "evt-ecf56ab37860402c9353296d833e897c"
     }
   ]
 }
