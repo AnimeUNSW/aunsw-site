@@ -160,32 +160,6 @@
     "id": "yiming-treasurer"
   },
   {
-    "name": "Yuk",
-    "role": "Externals Subcom",
-    "membership": "other",
-    "portfolio": "Externals",
-    "displayOrder": 3,
-    "pronouns": "He/Him",
-    "portraitImage": "/team/portraits/yuk.jpg",
-    "portraitAlt": "Yuk looking down on the camera",
-    "degree": [
-      "Aerospace Engineering / Materials Science"
-    ],
-    "funFacts": [
-      "amateur music producer (...pls buy me a good midi keyboard someone)",
-      "persona and gacha game enjoyer",
-      "caster for UNSW esports (occasionally)",
-      "chronically online"
-    ],
-    "favoriteAnime": [
-      "violet evergarden",
-      "frieren: beyond journey's end",
-      "ghibli movies"
-    ],
-    "discordHandle": "Deleted User",
-    "id": "yuk-externals-subcom"
-  },
-  {
     "name": "Annie",
     "role": "External Relations",
     "membership": "top5",
