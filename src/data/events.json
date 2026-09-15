@@ -51,7 +51,7 @@
       "startDateTime": "2026-05-15T23:00:00Z",
       "endDateTime": "2026-05-17T05:00:00Z",
       "location": "Sydney Lower Town Hall",
-      "image": "../src/assets/event-pics/anisyd-artmart-2026.png",
+      "image": "/events/anisyd-artmart-1f1208d4ef09.png",
       "imageAlt": "Anisyd 2026 art mart poster",
       "featured": false,
       "registerLink": "https://events.humanitix.com/anisyd-express-art-mart",
