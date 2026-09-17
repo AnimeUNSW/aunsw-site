@@ -1,4 +1,5 @@
 import { screen } from "@testing-library/react"
+import userEvent from "@testing-library/user-event"
 import { describe, expect, it, vi } from "vitest"
 
 import { AccountDashboard } from "@/components/account/account-dashboard"
@@ -73,5 +74,63 @@ describe("AccountDashboard", () => {
     expect(
       screen.getByRole("link", { name: "Admin dashboard" })
     ).toHaveAttribute("href", "/admin")
+  })
+
+  it("locks an existing verified zID", () => {
+    renderWithProviders(
+      <AccountDashboard
+        account={{
+          ...account,
+          profile: { ...account.profile, zid: "z1234567" },
+        }}
+        isLoggingOut={false}
+        onLogout={vi.fn()}
+        onSaved={vi.fn()}
+      />
+    )
+
+    expect(screen.getByLabelText("zID")).toBeDisabled()
+    expect(
+      screen.queryByRole("button", { name: "Verify zID" })
+    ).not.toBeInTheDocument()
+  })
+
+  it("allows a member without a zID to verify one", () => {
+    renderWithProviders(
+      <AccountDashboard
+        account={account}
+        isLoggingOut={false}
+        onLogout={vi.fn()}
+        onSaved={vi.fn()}
+      />
+    )
+
+    expect(screen.getByLabelText("New zID")).toBeEnabled()
+    expect(screen.getByRole("button", { name: "Verify zID" })).toBeEnabled()
+  })
+
+  it("shows a small success toast after requesting verification", async () => {
+    const user = userEvent.setup()
+    vi.spyOn(globalThis, "fetch").mockResolvedValue(
+      new Response(JSON.stringify({ sent_to: "member@example.com" }), {
+        status: 202,
+      })
+    )
+    renderWithProviders(
+      <AccountDashboard
+        account={account}
+        isLoggingOut={false}
+        onLogout={vi.fn()}
+        onSaved={vi.fn()}
+      />
+    )
+
+    await user.type(screen.getByLabelText("New email"), "member@example.com")
+    await user.click(screen.getByRole("button", { name: "Verify new email" }))
+
+    expect(await screen.findByText("Verification email sent")).toHaveClass(
+      "bg-emerald-600"
+    )
+    vi.restoreAllMocks()
   })
 })

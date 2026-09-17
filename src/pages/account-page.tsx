@@ -125,7 +125,9 @@ export function AccountPage() {
             ? "Your account detail was verified and updated."
             : verificationStatus === "claimed"
               ? "That zID is already linked to another member. Your account was not changed."
-              : "This verification link has expired or has already been used. Request a new one in account settings."}
+              : verificationStatus === "locked"
+                ? "Your verified zID is locked and cannot be changed."
+                : "This verification link has expired or has already been used. Request a new one in account settings."}
         </p>
       ) : null}
 
