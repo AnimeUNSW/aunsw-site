@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from "react"
+import { useEffect, useState, type FormEvent } from "react"
 import { MailCheckIcon, SaveIcon } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
@@ -22,7 +22,7 @@ interface AccountSettingsProps {
 }
 
 const inputClass =
-  "w-full rounded-lg border border-input bg-background px-3 py-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring"
+  "w-full rounded-lg border border-input bg-background px-3 py-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:bg-muted disabled:text-muted-foreground"
 
 function valueOrNull(value: string) {
   return value.trim() || null
@@ -43,6 +43,14 @@ export function AccountSettings({ account, onSaved }: AccountSettingsProps) {
   const [sending, setSending] = useState<"email" | "zid" | null>(null)
   const [notice, setNotice] = useState("")
   const [error, setError] = useState("")
+  const [toast, setToast] = useState("")
+  const hasVerifiedZid = Boolean(account.profile.zid)
+
+  useEffect(() => {
+    if (!toast) return
+    const timeout = window.setTimeout(() => setToast(""), 4000)
+    return () => window.clearTimeout(timeout)
+  }, [toast])
 
   function edit(field: keyof typeof profile, value: string) {
     setProfile((current) => ({ ...current, [field]: value }))
@@ -84,15 +92,14 @@ export function AccountSettings({ account, onSaved }: AccountSettingsProps) {
     setSending(kind)
     setError("")
     setNotice("")
+    setToast("")
     try {
-      const result = await requestAccountEmailChange(
+      await requestAccountEmailChange(
         kind === "email"
           ? { kind, email: email.trim() }
           : { kind, zid: zid.trim() }
       )
-      setNotice(
-        `Check ${result.sent_to} for a verification link. Your ${kind === "zid" ? "zID" : "email"} will not change until you open it.`
-      )
+      setToast("Verification email sent")
     } catch (caught) {
       setError(
         caught instanceof Error
@@ -106,6 +113,14 @@ export function AccountSettings({ account, onSaved }: AccountSettingsProps) {
 
   return (
     <Card id="account-settings" className="scroll-mt-24">
+      {toast ? (
+        <p
+          role="status"
+          className="fixed right-5 bottom-5 z-50 rounded-full border border-emerald-300/60 bg-emerald-600 px-4 py-2 text-sm font-medium text-white shadow-lg"
+        >
+          {toast}
+        </p>
+      ) : null}
       <CardHeader>
         <CardTitle>Account settings</CardTitle>
         <CardDescription>
@@ -241,9 +256,10 @@ export function AccountSettings({ account, onSaved }: AccountSettingsProps) {
               attendance to your Discord account.
             </p>
             <label className="block space-y-1 text-sm">
-              New zID
+              {hasVerifiedZid ? "zID" : "New zID"}
               <input
                 className={inputClass}
+                disabled={hasVerifiedZid}
                 required
                 maxLength={12}
                 pattern="[zZ]?[0-9]{7}"
@@ -253,13 +269,20 @@ export function AccountSettings({ account, onSaved }: AccountSettingsProps) {
               />
             </label>
             <p className="text-xs text-muted-foreground">
-              We send the confirmation to the corresponding zID@unsw.edu.au
-              address. Another member’s zID cannot be claimed.
+              {hasVerifiedZid
+                ? "A verified zID cannot be changed. Contact an Executive if this is incorrect."
+                : "We send the confirmation to the corresponding zID@unsw.edu.au address. Another member’s zID cannot be claimed."}
             </p>
-            <Button type="submit" variant="outline" disabled={sending !== null}>
-              <MailCheckIcon data-icon="inline-start" />
-              {sending === "zid" ? "Sending…" : "Verify new zID"}
-            </Button>
+            {!hasVerifiedZid ? (
+              <Button
+                type="submit"
+                variant="outline"
+                disabled={sending !== null}
+              >
+                <MailCheckIcon data-icon="inline-start" />
+                {sending === "zid" ? "Sending…" : "Verify zID"}
+              </Button>
+            ) : null}
           </form>
         </div>
       </CardContent>
