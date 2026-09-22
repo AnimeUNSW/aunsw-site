@@ -85,6 +85,14 @@ export async function requestAccountEmailChange(change: {
   return accountWrite(response) as Promise<{ sent_to: string }>
 }
 
+export async function removeAccountZid(): Promise<void> {
+  const response = await fetch(`${API_BASE_URL}/v1/me/zid`, {
+    method: "DELETE",
+    credentials: "include",
+  })
+  await accountWrite(response)
+}
+
 export type LeaderboardSort = "xp" | "events"
 
 export interface LeaderboardEntry {

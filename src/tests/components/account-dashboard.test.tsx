@@ -1,4 +1,4 @@
-import { screen } from "@testing-library/react"
+import { screen, within } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { describe, expect, it, vi } from "vitest"
 
@@ -93,6 +93,36 @@ describe("AccountDashboard", () => {
     expect(
       screen.queryByRole("button", { name: "Verify zID" })
     ).not.toBeInTheDocument()
+  })
+
+  it("confirms before removing a verified zID", async () => {
+    const user = userEvent.setup()
+    const onSaved = vi.fn().mockResolvedValue(undefined)
+    vi.spyOn(globalThis, "fetch").mockResolvedValue(
+      new Response(JSON.stringify({ removed: true }), { status: 200 })
+    )
+    renderWithProviders(
+      <AccountDashboard
+        account={{
+          ...account,
+          profile: { ...account.profile, zid: "z1234567" },
+        }}
+        isLoggingOut={false}
+        onLogout={vi.fn()}
+        onSaved={onSaved}
+      />
+    )
+
+    await user.click(screen.getByRole("button", { name: "Remove zID" }))
+    const dialog = screen.getByRole("dialog")
+    expect(
+      within(dialog).getByText(/Attendance and XP linked through this zID/)
+    ).toBeInTheDocument()
+    await user.click(within(dialog).getByRole("button", { name: "Remove zID" }))
+
+    expect(onSaved).toHaveBeenCalledOnce()
+    expect(await screen.findByText("zID removed")).toBeInTheDocument()
+    vi.restoreAllMocks()
   })
 
   it("allows a member without a zID to verify one", () => {
