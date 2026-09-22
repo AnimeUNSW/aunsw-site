@@ -263,7 +263,7 @@ export function AccountSettings({ account, onSaved }: AccountSettingsProps) {
                 required
                 maxLength={12}
                 pattern="[zZ]?[0-9]{7}"
-                placeholder="z1234567"
+                placeholder="z0000000"
                 value={zid}
                 onChange={(event) => setZid(event.target.value)}
               />
