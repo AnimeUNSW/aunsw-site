@@ -2,6 +2,7 @@ import { afterEach, describe, expect, it, vi } from "vitest"
 
 import {
   getLeaderboard,
+  removeAccountZid,
   requestAccountEmailChange,
   updateAccountProfile,
 } from "@/lib/account-api"
@@ -70,6 +71,22 @@ describe("account settings API", () => {
     expect(String(fetchMock.mock.calls[0][0])).toContain("/v1/me/email-changes")
     expect(fetchMock.mock.calls[0][1]).toMatchObject({
       method: "POST",
+      credentials: "include",
+    })
+  })
+
+  it("removes a zID with the authenticated session", async () => {
+    const fetchMock = vi
+      .spyOn(globalThis, "fetch")
+      .mockResolvedValue(
+        new Response(JSON.stringify({ removed: true }), { status: 200 })
+      )
+
+    await removeAccountZid()
+
+    expect(String(fetchMock.mock.calls[0][0])).toContain("/v1/me/zid")
+    expect(fetchMock.mock.calls[0][1]).toMatchObject({
+      method: "DELETE",
       credentials: "include",
     })
   })

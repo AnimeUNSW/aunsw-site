@@ -1,5 +1,5 @@
 import { useEffect, useState, type FormEvent } from "react"
-import { MailCheckIcon, SaveIcon } from "lucide-react"
+import { MailCheckIcon, SaveIcon, UnlinkIcon } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -10,6 +10,17 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import {
+  removeAccountZid,
   requestAccountEmailChange,
   updateAccountProfile,
   type Account,
@@ -44,6 +55,8 @@ export function AccountSettings({ account, onSaved }: AccountSettingsProps) {
   const [notice, setNotice] = useState("")
   const [error, setError] = useState("")
   const [toast, setToast] = useState("")
+  const [removeZidOpen, setRemoveZidOpen] = useState(false)
+  const [removingZid, setRemovingZid] = useState(false)
   const hasVerifiedZid = Boolean(account.profile.zid)
 
   useEffect(() => {
@@ -108,6 +121,26 @@ export function AccountSettings({ account, onSaved }: AccountSettingsProps) {
       )
     } finally {
       setSending(null)
+    }
+  }
+
+  async function removeZid() {
+    setRemovingZid(true)
+    setError("")
+    setNotice("")
+    setToast("")
+    try {
+      await removeAccountZid()
+      setZid("")
+      await onSaved()
+      setRemoveZidOpen(false)
+      setToast("zID removed")
+    } catch (caught) {
+      setError(
+        caught instanceof Error ? caught.message : "Could not remove your zID."
+      )
+    } finally {
+      setRemovingZid(false)
     }
   }
 
@@ -282,7 +315,40 @@ export function AccountSettings({ account, onSaved }: AccountSettingsProps) {
                 <MailCheckIcon data-icon="inline-start" />
                 {sending === "zid" ? "Sending…" : "Verify zID"}
               </Button>
-            ) : null}
+            ) : (
+              <Dialog open={removeZidOpen} onOpenChange={setRemoveZidOpen}>
+                <DialogTrigger asChild>
+                  <Button type="button" variant="destructive">
+                    <UnlinkIcon data-icon="inline-start" />
+                    Remove zID
+                  </Button>
+                </DialogTrigger>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>Remove your verified zID?</DialogTitle>
+                    <DialogDescription>
+                      Attendance and XP linked through this zID will be removed.
+                      You can verify a different zID afterwards.
+                    </DialogDescription>
+                  </DialogHeader>
+                  <DialogFooter>
+                    <DialogClose asChild>
+                      <Button type="button" variant="outline">
+                        Cancel
+                      </Button>
+                    </DialogClose>
+                    <Button
+                      type="button"
+                      variant="destructive"
+                      disabled={removingZid}
+                      onClick={() => void removeZid()}
+                    >
+                      {removingZid ? "Removing…" : "Remove zID"}
+                    </Button>
+                  </DialogFooter>
+                </DialogContent>
+              </Dialog>
+            )}
           </form>
         </div>
       </CardContent>
