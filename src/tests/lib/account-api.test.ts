@@ -62,7 +62,7 @@ describe("account settings API", () => {
 
   it("requests a new verification email instead of directly changing a zID", async () => {
     const fetchMock = vi.spyOn(globalThis, "fetch").mockResolvedValue(
-      new Response(JSON.stringify({ sent_to: "z1234567@unsw.edu.au" }), {
+      new Response(JSON.stringify({ sent_to: "z1234567@ad.unsw.edu.au" }), {
         status: 202,
       })
     )

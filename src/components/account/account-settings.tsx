@@ -271,7 +271,7 @@ export function AccountSettings({ account, onSaved }: AccountSettingsProps) {
             <p className="text-xs text-muted-foreground">
               {hasVerifiedZid
                 ? "A verified zID cannot be changed. Contact an Executive if this is incorrect."
-                : "We send the confirmation to the corresponding zID@unsw.edu.au address. Another member’s zID cannot be claimed."}
+                : "We send the confirmation to the corresponding zID@ad.unsw.edu.au address. Another member’s zID cannot be claimed."}
             </p>
             {!hasVerifiedZid ? (
               <Button
