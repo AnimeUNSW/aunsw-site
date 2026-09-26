@@ -351,6 +351,19 @@
       "image": "/events/harujuku-26t2-dca242e76260.png",
       "featured": false,
       "id": "evt-ecf56ab37860402c9353296d833e897c"
+    },
+    {
+      "slug": "oshikatsu-t3-26",
+      "title": "Oshikatsu",
+      "description": "Rosette Making Event",
+      "category": [
+        "past"
+      ],
+      "startDateTime": "2026-09-25T08:00:00Z",
+      "endDateTime": "2026-09-25T10:00:00Z",
+      "location": "Mathews 214",
+      "featured": false,
+      "id": "evt-885abc6f898443928d7aa8a39577abb8"
     }
   ]
 }
