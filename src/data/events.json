@@ -364,6 +364,19 @@
       "location": "Mathews 214",
       "featured": false,
       "id": "evt-885abc6f898443928d7aa8a39577abb8"
+    },
+    {
+      "slug": "talentshow-t3-2026",
+      "title": "Talent Show",
+      "description": "Talent Show",
+      "category": [
+        "past"
+      ],
+      "startDateTime": "2026-09-18T07:00:00Z",
+      "endDateTime": "2026-09-18T09:00:00Z",
+      "location": "Law Theatre G23",
+      "featured": false,
+      "id": "evt-ad111fb9234a46fd85337b67752c7f14"
     }
   ]
 }
