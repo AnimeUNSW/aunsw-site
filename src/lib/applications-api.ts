@@ -175,13 +175,28 @@ export function getApplicationForms(signal?: AbortSignal) {
 }
 
 export function saveApplicationForms(template: ApplicationFormTemplate) {
+  const questions = template.questions
+    .filter((question) => !question.fixed_key)
+    .map((question) => ({
+      id: question.id,
+      section: question.section,
+      question_text: question.question_text,
+      answer_type: question.answer_type,
+      required: question.required,
+      min_length: question.min_length,
+      max_length: question.max_length,
+      allow_multiple: question.allow_multiple,
+      display_order: question.display_order,
+      options: question.options,
+    }))
+
   return applicationRequest<{ version: number }>(
     "/v1/admin/applications/forms",
     {
       method: "PUT",
       body: JSON.stringify({
         version: template.version,
-        questions: template.questions.filter((question) => !question.fixed_key),
+        questions,
       }),
     }
   )
