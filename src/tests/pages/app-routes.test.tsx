@@ -171,7 +171,7 @@ describe("app routes", () => {
     expect(screen.queryByRole("textbox", { name: /full name/i })).toBeNull()
   })
 
-  it("shows the admin dashboard only for an Executive account", async () => {
+  it("shows the admin tool links only for an Executive account", async () => {
     const account = {
       attendance_history: [],
       avatar_url: null,
@@ -216,8 +216,17 @@ describe("app routes", () => {
     renderRoute("/admin")
 
     expect(
-      await screen.findByRole("button", { name: "Add event" })
-    ).toBeInTheDocument()
+      await screen.findByRole("link", { name: "Manage Events" })
+    ).toHaveAttribute("href", "/admin/events")
+    expect(
+      screen.getByRole("link", { name: "Manage Meet the Team" })
+    ).toHaveAttribute("href", "/admin/team")
+    expect(
+      screen.getByRole("link", { name: "Manage Team Applications" })
+    ).toHaveAttribute("href", "/admin/applications")
+    expect(
+      screen.queryByRole("button", { name: "Add event" })
+    ).not.toBeInTheDocument()
     expect(
       screen.queryByRole("heading", { name: "Access denied" })
     ).not.toBeInTheDocument()
@@ -273,13 +282,67 @@ describe("app routes", () => {
     renderRoute("/admin")
 
     expect(
-      await screen.findByRole("button", { name: "Add event" })
-    ).toBeInTheDocument()
+      await screen.findByRole("link", { name: "Manage Events" })
+    ).toHaveAttribute("href", "/admin/events")
     expect(
       screen.getAllByRole("link", { name: "Admin" }).length
     ).toBeGreaterThan(0)
     expect(
       screen.queryByRole("heading", { name: "Access denied" })
     ).not.toBeInTheDocument()
+  })
+
+  it("renders event management on its own admin route", async () => {
+    const account = {
+      attendance_history: [],
+      avatar_url: null,
+      discord_id: "789",
+      display_name: "Executive",
+      is_admin: true,
+      is_executive: true,
+      username: "exec",
+      stats: {
+        anilist_profile: null,
+        events_attended: 0,
+        exp: 0,
+        mal_profile: null,
+        message_count: 0,
+        quote: null,
+        rank: null,
+        term_exp: 0,
+      },
+    }
+    vi.stubGlobal(
+      "fetch",
+      vi.fn((input: RequestInfo | URL) => {
+        const url = String(input)
+        if (url.endsWith("/v1/me")) {
+          return Promise.resolve(
+            new Response(JSON.stringify(account), {
+              status: 200,
+              headers: { "Content-Type": "application/json" },
+            })
+          )
+        }
+        if (url.endsWith("/v1/admin/events")) {
+          return Promise.resolve(
+            new Response(JSON.stringify({ events: [] }), {
+              status: 200,
+              headers: { "Content-Type": "application/json" },
+            })
+          )
+        }
+        return Promise.reject(new Error(`Unexpected request: ${url}`))
+      })
+    )
+
+    renderRoute("/admin/events")
+
+    expect(
+      await screen.findByRole("heading", { name: "Manage events" })
+    ).toBeInTheDocument()
+    expect(
+      screen.getByRole("button", { name: "Add event" })
+    ).toBeInTheDocument()
   })
 })

@@ -23,6 +23,8 @@ export function AppRoutes() {
       <Route path="/account" element={<AccountPage />} />
       <Route path="/leaderboard" element={<LeaderboardPage />} />
       <Route path="/admin" element={<AdminPage />} />
+      <Route path="/admin/events" element={<AdminPage view="events" />} />
+      <Route path="/admin/team" element={<AdminPage view="team" />} />
       <Route path="/admin/applications" element={<TeamApplicationsPage />} />
       <Route path="/apply" element={<ApplyPage />} />
       <Route path="*" element={<NotFoundPage />} />
