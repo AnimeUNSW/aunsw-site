@@ -12,7 +12,11 @@ export const PORTFOLIOS = APPLICATION_SECTIONS.slice(1)
 
 export type ApplicationSection = (typeof APPLICATION_SECTIONS)[number]
 export type Portfolio = (typeof PORTFOLIOS)[number]
-export type AnswerType = "short_text" | "long_text" | "multiple_choice"
+export type AnswerType =
+  | "short_text"
+  | "long_text"
+  | "multiple_choice"
+  | "weekly_availability"
 
 export interface ApplicationQuestion {
   id: string
@@ -66,6 +70,7 @@ export interface ApplicationRecord extends ApplicationDraft {
   answer_details?: Array<{
     question: string
     section: ApplicationSection
+    answer_type: AnswerType
     answer: string | string[]
   }>
 }
