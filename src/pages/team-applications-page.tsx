@@ -27,7 +27,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { getAccount, type Account } from "@/lib/account-api"
 import {
   APPLICATION_SECTIONS,
@@ -59,6 +58,8 @@ function fieldClass() {
   return "min-h-10 w-full rounded-lg border border-input bg-background/70 px-3 py-2 text-sm outline-none focus-visible:border-primary focus-visible:ring-2 focus-visible:ring-primary/25"
 }
 
+type ApplicationsAdminView = "dashboard" | "forms" | "responses"
+
 type PageState =
   | { status: "loading" }
   | { status: "denied"; message: string }
@@ -70,7 +71,11 @@ type PageState =
     }
   | { status: "error"; message: string }
 
-export function TeamApplicationsPage() {
+export function TeamApplicationsPage({
+  view = "dashboard",
+}: {
+  view?: ApplicationsAdminView
+}) {
   const [state, setState] = useState<PageState>({ status: "loading" })
   const [section, setSection] = useState<ApplicationSection>("general")
   const [saving, setSaving] = useState(false)
@@ -346,8 +351,20 @@ export function TeamApplicationsPage() {
     <div className="page-container space-y-6">
       <PageHeader
         badge="Committee admin"
-        title="Team Applications"
-        description="Build recruitment forms, publish an application window, and review portfolio submissions."
+        title={
+          view === "forms"
+            ? "Application form editor"
+            : view === "responses"
+              ? "View applications"
+              : "Team Applications"
+        }
+        description={
+          view === "forms"
+            ? "Build the shared recruitment form and publish application windows."
+            : view === "responses"
+              ? "Review current and archived portfolio submissions."
+              : "Choose an application management area."
+        }
       />
       <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-primary/25 bg-primary/5 p-4">
         <div>
@@ -387,16 +404,49 @@ export function TeamApplicationsPage() {
         </p>
       ) : null}
 
-      <Tabs defaultValue="editor" className="gap-6">
-        <TabsList className="h-auto w-full max-w-lg p-1">
-          <TabsTrigger value="editor" className="min-h-11">
-            Form Editor
-          </TabsTrigger>
-          <TabsTrigger value="viewer" className="min-h-11">
-            View Applications
-          </TabsTrigger>
-        </TabsList>
-        <TabsContent value="editor" className="space-y-5">
+      {view === "dashboard" ? (
+        <div className="grid gap-4 md:grid-cols-2">
+          <Card className="flex h-full flex-col">
+            <CardHeader className="space-y-3">
+              <span className="grid size-12 place-items-center rounded-xl bg-primary/10 text-primary">
+                <FileQuestionIcon className="size-6" aria-hidden />
+              </span>
+              <CardTitle>Form Editor</CardTitle>
+            </CardHeader>
+            <CardContent className="flex flex-1 flex-col gap-5">
+              <p className="flex-1 text-sm text-muted-foreground">
+                Edit application questions and publish or close recruitment
+                windows.
+              </p>
+              <Button asChild size="lg" className="w-full">
+                <Link to="/admin/applications/forms">Open Form Editor</Link>
+              </Button>
+            </CardContent>
+          </Card>
+          <Card className="flex h-full flex-col">
+            <CardHeader className="space-y-3">
+              <span className="grid size-12 place-items-center rounded-xl bg-primary/10 text-primary">
+                <FolderIcon className="size-6" aria-hidden />
+              </span>
+              <CardTitle>View Applications</CardTitle>
+            </CardHeader>
+            <CardContent className="flex flex-1 flex-col gap-5">
+              <p className="flex-1 text-sm text-muted-foreground">
+                Browse open and archived windows, then review submissions by
+                portfolio.
+              </p>
+              <Button asChild size="lg" className="w-full">
+                <Link to="/admin/applications/responses">
+                  View Applications
+                </Link>
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
+      ) : null}
+
+      {view === "forms" ? (
+        <div className="space-y-5">
           {state.template.locked ? (
             <Card>
               <CardContent className="flex flex-col items-center gap-4 py-14 text-center">
@@ -740,9 +790,11 @@ export function TeamApplicationsPage() {
               </CardContent>
             </Card>
           )}
-        </TabsContent>
+        </div>
+      ) : null}
 
-        <TabsContent value="viewer" className="space-y-5">
+      {view === "responses" ? (
+        <div className="space-y-5">
           {!state.windows.length ? (
             <Card>
               <CardContent className="py-12 text-center text-muted-foreground">
@@ -1082,8 +1134,8 @@ export function TeamApplicationsPage() {
               </div>
             </div>
           )}
-        </TabsContent>
-      </Tabs>
+        </div>
+      ) : null}
 
       <Dialog open={openDialog} onOpenChange={setOpenDialog}>
         <DialogContent>

@@ -14,6 +14,68 @@ function renderRoute(route: string) {
   )
 }
 
+function mockApplicationAdminRequests() {
+  const account = {
+    attendance_history: [],
+    avatar_url: null,
+    discord_id: "123",
+    display_name: "Executive",
+    is_admin: true,
+    is_executive: true,
+    username: "exec",
+    stats: {
+      anilist_profile: null,
+      events_attended: 0,
+      exp: 0,
+      mal_profile: null,
+      message_count: 0,
+      quote: null,
+      rank: null,
+      term_exp: 0,
+    },
+  }
+
+  vi.stubGlobal(
+    "fetch",
+    vi.fn((input: RequestInfo | URL) => {
+      const url = String(input)
+      if (url.endsWith("/v1/me")) {
+        return Promise.resolve(
+          new Response(JSON.stringify(account), {
+            status: 200,
+            headers: { "Content-Type": "application/json" },
+          })
+        )
+      }
+      if (url.endsWith("/v1/admin/applications/forms")) {
+        return Promise.resolve(
+          new Response(
+            JSON.stringify({
+              version: 1,
+              updated_at: "2026-09-27T00:00:00Z",
+              locked: false,
+              questions: [],
+            }),
+            {
+              status: 200,
+              headers: { "Content-Type": "application/json" },
+            }
+          )
+        )
+      }
+      if (url.endsWith("/v1/admin/applications/windows")) {
+        return Promise.resolve(
+          new Response(JSON.stringify({ windows: [] }), {
+            status: 200,
+            headers: { "Content-Type": "application/json" },
+          })
+        )
+      }
+      return Promise.reject(new Error(`Unexpected request: ${url}`))
+    })
+  )
+}
+
 describe("app routes", () => {
   afterEach(() => {
     vi.unstubAllGlobals()
@@ -233,6 +295,43 @@ describe("app routes", () => {
     expect(
       screen.getAllByRole("link", { name: "Admin" }).length
     ).toBeGreaterThan(0)
+  })
+
+  it("shows application administration as two large page links", async () => {
+    mockApplicationAdminRequests()
+
+    renderRoute("/admin/applications")
+
+    expect(
+      await screen.findByRole("link", { name: "Open Form Editor" })
+    ).toHaveAttribute("href", "/admin/applications/forms")
+    expect(
+      screen.getByRole("link", { name: "View Applications" })
+    ).toHaveAttribute("href", "/admin/applications/responses")
+  })
+
+  it("renders the application form editor on its own page", async () => {
+    mockApplicationAdminRequests()
+
+    renderRoute("/admin/applications/forms")
+
+    expect(
+      await screen.findByRole("heading", { name: "Application form editor" })
+    ).toBeInTheDocument()
+    expect(screen.getByText("Shared form template")).toBeInTheDocument()
+  })
+
+  it("renders submitted applications on their own page", async () => {
+    mockApplicationAdminRequests()
+
+    renderRoute("/admin/applications/responses")
+
+    expect(
+      await screen.findByRole("heading", { name: "View applications" })
+    ).toBeInTheDocument()
+    expect(
+      screen.getByText("No application windows have been published yet.")
+    ).toBeInTheDocument()
   })
 
   it("allows a Director without the Executive role to open the admin URL", async () => {

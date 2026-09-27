@@ -73,20 +73,22 @@ The `@/` alias resolves to `src/` in both TypeScript and Vite.
 
 ### Routes
 
-| URL                | Page module                    | Primary content                                                       |
-| ------------------ | ------------------------------ | --------------------------------------------------------------------- |
-| `/`                | `src/pages/home-page.tsx`      | Hero, club statistics, featured events, sponsor preview, social links |
-| `/events`          | `src/pages/events-page.tsx`    | Filterable event listing                                              |
-| `/sponsors`        | `src/pages/sponsors-page.tsx`  | Sponsor benefits and terms                                            |
-| `/team`            | `src/pages/team-page.tsx`      | Committee and subcommittee carousels                                  |
-| `/info`            | `src/pages/info-page.tsx`      | Membership, FAQ, Discord, and contacts                                |
-| `/account`         | `src/pages/account-page.tsx`   | Discord login and personal server statistics                          |
-| `/apply`           | `src/pages/apply-page.tsx`     | Discord-authenticated portfolio applications and submission history   |
-| `/admin`           | `src/pages/admin-page.tsx`     | Committee administration launcher                                     |
-| `/admin/events`    | `src/pages/admin-page.tsx`     | Event listings and attendance administration                          |
-| `/admin/team`      | `src/pages/admin-page.tsx`     | Meet the Team profile administration                                  |
-| `/admin/applications` | `src/pages/team-applications-page.tsx` | Recruitment form, window, and submission administration       |
-| Any unmatched path | `src/pages/not-found-page.tsx` | In-app 404 page                                                       |
+| URL                             | Page module                            | Primary content                                                       |
+| ------------------------------- | -------------------------------------- | --------------------------------------------------------------------- |
+| `/`                             | `src/pages/home-page.tsx`              | Hero, club statistics, featured events, sponsor preview, social links |
+| `/events`                       | `src/pages/events-page.tsx`            | Filterable event listing                                              |
+| `/sponsors`                     | `src/pages/sponsors-page.tsx`          | Sponsor benefits and terms                                            |
+| `/team`                         | `src/pages/team-page.tsx`              | Committee and subcommittee carousels                                  |
+| `/info`                         | `src/pages/info-page.tsx`              | Membership, FAQ, Discord, and contacts                                |
+| `/account`                      | `src/pages/account-page.tsx`           | Discord login and personal server statistics                          |
+| `/apply`                        | `src/pages/apply-page.tsx`             | Discord-authenticated portfolio applications and submission history   |
+| `/admin`                        | `src/pages/admin-page.tsx`             | Committee administration launcher                                     |
+| `/admin/events`                 | `src/pages/admin-page.tsx`             | Event listings and attendance administration                          |
+| `/admin/team`                   | `src/pages/admin-page.tsx`             | Meet the Team profile administration                                  |
+| `/admin/applications`           | `src/pages/team-applications-page.tsx` | Recruitment form, window, and submission administration               |
+| `/admin/applications/forms`     | `src/pages/team-applications-page.tsx` | Recruitment form and application-window administration                |
+| `/admin/applications/responses` | `src/pages/team-applications-page.tsx` | Current and archived submission review                                |
+| Any unmatched path              | `src/pages/not-found-page.tsx`         | In-app 404 page                                                       |
 
 Routes are declared in `src/app/app-routes.tsx`. Navigation labels are declared
 separately in `src/components/navigation/nav-items.ts`; add or remove entries in
