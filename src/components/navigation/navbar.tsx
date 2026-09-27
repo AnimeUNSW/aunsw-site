@@ -20,7 +20,9 @@ export function Navbar({ showAdmin = false }: { showAdmin?: boolean }) {
     <NavigationMenu viewport={false}>
       <NavigationMenuList className="gap-1">
         {items.map((item) => {
-          const isActive = location.pathname === item.to
+          const isActive =
+            location.pathname === item.to ||
+            (item.to === "/admin" && location.pathname.startsWith("/admin/"))
 
           return (
             <NavigationMenuItem key={item.to}>

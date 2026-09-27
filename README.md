@@ -82,7 +82,9 @@ The `@/` alias resolves to `src/` in both TypeScript and Vite.
 | `/info`            | `src/pages/info-page.tsx`      | Membership, FAQ, Discord, and contacts                                |
 | `/account`         | `src/pages/account-page.tsx`   | Discord login and personal server statistics                          |
 | `/apply`           | `src/pages/apply-page.tsx`     | Discord-authenticated portfolio applications and submission history   |
-| `/admin`           | `src/pages/admin-page.tsx`     | Committee website administration                                      |
+| `/admin`           | `src/pages/admin-page.tsx`     | Committee administration launcher                                     |
+| `/admin/events`    | `src/pages/admin-page.tsx`     | Event listings and attendance administration                          |
+| `/admin/team`      | `src/pages/admin-page.tsx`     | Meet the Team profile administration                                  |
 | `/admin/applications` | `src/pages/team-applications-page.tsx` | Recruitment form, window, and submission administration       |
 | Any unmatched path | `src/pages/not-found-page.tsx` | In-app 404 page                                                       |
 

@@ -18,7 +18,6 @@ import { PageHeader } from "@/components/shared/page-header"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import {
   AdminAccessError,
   createEvent,
@@ -43,9 +42,32 @@ type PendingRemoval =
   | { kind: "event"; event: AdminEvent }
   | { kind: "attendance"; event: AdminEvent; upload: AttendanceUpload }
 
-export function AdminPage() {
+const ADMIN_TOOLS = [
+  {
+    title: "Events",
+    description: "Create events, update listings, and manage attendance forms.",
+    to: "/admin/events",
+    icon: CalendarDaysIcon,
+  },
+  {
+    title: "Meet the Team",
+    description: "Add, edit, reorder, or remove committee profiles.",
+    to: "/admin/team",
+    icon: UsersIcon,
+  },
+  {
+    title: "Team Applications",
+    description:
+      "Edit recruitment forms, publish application windows, and review submissions.",
+    to: "/admin/applications",
+    icon: ClipboardListIcon,
+  },
+] as const
+
+type AdminView = "dashboard" | "events" | "team"
+
+export function AdminPage({ view = "dashboard" }: { view?: AdminView }) {
   const [state, setState] = useState<PageState>({ status: "loading" })
-  const [section, setSection] = useState<"events" | "team">("events")
   const [editing, setEditing] = useState<AdminEvent | "new" | null>(null)
   const [saving, setSaving] = useState(false)
   const [notice, setNotice] = useState<string | null>(null)
@@ -71,7 +93,8 @@ export function AdminPage() {
           })
           return
         }
-        const events = await getAdminEvents(controller.signal)
+        const events =
+          view === "events" ? await getAdminEvents(controller.signal) : []
         setState({ status: "ready", events })
       })
       .catch((error: unknown) => {
@@ -85,7 +108,7 @@ export function AdminPage() {
         })
       })
     return () => controller.abort()
-  }, [])
+  }, [view])
 
   async function saveEvent(value: EventInput) {
     if (state.status !== "ready" || editing === null) return
@@ -207,30 +230,46 @@ export function AdminPage() {
     <div className="page-container space-y-6">
       <PageHeader
         badge="Committee admin"
-        title="Admin dashboard"
-        description="Manage website events, attendance forms, and Meet the Team profiles."
+        title={
+          view === "events"
+            ? "Manage events"
+            : view === "team"
+              ? "Manage team"
+              : "Admin dashboard"
+        }
+        description={
+          view === "events"
+            ? "Create and update event listings, upload attendance forms, and manage attendance records."
+            : view === "team"
+              ? "Manage the profiles and display order used in Meet the Team."
+              : "Choose an area to manage."
+        }
       />
 
-      {state.status === "ready" ? (
-        <Card className="border-primary/25 bg-primary/5">
-          <CardContent className="flex flex-wrap items-center justify-between gap-4 py-5">
-            <div className="flex items-start gap-3">
-              <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-primary/10 text-primary">
-                <ClipboardListIcon className="size-5" aria-hidden />
-              </span>
-              <div>
-                <h2 className="font-semibold">Team Applications</h2>
-                <p className="mt-1 text-sm text-muted-foreground">
-                  Edit recruitment forms, publish application windows, and
-                  review submissions.
-                </p>
-              </div>
-            </div>
-            <Button asChild>
-              <Link to="/admin/applications">Open Team Applications</Link>
-            </Button>
-          </CardContent>
-        </Card>
+      {state.status === "ready" && view === "dashboard" ? (
+        <div className="grid gap-4 md:grid-cols-3">
+          {ADMIN_TOOLS.map((tool) => {
+            const Icon = tool.icon
+            return (
+              <Card key={tool.to} className="flex h-full flex-col">
+                <CardHeader className="space-y-3">
+                  <span className="grid size-11 place-items-center rounded-xl bg-primary/10 text-primary">
+                    <Icon className="size-5" aria-hidden />
+                  </span>
+                  <CardTitle>{tool.title}</CardTitle>
+                </CardHeader>
+                <CardContent className="flex flex-1 flex-col gap-5">
+                  <p className="flex-1 text-sm text-muted-foreground">
+                    {tool.description}
+                  </p>
+                  <Button asChild className="w-full">
+                    <Link to={tool.to}>Manage {tool.title}</Link>
+                  </Button>
+                </CardContent>
+              </Card>
+            )
+          })}
+        </div>
       ) : null}
 
       {state.status === "loading" ? (
@@ -264,189 +303,160 @@ export function AdminPage() {
         </Card>
       ) : null}
 
-      {state.status === "ready" ? (
-        <Tabs
-          value={section}
-          onValueChange={(value) => {
-            setSection(value as "events" | "team")
-            setEditing(null)
-            setNotice(null)
-          }}
-          className="gap-6"
-        >
-          <TabsList
-            className="h-auto w-full max-w-xl p-1"
-            aria-label="Admin tools"
-          >
-            <TabsTrigger value="events" className="min-h-11 px-4">
-              <CalendarDaysIcon aria-hidden /> Manage events
-            </TabsTrigger>
-            <TabsTrigger value="team" className="min-h-11 px-4">
-              <UsersIcon aria-hidden /> Manage team
-            </TabsTrigger>
-          </TabsList>
+      {state.status === "ready" && view === "events" ? (
+        <div className="space-y-5">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <p className="text-sm text-muted-foreground">
+              {state.events.length}{" "}
+              {state.events.length === 1 ? "event" : "events"}
+            </p>
+            <Button
+              onClick={() => {
+                setNotice(null)
+                setEditing("new")
+              }}
+            >
+              <PlusIcon data-icon="inline-start" /> Add event
+            </Button>
+          </div>
 
-          <TabsContent value="events" className="space-y-5">
-            <div className="flex flex-wrap items-center justify-between gap-3">
-              <p className="text-sm text-muted-foreground">
-                {state.events.length}{" "}
-                {state.events.length === 1 ? "event" : "events"}
-              </p>
-              <Button
-                onClick={() => {
-                  setNotice(null)
-                  setEditing("new")
-                }}
-              >
-                <PlusIcon data-icon="inline-start" /> Add event
-              </Button>
-            </div>
+          {notice ? (
+            <p
+              role="status"
+              className="rounded-lg border bg-muted/40 p-3 text-sm"
+            >
+              {notice}
+            </p>
+          ) : null}
 
-            {notice ? (
-              <p
-                role="status"
-                className="rounded-lg border bg-muted/40 p-3 text-sm"
-              >
-                {notice}
-              </p>
-            ) : null}
+          {editing === "new" ? (
+            <EventEditor
+              key="new"
+              saving={saving}
+              onSave={saveEvent}
+              onCancel={() => setEditing(null)}
+            />
+          ) : null}
 
-            {editing === "new" ? (
-              <EventEditor
-                key="new"
-                saving={saving}
-                onSave={saveEvent}
-                onCancel={() => setEditing(null)}
-              />
-            ) : null}
-
-            <div className="grid gap-3">
-              {state.events.map((event) => (
-                <div key={event.id} className="space-y-3">
-                  <Card>
-                    <CardHeader className="gap-3 sm:flex-row sm:items-start sm:justify-between">
-                      <div className="space-y-2">
-                        <CardTitle>{event.title}</CardTitle>
-                        <div className="flex flex-wrap gap-1.5">
-                          {event.category.map((category) => (
-                            <Badge key={category} variant="secondary">
-                              {category}
-                            </Badge>
-                          ))}
-                          {event.featured ? <Badge>featured</Badge> : null}
-                        </div>
-                        {event.attendanceCount > 0 ? (
-                          <div className="space-y-2">
-                            <Badge variant="outline">
-                              {event.attendanceUploads.length} attendance{" "}
-                              {event.attendanceUploads.length === 1
-                                ? "form"
-                                : "forms"}{" "}
-                              · {event.attendanceCount} total attendances
-                            </Badge>
-                            <div className="space-y-1.5">
-                              {event.attendanceUploads.map((upload) => (
-                                <div
-                                  key={upload.id}
-                                  className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground"
+          <div className="grid gap-3">
+            {state.events.map((event) => (
+              <div key={event.id} className="space-y-3">
+                <Card>
+                  <CardHeader className="gap-3 sm:flex-row sm:items-start sm:justify-between">
+                    <div className="space-y-2">
+                      <CardTitle>{event.title}</CardTitle>
+                      <div className="flex flex-wrap gap-1.5">
+                        {event.category.map((category) => (
+                          <Badge key={category} variant="secondary">
+                            {category}
+                          </Badge>
+                        ))}
+                        {event.featured ? <Badge>featured</Badge> : null}
+                      </div>
+                      {event.attendanceCount > 0 ? (
+                        <div className="space-y-2">
+                          <Badge variant="outline">
+                            {event.attendanceUploads.length} attendance{" "}
+                            {event.attendanceUploads.length === 1
+                              ? "form"
+                              : "forms"}{" "}
+                            · {event.attendanceCount} total attendances
+                          </Badge>
+                          <div className="space-y-1.5">
+                            {event.attendanceUploads.map((upload) => (
+                              <div
+                                key={upload.id}
+                                className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground"
+                              >
+                                <span>
+                                  <span className="font-medium text-foreground">
+                                    {upload.fileName}
+                                  </span>{" "}
+                                  {new Intl.DateTimeFormat("en-AU", {
+                                    dateStyle: "medium",
+                                    timeStyle: "short",
+                                  }).format(new Date(upload.importedAt))}{" "}
+                                  · {upload.attendanceCount} attendees
+                                </span>
+                                <Button
+                                  size="sm"
+                                  variant="outline"
+                                  disabled={saving}
+                                  onClick={() =>
+                                    setPendingRemoval({
+                                      kind: "attendance",
+                                      event,
+                                      upload,
+                                    })
+                                  }
                                 >
-                                  <span>
-                                    <span className="font-medium text-foreground">
-                                      {upload.fileName}
-                                    </span>{" "}
-                                    {new Intl.DateTimeFormat("en-AU", {
-                                      dateStyle: "medium",
-                                      timeStyle: "short",
-                                    }).format(new Date(upload.importedAt))}{" "}
-                                    · {upload.attendanceCount} attendees
-                                  </span>
-                                  <Button
-                                    size="sm"
-                                    variant="outline"
-                                    disabled={saving}
-                                    onClick={() =>
-                                      setPendingRemoval({
-                                        kind: "attendance",
-                                        event,
-                                        upload,
-                                      })
-                                    }
-                                  >
-                                    Remove form
-                                  </Button>
-                                </div>
-                              ))}
-                            </div>
+                                  Remove form
+                                </Button>
+                              </div>
+                            ))}
                           </div>
-                        ) : null}
-                        <p className="text-sm text-muted-foreground">
-                          {event.location} · /events#{event.slug}
-                        </p>
-                      </div>
-                      <div className="flex flex-wrap justify-end gap-2">
-                        <AttendanceUploader
-                          eventId={event.id}
-                          eventTitle={event.title}
-                          disabled={saving}
-                          onUploaded={(result) =>
-                            addAttendance(event.id, result)
-                          }
-                        />
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          onClick={() => {
-                            setNotice(null)
-                            setEditing(event)
-                            window.requestAnimationFrame(() => {
-                              document
-                                .getElementById(`event-editor-${event.id}`)
-                                ?.scrollIntoView({
-                                  behavior: "smooth",
-                                  block: "start",
-                                })
-                            })
-                          }}
-                        >
-                          <PencilIcon data-icon="inline-start" /> Edit
-                        </Button>
-                        <Button
-                          size="sm"
-                          variant="destructive"
-                          disabled={saving}
-                          onClick={() =>
-                            setPendingRemoval({ kind: "event", event })
-                          }
-                        >
-                          <Trash2Icon data-icon="inline-start" /> Remove
-                        </Button>
-                      </div>
-                    </CardHeader>
-                  </Card>
-                  {editing !== "new" && editing?.id === event.id ? (
-                    <div
-                      id={`event-editor-${event.id}`}
-                      className="scroll-mt-24"
-                    >
-                      <EventEditor
-                        key={event.id}
-                        event={editing}
-                        saving={saving}
-                        onSave={saveEvent}
-                        onCancel={() => setEditing(null)}
-                      />
+                        </div>
+                      ) : null}
+                      <p className="text-sm text-muted-foreground">
+                        {event.location} · /events#{event.slug}
+                      </p>
                     </div>
-                  ) : null}
-                </div>
-              ))}
-            </div>
-          </TabsContent>
-
-          <TabsContent value="team">
-            <TeamAdmin />
-          </TabsContent>
-        </Tabs>
+                    <div className="flex flex-wrap justify-end gap-2">
+                      <AttendanceUploader
+                        eventId={event.id}
+                        eventTitle={event.title}
+                        disabled={saving}
+                        onUploaded={(result) => addAttendance(event.id, result)}
+                      />
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() => {
+                          setNotice(null)
+                          setEditing(event)
+                          window.requestAnimationFrame(() => {
+                            document
+                              .getElementById(`event-editor-${event.id}`)
+                              ?.scrollIntoView({
+                                behavior: "smooth",
+                                block: "start",
+                              })
+                          })
+                        }}
+                      >
+                        <PencilIcon data-icon="inline-start" /> Edit
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="destructive"
+                        disabled={saving}
+                        onClick={() =>
+                          setPendingRemoval({ kind: "event", event })
+                        }
+                      >
+                        <Trash2Icon data-icon="inline-start" /> Remove
+                      </Button>
+                    </div>
+                  </CardHeader>
+                </Card>
+                {editing !== "new" && editing?.id === event.id ? (
+                  <div id={`event-editor-${event.id}`} className="scroll-mt-24">
+                    <EventEditor
+                      key={event.id}
+                      event={editing}
+                      saving={saving}
+                      onSave={saveEvent}
+                      onCancel={() => setEditing(null)}
+                    />
+                  </div>
+                ) : null}
+              </div>
+            ))}
+          </div>
+        </div>
       ) : null}
+
+      {state.status === "ready" && view === "team" ? <TeamAdmin /> : null}
 
       <ConfirmDialog
         open={pendingRemoval !== null}
