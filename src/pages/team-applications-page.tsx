@@ -13,6 +13,7 @@ import {
 } from "lucide-react"
 import { Link } from "react-router-dom"
 
+import { WeeklyAvailabilityGrid } from "@/components/applications/weekly-availability-grid"
 import { ConfirmDialog } from "@/components/shared/confirm-dialog"
 import { PageHeader } from "@/components/shared/page-header"
 import { Badge } from "@/components/ui/badge"
@@ -490,11 +491,20 @@ export function TeamApplicationsPage() {
                                 })
                               }
                             >
-                              <option value="short_text">Short text</option>
-                              <option value="long_text">Long text</option>
-                              <option value="multiple_choice">
-                                Multiple choice
-                              </option>
+                              {question.answer_type ===
+                              "weekly_availability" ? (
+                                <option value="weekly_availability">
+                                  Weekly availability grid
+                                </option>
+                              ) : (
+                                <>
+                                  <option value="short_text">Short text</option>
+                                  <option value="long_text">Long text</option>
+                                  <option value="multiple_choice">
+                                    Multiple choice
+                                  </option>
+                                </>
+                              )}
                             </select>
                           </label>
                         </div>
@@ -870,7 +880,10 @@ export function TeamApplicationsPage() {
                                       </span>
                                       <span className="block text-xs">
                                         Order {questionIndex + 1} ·{" "}
-                                        {question.answer_type.replace("_", " ")}{" "}
+                                        {question.answer_type.replaceAll(
+                                          "_",
+                                          " "
+                                        )}{" "}
                                         ·{" "}
                                         {question.required
                                           ? "Required"
@@ -986,7 +999,9 @@ export function TeamApplicationsPage() {
                                 {detail.questions
                                   .filter(
                                     (question) =>
-                                      !question.fixed_key &&
+                                      (!question.fixed_key ||
+                                        question.fixed_key ===
+                                          "weekly_availability") &&
                                       (question.section === "general" ||
                                         question.section === viewerPortfolio)
                                   )
@@ -998,21 +1013,39 @@ export function TeamApplicationsPage() {
                                       <p className="text-sm font-medium">
                                         {question.question_text}
                                       </p>
-                                      <p className="mt-1 text-sm whitespace-pre-wrap text-muted-foreground">
-                                        {Array.isArray(
-                                          application.answers[question.id]
-                                        )
-                                          ? (
-                                              application.answers[
-                                                question.id
-                                              ] as string[]
-                                            ).join(", ")
-                                          : String(
-                                              application.answers[
-                                                question.id
-                                              ] ?? "No answer"
-                                            )}
-                                      </p>
+                                      {question.answer_type ===
+                                      "weekly_availability" ? (
+                                        <div className="mt-3">
+                                          <WeeklyAvailabilityGrid
+                                            value={
+                                              Array.isArray(
+                                                application.answers[question.id]
+                                              )
+                                                ? (application.answers[
+                                                    question.id
+                                                  ] as string[])
+                                                : []
+                                            }
+                                            readOnly
+                                          />
+                                        </div>
+                                      ) : (
+                                        <p className="mt-1 text-sm whitespace-pre-wrap text-muted-foreground">
+                                          {Array.isArray(
+                                            application.answers[question.id]
+                                          )
+                                            ? (
+                                                application.answers[
+                                                  question.id
+                                                ] as string[]
+                                              ).join(", ")
+                                            : String(
+                                                application.answers[
+                                                  question.id
+                                                ] ?? "No answer"
+                                              )}
+                                        </p>
+                                      )}
                                     </div>
                                   ))}
                               </CardContent>

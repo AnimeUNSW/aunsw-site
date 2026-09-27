@@ -8,6 +8,7 @@ import {
   SendIcon,
 } from "lucide-react"
 
+import { WeeklyAvailabilityGrid } from "@/components/applications/weekly-availability-grid"
 import { PageHeader } from "@/components/shared/page-header"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -53,11 +54,20 @@ function SubmittedAnswers({ application }: { application: ApplicationRecord }) {
               {labels[item.section]}
             </p>
             <p className="mt-1 text-sm font-medium">{item.question}</p>
-            <p className="mt-1 text-sm whitespace-pre-wrap text-muted-foreground">
-              {Array.isArray(item.answer)
-                ? item.answer.join(", ")
-                : item.answer}
-            </p>
+            {item.answer_type === "weekly_availability" ? (
+              <div className="mt-3">
+                <WeeklyAvailabilityGrid
+                  value={Array.isArray(item.answer) ? item.answer : []}
+                  readOnly
+                />
+              </div>
+            ) : (
+              <p className="mt-1 text-sm whitespace-pre-wrap text-muted-foreground">
+                {Array.isArray(item.answer)
+                  ? item.answer.join(", ")
+                  : item.answer}
+              </p>
+            )}
           </div>
         ))}
       </div>
@@ -102,7 +112,12 @@ function QuestionField({
         {question.question_text}{" "}
         {question.required ? <span className="text-destructive">*</span> : null}
       </label>
-      {question.answer_type === "long_text" ? (
+      {question.answer_type === "weekly_availability" ? (
+        <WeeklyAvailabilityGrid
+          value={Array.isArray(value) ? value : []}
+          onChange={onChange}
+        />
+      ) : question.answer_type === "long_text" ? (
         <textarea
           id={id}
           className={`${inputClass()} min-h-32 resize-y`}
@@ -159,6 +174,7 @@ function QuestionField({
         </select>
       )}
       {question.answer_type !== "multiple_choice" &&
+      question.answer_type !== "weekly_availability" &&
       (question.min_length !== null || question.max_length !== null) ? (
         <p className="text-xs text-muted-foreground">
           {question.min_length
@@ -369,7 +385,9 @@ export function ApplyPage() {
 
   const currentSection = pages[Math.min(page, pages.length - 1)]
   const questions = (data.window.questions ?? []).filter(
-    (question) => question.section === currentSection && !question.fixed_key
+    (question) =>
+      question.section === currentSection &&
+      (!question.fixed_key || question.fixed_key === "weekly_availability")
   )
   const isReview = currentSection === "review"
 
