@@ -82,7 +82,8 @@ export function WeeklyAvailabilityGrid({
       {!readOnly ? (
         <div className="flex flex-wrap items-center justify-between gap-2">
           <p className="text-xs text-muted-foreground">
-            Click or drag across the times you are normally available.
+            Click or drag across the times you are normally available. This is
+            to coordinate interview times as well as gauge general availability.
           </p>
           {value.length ? (
             <Button
