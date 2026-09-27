@@ -31,6 +31,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { getAccount, type Account } from "@/lib/account-api"
 import {
   APPLICATION_SECTIONS,
+  PORTFOLIOS,
   closeApplicationWindow,
   deleteApplicationWindow,
   getApplicationForms,
@@ -314,6 +315,14 @@ export function TeamApplicationsPage() {
       item,
       state.template.questions.filter((question) => question.section === item)
         .length,
+    ])
+  )
+  const applicationCounts = Object.fromEntries(
+    PORTFOLIOS.map((item) => [
+      item,
+      (detail?.applications ?? []).filter((application) =>
+        application.portfolios.includes(item)
+      ).length,
     ])
   )
   const filteredApplications = (detail?.applications ?? []).filter(
@@ -836,7 +845,7 @@ export function TeamApplicationsPage() {
                       ) : null}
                     </div>
                     <div className="flex flex-wrap gap-2">
-                      {APPLICATION_SECTIONS.slice(1).map((item) => (
+                      {PORTFOLIOS.map((item) => (
                         <Button
                           key={item}
                           size="sm"
@@ -845,7 +854,8 @@ export function TeamApplicationsPage() {
                           }
                           onClick={() => setViewerPortfolio(item)}
                         >
-                          <FolderIcon data-icon="inline-start" /> {labels[item]}
+                          <FolderIcon data-icon="inline-start" /> {labels[item]}{" "}
+                          ({applicationCounts[item]})
                         </Button>
                       ))}
                       <Button
