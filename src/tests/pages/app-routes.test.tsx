@@ -101,6 +101,76 @@ describe("app routes", () => {
     ).not.toBeInTheDocument()
   })
 
+  it("shows Discord sign in on the public application route", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockResolvedValue(new Response(null, { status: 401 }))
+    )
+
+    renderRoute("/apply")
+
+    expect(
+      await screen.findByRole("heading", { name: "Continue with Discord" })
+    ).toBeInTheDocument()
+    expect(
+      screen.getByRole("link", { name: "Sign in with Discord" })
+    ).toHaveAttribute(
+      "href",
+      "https://api.animeunsw.net/auth/discord/start?return_to=http%3A%2F%2Flocalhost%3A3000%2Fapply"
+    )
+  })
+
+  it("locks an application after submission", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockImplementation(() =>
+        Promise.resolve(
+          new Response(
+            JSON.stringify({
+              window: {
+                id: "window-1",
+                name: "2027 Directors",
+                application_type: "director",
+                opened_at: "2026-09-01T00:00:00Z",
+                questions: [],
+              },
+              draft: null,
+              verified_email: "z5555555@ad.unsw.edu.au",
+              history: [
+                {
+                  id: "application-1",
+                  window_id: "window-1",
+                  status: "submitted",
+                  submitted_at: "2026-09-20T04:30:00Z",
+                  withdrawn_at: null,
+                  full_name: "Ollie Member",
+                  preferred_name: "Ollie",
+                  year_of_study: "3",
+                  membership_number: "1234",
+                  portfolios: ["it"],
+                  answers: {},
+                  confirmation_email: null,
+                  email_opt_in: false,
+                },
+              ],
+            }),
+            { status: 200, headers: { "Content-Type": "application/json" } }
+          )
+        )
+      )
+    )
+
+    renderRoute("/apply")
+
+    expect(
+      await screen.findByRole("heading", { name: "Application submitted" })
+    ).toBeInTheDocument()
+    expect(
+      screen.getByRole("button", { name: "Withdraw application" })
+    ).toBeInTheDocument()
+    expect(screen.queryByRole("textbox", { name: /full name/i })).toBeNull()
+  })
+
   it("shows the admin dashboard only for an Executive account", async () => {
     const account = {
       attendance_history: [],

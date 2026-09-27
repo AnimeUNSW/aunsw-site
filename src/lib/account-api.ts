@@ -27,6 +27,7 @@ export interface Account {
   discord_id: string
   display_name: string
   is_admin: boolean
+  is_application_manager?: boolean
   is_executive: boolean
   profile: {
     first_name: string
@@ -118,11 +119,14 @@ export interface Leaderboard {
 export class MembershipRequiredError extends Error {}
 export class AuthenticationRequiredError extends Error {}
 
-export function discordLoginUrl(frontendOrigin = window.location.origin) {
+export function discordLoginUrl(
+  frontendOrigin = window.location.origin,
+  returnPath = "/account"
+) {
   const url = new URL(`${API_BASE_URL}/auth/discord/start`)
   url.searchParams.set(
     "return_to",
-    `${frontendOrigin.replace(/\/$/, "")}/account`
+    `${frontendOrigin.replace(/\/$/, "")}${returnPath}`
   )
   return url.toString()
 }

@@ -6,8 +6,8 @@ membership instructions, contact links, and a Discord-linked member dashboard.
 
 The application is a static React single-page application (SPA). Most club
 content lives in JSON files, so routine updates do not require changing React
-components. The member account route calls the separately deployed AnimeUNSW
-API; secrets and authentication remain outside this static repository.
+components. Account and team-application routes call the separately deployed
+AnimeUNSW API; secrets and authentication remain outside this static repository.
 
 ## Documentation index
 
@@ -81,6 +81,9 @@ The `@/` alias resolves to `src/` in both TypeScript and Vite.
 | `/team`            | `src/pages/team-page.tsx`      | Committee and subcommittee carousels                                  |
 | `/info`            | `src/pages/info-page.tsx`      | Membership, FAQ, Discord, and contacts                                |
 | `/account`         | `src/pages/account-page.tsx`   | Discord login and personal server statistics                          |
+| `/apply`           | `src/pages/apply-page.tsx`     | Discord-authenticated portfolio applications and submission history   |
+| `/admin`           | `src/pages/admin-page.tsx`     | Committee website administration                                      |
+| `/admin/applications` | `src/pages/team-applications-page.tsx` | Recruitment form, window, and submission administration       |
 | Any unmatched path | `src/pages/not-found-page.tsx` | In-app 404 page                                                       |
 
 Routes are declared in `src/app/app-routes.tsx`. Navigation labels are declared
@@ -202,8 +205,8 @@ src/hooks/* ── memoized React-facing selectors
 pages → feature components → UI primitives
 ```
 
-Club content does not use network fetches. The account route is the sole runtime
-API consumer and sends credentials only to the configured AnimeUNSW API.
+Club content does not use network fetches. Account and team-application routes
+send credentials only to the configured AnimeUNSW API.
 
 ## Contribution expectations
 

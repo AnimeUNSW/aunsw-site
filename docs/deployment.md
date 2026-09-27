@@ -37,8 +37,8 @@ Any static host is suitable if it provides:
 - an SPA rewrite that serves `/index.html` for unknown application paths.
 
 The SPA rewrite is essential for direct visits and refreshes on `/events`,
-`/sponsors`, `/team`, and `/info`. Requests for real static files should still
-return those files or a true 404 rather than HTML.
+`/sponsors`, `/team`, `/info`, `/apply`, and `/admin/applications`. Requests for
+real static files should still return those files or a true 404 rather than HTML.
 
 Conceptually:
 
@@ -89,8 +89,9 @@ If future functionality requires a secret, implement it behind a server-side
 boundary rather than in this SPA.
 
 The API must allow the exact deployed website origin with credentialed CORS and
-set a secure, HTTP-only, host-only session cookie. Deploy and verify the API
-before publishing a website build that exposes the Account navigation item.
+set a secure, HTTP-only, host-only session cookie. Apply the matching database
+migration and configure application-manager roles before publishing a website
+build that exposes team applications.
 
 ## Pre-deployment checklist
 
@@ -102,6 +103,8 @@ before publishing a website build that exposes the Account navigation item.
 - [ ] `npm run preview` renders every top-level route.
 - [ ] A direct load/refresh on every route works in a host-like environment.
 - [ ] `/account` can log in through Discord, rejects non-members, and logs out.
+- [ ] `/apply` saves a draft, submits, displays history, and withdraws while open.
+- [ ] `/admin/applications` enforces admin/manager roles and retains question snapshots.
 - [ ] Public images and bundled artwork load without 404s.
 - [ ] Event dates, registration state, sponsor terms, and membership links are
       current.

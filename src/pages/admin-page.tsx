@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import {
   CalendarDaysIcon,
+  ClipboardListIcon,
   PencilIcon,
   PlusIcon,
   ShieldAlertIcon,
@@ -209,6 +210,28 @@ export function AdminPage() {
         title="Admin dashboard"
         description="Manage website events, attendance forms, and Meet the Team profiles."
       />
+
+      {state.status === "ready" ? (
+        <Card className="border-primary/25 bg-primary/5">
+          <CardContent className="flex flex-wrap items-center justify-between gap-4 py-5">
+            <div className="flex items-start gap-3">
+              <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-primary/10 text-primary">
+                <ClipboardListIcon className="size-5" aria-hidden />
+              </span>
+              <div>
+                <h2 className="font-semibold">Team Applications</h2>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  Edit recruitment forms, publish application windows, and
+                  review submissions.
+                </p>
+              </div>
+            </div>
+            <Button asChild>
+              <Link to="/admin/applications">Open Team Applications</Link>
+            </Button>
+          </CardContent>
+        </Card>
+      ) : null}
 
       {state.status === "loading" ? (
         <Card>

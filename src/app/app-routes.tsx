@@ -9,6 +9,8 @@ import { SponsorsPage } from "@/pages/sponsors-page"
 import { TeamPage } from "@/pages/team-page"
 import { LeaderboardPage } from "@/pages/leaderboard-page"
 import { AccountPage } from "@/pages/account-page"
+import { ApplyPage } from "@/pages/apply-page"
+import { TeamApplicationsPage } from "@/pages/team-applications-page"
 
 export function AppRoutes() {
   return (
@@ -21,6 +23,8 @@ export function AppRoutes() {
       <Route path="/account" element={<AccountPage />} />
       <Route path="/leaderboard" element={<LeaderboardPage />} />
       <Route path="/admin" element={<AdminPage />} />
+      <Route path="/admin/applications" element={<TeamApplicationsPage />} />
+      <Route path="/apply" element={<ApplyPage />} />
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   )
