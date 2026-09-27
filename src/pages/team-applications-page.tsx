@@ -352,25 +352,23 @@ export function TeamApplicationsPage() {
               : "The shared form is available for editing."}
           </p>
         </div>
-        {state.account.is_application_manager ? (
-          openWindow ? (
-            <Button
-              variant="destructive"
-              onClick={() => setPendingClose(openWindow)}
-            >
-              Close Applications
-            </Button>
-          ) : (
-            <Button
-              onClick={() => {
-                setWindowName("")
-                setOpenDialog(true)
-              }}
-            >
-              Open Applications
-            </Button>
-          )
-        ) : null}
+        {openWindow ? (
+          <Button
+            variant="destructive"
+            onClick={() => setPendingClose(openWindow)}
+          >
+            Close Applications
+          </Button>
+        ) : (
+          <Button
+            onClick={() => {
+              setWindowName("")
+              setOpenDialog(true)
+            }}
+          >
+            Open Applications
+          </Button>
+        )}
       </div>
 
       {notice ? (
@@ -796,8 +794,7 @@ export function TeamApplicationsPage() {
                           Newest submissions first
                         </p>
                       </div>
-                      {state.account.is_application_manager &&
-                      detail.window.status === "closed" ? (
+                      {detail.window.status === "closed" ? (
                         <Button
                           variant="destructive"
                           size="sm"

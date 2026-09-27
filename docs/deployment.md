@@ -90,8 +90,7 @@ boundary rather than in this SPA.
 
 The API must allow the exact deployed website origin with credentialed CORS and
 set a secure, HTTP-only, host-only session cookie. Apply the matching database
-migration and configure application-manager roles before publishing a website
-build that exposes team applications.
+migration before publishing a website build that exposes team applications.
 
 ## Pre-deployment checklist
 
@@ -104,7 +103,7 @@ build that exposes team applications.
 - [ ] A direct load/refresh on every route works in a host-like environment.
 - [ ] `/account` can log in through Discord, rejects non-members, and logs out.
 - [ ] `/apply` saves a draft, submits, displays history, and withdraws while open.
-- [ ] `/admin/applications` enforces admin/manager roles and retains question snapshots.
+- [ ] `/admin/applications` enforces existing Executive/Director admin access and retains question snapshots.
 - [ ] Public images and bundled artwork load without 404s.
 - [ ] Event dates, registration state, sponsor terms, and membership links are
       current.

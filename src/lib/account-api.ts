@@ -27,7 +27,6 @@ export interface Account {
   discord_id: string
   display_name: string
   is_admin: boolean
-  is_application_manager?: boolean
   is_executive: boolean
   profile: {
     first_name: string
