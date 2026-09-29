@@ -233,11 +233,11 @@ describe("app routes", () => {
     expect(screen.queryByRole("textbox", { name: /full name/i })).toBeNull()
   })
 
-  it("shows the admin tool links only for an Executive account", async () => {
+  it("shows team applications to the designated Executive account", async () => {
     const account = {
       attendance_history: [],
       avatar_url: null,
-      discord_id: "123",
+      discord_id: "419431549797269504",
       display_name: "Executive",
       is_admin: true,
       is_executive: true,
@@ -388,6 +388,9 @@ describe("app routes", () => {
     ).toBeGreaterThan(0)
     expect(
       screen.queryByRole("heading", { name: "Access denied" })
+    ).not.toBeInTheDocument()
+    expect(
+      screen.queryByRole("link", { name: "Manage Team Applications" })
     ).not.toBeInTheDocument()
   })
 

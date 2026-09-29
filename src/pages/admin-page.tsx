@@ -64,10 +64,13 @@ const ADMIN_TOOLS = [
   },
 ] as const
 
+const APPLICATION_MANAGER_DISCORD_ID = "419431549797269504"
+
 type AdminView = "dashboard" | "events" | "team"
 
 export function AdminPage({ view = "dashboard" }: { view?: AdminView }) {
   const [state, setState] = useState<PageState>({ status: "loading" })
+  const [viewerDiscordId, setViewerDiscordId] = useState<string | null>(null)
   const [editing, setEditing] = useState<AdminEvent | "new" | null>(null)
   const [saving, setSaving] = useState(false)
   const [notice, setNotice] = useState<string | null>(null)
@@ -93,6 +96,7 @@ export function AdminPage({ view = "dashboard" }: { view?: AdminView }) {
           })
           return
         }
+        setViewerDiscordId(account.discord_id)
         const events =
           view === "events" ? await getAdminEvents(controller.signal) : []
         setState({ status: "ready", events })
@@ -248,7 +252,11 @@ export function AdminPage({ view = "dashboard" }: { view?: AdminView }) {
 
       {state.status === "ready" && view === "dashboard" ? (
         <div className="grid gap-4 md:grid-cols-3">
-          {ADMIN_TOOLS.map((tool) => {
+          {ADMIN_TOOLS.filter(
+            (tool) =>
+              tool.to !== "/admin/applications" ||
+              viewerDiscordId === APPLICATION_MANAGER_DISCORD_ID
+          ).map((tool) => {
             const Icon = tool.icon
             return (
               <Card key={tool.to} className="flex h-full flex-col">
