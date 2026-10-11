@@ -150,6 +150,11 @@ export function TeamAdmin() {
                         {profile.portfolio} ·{" "}
                         {membershipLabel(profile.membership)}
                       </p>
+                      <p className="text-xs text-muted-foreground">
+                        {profile.discordId
+                          ? `Discord linked · @${profile.discordHandle ?? "member"}`
+                          : "Discord account not linked"}
+                      </p>
                     </div>
                   </div>
                   <div className="flex gap-2">

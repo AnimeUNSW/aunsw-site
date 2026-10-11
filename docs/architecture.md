@@ -73,6 +73,36 @@ Username searches use Discord guild usernames, display names, and nicknames;
 zID searches use Ibi's `users.zid`, including users without website logins.
 No profile data is shipped in the static build or stored in browser persistence.
 
+## Application review and interview planning
+
+`ApplicationBrowser` owns the response viewer: window selection is in the URL,
+portfolio/status/search filtering stays local, and only one applicant's answers
+and availability grid are mounted at a time. It ignores aborted/stale loads and
+offers explicit refresh/retry. Withdrawn responses are labelled as withdrawn,
+not deleted. The public recruitment form and immutable snapshots are unchanged.
+
+`/admin/applications/:windowId/interviews` checks the viewer's admin account
+before mounting `InterviewPlanner`. The API separately enforces live Discord
+Executive/Director roles on every read/write. Each window has independent,
+server-stored interviewer availability; only the authenticated member can edit
+their own row, and archived windows are read-only. Nothing is stored in browser
+persistence or shipped in the static bundle.
+
+Team profiles optionally link a `discordId` string to a guild account. On save,
+the API validates that this is a real, non-bot guild member and fills the
+`discordHandle` from Discord. Leadership cards provide portfolio preferences,
+never authorization; subcommittee cards do not identify eligible interviewers.
+The API rechecks all recommended interviewers' current roles.
+
+The server's deterministic greedy planner places more constrained applicants
+first, prioritises coverage of their selected portfolios, and balances workload.
+It requires full consecutive shared slots for 30/60-minute interviews with
+one/two interviewers, excludes self-interviews and withdrawn/draft responses,
+and prevents overlapping assignments within the generated draft. It is not a
+globally optimal solver, a booking calendar, or an invitation service. Weekly
+Sydney times must be confirmed with actual dates outside this planner. Plans
+are recomputed from saved availability, not persisted bookings.
+
 ## Content subsystem
 
 ### Contracts and validation

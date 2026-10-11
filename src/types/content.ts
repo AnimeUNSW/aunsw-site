@@ -126,6 +126,7 @@ export interface TeamProfile {
   favoriteAnime: string[]
   extras?: string[]
   discordHandle?: string
+  discordId?: string
 }
 
 export interface ContentRepository {

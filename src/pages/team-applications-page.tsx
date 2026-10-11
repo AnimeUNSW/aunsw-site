@@ -7,13 +7,12 @@ import {
   GripVerticalIcon,
   LockIcon,
   PlusIcon,
-  SearchIcon,
   ShieldAlertIcon,
   Trash2Icon,
 } from "lucide-react"
 import { Link } from "react-router-dom"
 
-import { WeeklyAvailabilityGrid } from "@/components/applications/weekly-availability-grid"
+import { ApplicationBrowser } from "@/components/applications/application-browser"
 import { ConfirmDialog } from "@/components/shared/confirm-dialog"
 import { PageHeader } from "@/components/shared/page-header"
 import { Badge } from "@/components/ui/badge"
@@ -30,11 +29,8 @@ import {
 import { getAccount, type Account } from "@/lib/account-api"
 import {
   APPLICATION_SECTIONS,
-  PORTFOLIOS,
   closeApplicationWindow,
-  deleteApplicationWindow,
   getApplicationForms,
-  getApplicationWindow,
   getApplicationWindows,
   openApplicationWindow,
   saveApplicationForms,
@@ -42,7 +38,6 @@ import {
   type ApplicationQuestion,
   type ApplicationSection,
   type ApplicationWindow,
-  type ApplicationWindowDetail,
 } from "@/lib/applications-api"
 
 const labels: Record<ApplicationSection, string> = {
@@ -95,14 +90,6 @@ export function TeamApplicationsPage({
     questionId: string
     index: number
   } | null>(null)
-  const [selectedWindow, setSelectedWindow] = useState<string | null>(null)
-  const [detail, setDetail] = useState<ApplicationWindowDetail | null>(null)
-  const [viewerPortfolio, setViewerPortfolio] =
-    useState<ApplicationSection>("creatives")
-  const [query, setQuery] = useState("")
-  const [statusFilter, setStatusFilter] = useState<
-    "all" | "submitted" | "withdrawn"
-  >("all")
 
   async function reload() {
     const account = await getAccount()
@@ -131,24 +118,6 @@ export function TeamApplicationsPage({
       })
     )
   }, [])
-
-  useEffect(() => {
-    if (!selectedWindow) {
-      setDetail(null)
-      return
-    }
-    const controller = new AbortController()
-    void getApplicationWindow(selectedWindow, controller.signal)
-      .then(setDetail)
-      .catch((error: unknown) =>
-        setNotice(
-          error instanceof Error
-            ? error.message
-            : "Applications could not be loaded."
-        )
-      )
-    return () => controller.abort()
-  }, [selectedWindow])
 
   function updateQuestion(id: string, changes: Partial<ApplicationQuestion>) {
     if (state.status !== "ready") return
@@ -321,30 +290,6 @@ export function TeamApplicationsPage({
       state.template.questions.filter((question) => question.section === item)
         .length,
     ])
-  )
-  const applicationCounts = Object.fromEntries(
-    PORTFOLIOS.map((item) => [
-      item,
-      (detail?.applications ?? []).filter((application) =>
-        application.portfolios.includes(item)
-      ).length,
-    ])
-  )
-  const filteredApplications = (detail?.applications ?? []).filter(
-    (application) => {
-      const matchesPortfolio = application.portfolios.includes(
-        viewerPortfolio as never
-      )
-      const matchesStatus =
-        statusFilter === "all" || application.status === statusFilter
-      const haystack =
-        `${application.full_name} ${application.preferred_name} ${application.username ?? ""} ${application.display_name ?? ""} ${application.membership_number ?? ""}`.toLowerCase()
-      return (
-        matchesPortfolio &&
-        matchesStatus &&
-        haystack.includes(query.toLowerCase())
-      )
-    }
   )
 
   return (
@@ -794,347 +739,7 @@ export function TeamApplicationsPage({
       ) : null}
 
       {view === "responses" ? (
-        <div className="space-y-5">
-          {!state.windows.length ? (
-            <Card>
-              <CardContent className="py-12 text-center text-muted-foreground">
-                No application windows have been published yet.
-              </CardContent>
-            </Card>
-          ) : (
-            <div className="grid gap-5 lg:grid-cols-[18rem_1fr]">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg">Application windows</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-2">
-                  {(
-                    [
-                      [
-                        "Open window",
-                        state.windows.filter(
-                          (window) => window.status === "open"
-                        ),
-                      ],
-                      [
-                        "Archive",
-                        state.windows.filter(
-                          (window) => window.status !== "open"
-                        ),
-                      ],
-                    ] as const
-                  ).map(([heading, windows]) =>
-                    windows.length ? (
-                      <section key={heading} className="space-y-2">
-                        <h3 className="pt-2 text-xs font-semibold tracking-wide text-muted-foreground uppercase">
-                          {heading}
-                        </h3>
-                        {windows.map((window) => (
-                          <button
-                            key={window.id}
-                            className={`flex w-full items-center gap-3 rounded-xl border p-3 text-left ${selectedWindow === window.id ? "border-primary bg-primary/10" : "bg-card/50"}`}
-                            onClick={() => setSelectedWindow(window.id)}
-                          >
-                            <FolderIcon className="size-5 text-primary" />
-                            <span className="min-w-0 flex-1">
-                              <strong className="block truncate text-sm">
-                                {window.name}
-                              </strong>
-                              <span className="text-xs text-muted-foreground">
-                                {window.status === "open" ? "Open" : "Archived"}
-                                {" · "}
-                                {window.application_count ?? 0}
-                              </span>
-                            </span>
-                          </button>
-                        ))}
-                      </section>
-                    ) : null
-                  )}
-                </CardContent>
-              </Card>
-              <div className="space-y-4">
-                {detail ? (
-                  <>
-                    <div className="flex flex-wrap items-center justify-between gap-3">
-                      <div>
-                        <h2 className="text-2xl font-semibold">
-                          {detail.window.name}
-                        </h2>
-                        <p className="text-sm text-muted-foreground">
-                          Newest submissions first
-                        </p>
-                      </div>
-                      {detail.window.status === "closed" ? (
-                        <Button
-                          variant="destructive"
-                          size="sm"
-                          onClick={() => {
-                            const confirmation = window.prompt(
-                              `Type ${detail.window.name} to permanently delete this window.`
-                            )
-                            if (confirmation)
-                              void deleteApplicationWindow(
-                                detail.window.id,
-                                confirmation
-                              )
-                                .then(() => {
-                                  setSelectedWindow(null)
-                                  setDetail(null)
-                                  return reload()
-                                })
-                                .catch((error: unknown) =>
-                                  setNotice(
-                                    error instanceof Error
-                                      ? error.message
-                                      : "Window could not be deleted."
-                                  )
-                                )
-                          }}
-                        >
-                          <Trash2Icon data-icon="inline-start" /> Delete archive
-                        </Button>
-                      ) : null}
-                    </div>
-                    <div className="flex flex-wrap gap-2">
-                      {PORTFOLIOS.map((item) => (
-                        <Button
-                          key={item}
-                          size="sm"
-                          variant={
-                            viewerPortfolio === item ? "default" : "outline"
-                          }
-                          onClick={() => setViewerPortfolio(item)}
-                        >
-                          <FolderIcon data-icon="inline-start" /> {labels[item]}{" "}
-                          ({applicationCounts[item]})
-                        </Button>
-                      ))}
-                      <Button
-                        size="sm"
-                        variant={
-                          viewerPortfolio === "general" ? "default" : "outline"
-                        }
-                        onClick={() => setViewerPortfolio("general")}
-                      >
-                        <FileQuestionIcon data-icon="inline-start" />{" "}
-                        Application questions
-                      </Button>
-                    </div>
-                    {viewerPortfolio === "general" ? (
-                      <Card>
-                        <CardHeader>
-                          <CardTitle>Application questions</CardTitle>
-                        </CardHeader>
-                        <CardContent className="space-y-4">
-                          {APPLICATION_SECTIONS.map((item) => (
-                            <section key={item}>
-                              <h3 className="font-semibold">{labels[item]}</h3>
-                              <ol className="mt-2 list-decimal space-y-1 pl-5 text-sm text-muted-foreground">
-                                {detail.questions
-                                  .filter(
-                                    (question) => question.section === item
-                                  )
-                                  .map((question, questionIndex) => (
-                                    <li key={question.id}>
-                                      <span className="text-foreground">
-                                        {question.question_text}
-                                      </span>
-                                      <span className="block text-xs">
-                                        Order {questionIndex + 1} ·{" "}
-                                        {question.answer_type.replaceAll(
-                                          "_",
-                                          " "
-                                        )}{" "}
-                                        ·{" "}
-                                        {question.required
-                                          ? "Required"
-                                          : "Optional"}
-                                        {question.min_length !== null
-                                          ? ` · Min ${question.min_length}`
-                                          : ""}
-                                        {question.max_length !== null
-                                          ? ` · Max ${question.max_length}`
-                                          : ""}
-                                        {question.allow_multiple
-                                          ? " · Multiple selections"
-                                          : ""}
-                                      </span>
-                                      {question.options.length ? (
-                                        <span className="block text-xs">
-                                          Options: {question.options.join(", ")}
-                                        </span>
-                                      ) : null}
-                                    </li>
-                                  ))}
-                              </ol>
-                            </section>
-                          ))}
-                        </CardContent>
-                      </Card>
-                    ) : (
-                      <>
-                        <div className="grid gap-2 sm:grid-cols-[1fr_12rem]">
-                          <label className="relative">
-                            <SearchIcon className="absolute top-3 left-3 size-4 text-muted-foreground" />
-                            <input
-                              className={`${fieldClass()} pl-9`}
-                              placeholder="Search name, Discord or member number"
-                              value={query}
-                              onChange={(event) => setQuery(event.target.value)}
-                            />
-                          </label>
-                          <select
-                            className={fieldClass()}
-                            value={statusFilter}
-                            onChange={(event) =>
-                              setStatusFilter(
-                                event.target.value as typeof statusFilter
-                              )
-                            }
-                          >
-                            <option value="all">All statuses</option>
-                            <option value="submitted">Submitted</option>
-                            <option value="withdrawn">Deleted</option>
-                          </select>
-                        </div>
-                        <div className="space-y-3">
-                          {filteredApplications.map((application) => (
-                            <Card key={application.id}>
-                              <CardHeader className="gap-3 sm:flex-row sm:items-start sm:justify-between">
-                                <div>
-                                  <CardTitle className="text-lg">
-                                    {application.preferred_name ||
-                                      application.full_name}
-                                  </CardTitle>
-                                  <p className="mt-1 text-sm text-muted-foreground">
-                                    {application.full_name} · @
-                                    {application.username} · Member{" "}
-                                    {application.membership_number}
-                                  </p>
-                                </div>
-                                <Badge
-                                  variant={
-                                    application.status === "withdrawn"
-                                      ? "destructive"
-                                      : "secondary"
-                                  }
-                                >
-                                  {application.status === "withdrawn"
-                                    ? "Deleted"
-                                    : "Submitted"}
-                                </Badge>
-                              </CardHeader>
-                              <CardContent className="space-y-3">
-                                <dl className="grid gap-2 text-sm sm:grid-cols-2">
-                                  <div>
-                                    <dt className="text-muted-foreground">
-                                      Year of study
-                                    </dt>
-                                    <dd>{application.year_of_study}</dd>
-                                  </div>
-                                  <div>
-                                    <dt className="text-muted-foreground">
-                                      Submitted
-                                    </dt>
-                                    <dd>
-                                      {application.submitted_at
-                                        ? new Date(
-                                            application.submitted_at
-                                          ).toLocaleString("en-AU")
-                                        : "—"}
-                                    </dd>
-                                  </div>
-                                  {application.withdrawn_at ? (
-                                    <div>
-                                      <dt className="text-muted-foreground">
-                                        Withdrawn
-                                      </dt>
-                                      <dd>
-                                        {new Date(
-                                          application.withdrawn_at
-                                        ).toLocaleString("en-AU")}
-                                      </dd>
-                                    </div>
-                                  ) : null}
-                                </dl>
-                                {detail.questions
-                                  .filter(
-                                    (question) =>
-                                      (!question.fixed_key ||
-                                        question.fixed_key ===
-                                          "weekly_availability") &&
-                                      (question.section === "general" ||
-                                        question.section === viewerPortfolio)
-                                  )
-                                  .map((question) => (
-                                    <div
-                                      key={question.id}
-                                      className="rounded-lg border bg-muted/20 p-3"
-                                    >
-                                      <p className="text-sm font-medium">
-                                        {question.question_text}
-                                      </p>
-                                      {question.answer_type ===
-                                      "weekly_availability" ? (
-                                        <div className="mt-3">
-                                          <WeeklyAvailabilityGrid
-                                            value={
-                                              Array.isArray(
-                                                application.answers[question.id]
-                                              )
-                                                ? (application.answers[
-                                                    question.id
-                                                  ] as string[])
-                                                : []
-                                            }
-                                            readOnly
-                                          />
-                                        </div>
-                                      ) : (
-                                        <p className="mt-1 text-sm whitespace-pre-wrap text-muted-foreground">
-                                          {Array.isArray(
-                                            application.answers[question.id]
-                                          )
-                                            ? (
-                                                application.answers[
-                                                  question.id
-                                                ] as string[]
-                                              ).join(", ")
-                                            : String(
-                                                application.answers[
-                                                  question.id
-                                                ] ?? "No answer"
-                                              )}
-                                        </p>
-                                      )}
-                                    </div>
-                                  ))}
-                              </CardContent>
-                            </Card>
-                          ))}
-                          {!filteredApplications.length ? (
-                            <Card>
-                              <CardContent className="py-10 text-center text-muted-foreground">
-                                No matching applications.
-                              </CardContent>
-                            </Card>
-                          ) : null}
-                        </div>
-                      </>
-                    )}
-                  </>
-                ) : (
-                  <Card>
-                    <CardContent className="py-12 text-center text-muted-foreground">
-                      Choose an application window.
-                    </CardContent>
-                  </Card>
-                )}
-              </div>
-            </div>
-          )}
-        </div>
+        <ApplicationBrowser windows={state.windows} onChanged={reload} />
       ) : null}
 
       <Dialog open={openDialog} onOpenChange={setOpenDialog}>

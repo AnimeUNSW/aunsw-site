@@ -227,6 +227,14 @@ export function deleteTeamProfile(id: string): Promise<void> {
   })
 }
 
+export function getTeamDiscordMember(id: string, signal?: AbortSignal) {
+  return adminRequest<{
+    discord_id: string
+    username: string
+    display_name: string
+  }>(`/v1/admin/team/discord-member/${encodeURIComponent(id)}`, { signal })
+}
+
 export function uploadTeamImage(
   profileName: string,
   file: File

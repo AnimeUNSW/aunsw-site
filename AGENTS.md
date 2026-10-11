@@ -7,8 +7,9 @@ relevant to the task.
 ## Repository facts
 
 - This is a static React 19 + TypeScript + Vite 7 SPA.
-- There is no backend, database, authentication, runtime API, or current
-  provider-specific deployment config.
+- There is no backend server or database in this repository. Credentialed
+  account/admin/application clients use the separate Ibi API on DigitalOcean;
+  GitHub Pages hosting is configured in `.github/workflows/deploy-pages.yml`.
 - `@/` resolves to `src/`.
 - Club content is in `src/data/*.json`.
 - Content contracts are duplicated intentionally between

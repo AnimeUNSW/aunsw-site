@@ -2,7 +2,11 @@ import { useState, type DragEvent, type FormEvent } from "react"
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { uploadTeamImage, type TeamProfileInput } from "@/lib/admin-api"
+import {
+  getTeamDiscordMember,
+  uploadTeamImage,
+  type TeamProfileInput,
+} from "@/lib/admin-api"
 import type { TeamMembership, TeamProfile } from "@/types/content"
 
 const fieldClass =
@@ -32,6 +36,7 @@ interface EditorState {
   favoriteAnime: string
   extras: string
   discordHandle: string
+  discordId: string
 }
 
 function lines(value?: string[]) {
@@ -64,6 +69,7 @@ function initialState(
     favoriteAnime: lines(profile?.favoriteAnime),
     extras: lines(profile?.extras),
     discordHandle: profile?.discordHandle ?? "",
+    discordId: profile?.discordId ?? "",
   }
 }
 
@@ -88,9 +94,34 @@ export function TeamEditor({
   const [imageFile, setImageFile] = useState<File | null>(null)
   const [uploadingImage, setUploadingImage] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [linking, setLinking] = useState(false)
+  const [linkedName, setLinkedName] = useState<string | null>(null)
 
   function set<K extends keyof EditorState>(key: K, next: EditorState[K]) {
     setValue((current) => ({ ...current, [key]: next }))
+  }
+
+  async function linkAccount() {
+    setLinking(true)
+    setError(null)
+    const id = value.discordId.trim()
+    try {
+      const member = await getTeamDiscordMember(id)
+      setValue((current) =>
+        current.discordId.trim() === id
+          ? { ...current, discordHandle: member.username }
+          : current
+      )
+      setLinkedName(member.display_name)
+    } catch (cause) {
+      setError(
+        cause instanceof Error
+          ? cause.message
+          : "The Discord account could not be linked."
+      )
+    } finally {
+      setLinking(false)
+    }
   }
 
   function selectImage(file: File | undefined) {
@@ -164,6 +195,7 @@ export function TeamEditor({
       ...(value.discordHandle.trim()
         ? { discordHandle: value.discordHandle.trim() }
         : {}),
+      ...(value.discordId.trim() ? { discordId: value.discordId.trim() } : {}),
       ...(parseLines(value.extras).length
         ? { extras: parseLines(value.extras) }
         : {}),
@@ -259,10 +291,50 @@ export function TeamEditor({
               />
             </label>
             <label className="grid gap-1.5 text-sm font-medium">
+              Discord user ID
+              <div className="flex gap-2">
+                <input
+                  className={fieldClass}
+                    aria-label="Discord user ID"
+                  inputMode="numeric"
+                  pattern="[1-9][0-9]{16,18}"
+                  placeholder="Optional: Discord user ID"
+                  disabled={linking}
+                  value={value.discordId}
+                  onChange={(change) => {
+                    set("discordId", change.target.value)
+                    setLinkedName(null)
+                  }}
+                />
+                <Button
+                  type="button"
+                  variant="outline"
+                  disabled={
+                    linking ||
+                    !/^[1-9][0-9]{16,18}$/.test(value.discordId.trim())
+                  }
+                  onClick={() => void linkAccount()}
+                >
+                  {linking ? "Linking…" : "Link account"}
+                </Button>
+              </div>
+              <span className="text-xs font-normal text-muted-foreground">
+                {linkedName
+                  ? `Linked to ${linkedName}. Save the profile to keep this link.`
+                  : "Enable Developer Mode in Discord, then right-click the member → Copy User ID. This links their portfolio for interview matching; it does not grant admin access."}
+              </span>
+            </label>
+            <label className="grid gap-1.5 text-sm font-medium">
               Discord username
               <input
                 className={fieldClass}
                 value={value.discordHandle}
+                readOnly={Boolean(value.discordId.trim())}
+                placeholder={
+                  value.discordId.trim()
+                    ? "Filled automatically from Discord when saved"
+                    : "Optional Discord username"
+                }
                 onChange={(change) => set("discordHandle", change.target.value)}
               />
             </label>
@@ -333,7 +405,10 @@ export function TeamEditor({
             <Button type="button" variant="outline" onClick={onCancel}>
               Cancel
             </Button>
-            <Button type="submit" disabled={saving || uploadingImage}>
+            <Button
+              type="submit"
+              disabled={saving || uploadingImage || linking}
+            >
               {uploadingImage
                 ? "Uploading image…"
                 : saving

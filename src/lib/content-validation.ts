@@ -289,6 +289,14 @@ function parseHero(value: unknown, path: string): SiteContent["hero"] {
 
 function parseTeamProfile(value: unknown, path: string): TeamProfile {
   const raw = expectObject(value, path)
+  const discordId = expectOptionalString(raw.discordId, `${path}.discordId`)
+  if (discordId !== undefined) {
+    assert(
+      /^[1-9][0-9]{16,18}$/.test(discordId) &&
+        BigInt(discordId) <= 9223372036854775807n,
+      `${path}.discordId must be a Discord user ID stored as a string`
+    )
+  }
 
   const extrasValue = raw.extras
   const extras =
@@ -317,6 +325,7 @@ function parseTeamProfile(value: unknown, path: string): TeamProfile {
       `${path}.favoriteAnime`
     ),
     extras,
+    discordId,
     discordHandle: expectOptionalString(
       raw.discordHandle,
       `${path}.discordHandle`

@@ -11,6 +11,7 @@ import { LeaderboardPage } from "@/pages/leaderboard-page"
 import { AccountPage } from "@/pages/account-page"
 import { ApplyPage } from "@/pages/apply-page"
 import { TeamApplicationsPage } from "@/pages/team-applications-page"
+import { InterviewsPage } from "@/pages/interviews-page"
 
 export function AppRoutes() {
   return (
@@ -36,6 +37,10 @@ export function AppRoutes() {
         element={<TeamApplicationsPage view="responses" />}
       />
       <Route path="/apply" element={<ApplyPage />} />
+      <Route
+        path="/admin/applications/:windowId/interviews"
+        element={<InterviewsPage />}
+      />
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   )

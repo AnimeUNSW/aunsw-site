@@ -119,6 +119,15 @@ Account- and application-route tests stub `fetch` with only the required status
 and response. Restore the stub after each test so authenticated API state does
 not affect other route tests.
 
+Application-browser tests cover all-portfolio review, search/status filters,
+compact pagination, a single rendered availability grid, retry and the
+open-window interview link. Planner tests cover own-availability saving,
+unsaved-selection preservation during settings changes, clearing availability,
+portfolio-link prompts and archived read-only behavior. Direct-route tests
+check both admin admission and denial; Ibi independently tests server-side
+authorization, live interviewer roles and matching constraints. Browser QA
+uses fictional local fixtures, never live applicants' personal details.
+
 ## What to test for a change
 
 | Change                       | Minimum useful coverage                                                             |

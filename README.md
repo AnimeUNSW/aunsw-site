@@ -89,6 +89,7 @@ The `@/` alias resolves to `src/` in both TypeScript and Vite.
 | `/admin/applications`           | `src/pages/team-applications-page.tsx` | Recruitment form, window, and submission administration               |
 | `/admin/applications/forms`     | `src/pages/team-applications-page.tsx` | Recruitment form and application-window administration                |
 | `/admin/applications/responses` | `src/pages/team-applications-page.tsx` | Current and archived submission review                                |
+| `/admin/applications/:windowId/interviews` | `src/pages/interviews-page.tsx` | Committee availability and weekly interview suggestions |
 | Any unmatched path              | `src/pages/not-found-page.tsx`         | In-app 404 page                                                       |
 
 Routes are declared in `src/app/app-routes.tsx`. Navigation labels are declared
@@ -212,6 +213,14 @@ pages → feature components → UI primitives
 
 Club content does not use network fetches. Account and team-application routes
 send credentials only to the configured AnimeUNSW API.
+
+The application viewer uses a compact paginated applicant list and displays one
+response at a time. An open window links to **Arrange interviews**. Each current
+Executive/Director saves only their own weekly availability for that window.
+Interview suggestions support 30/60-minute durations and one/two-person panels.
+They prioritise portfolio coverage using linked Meet the Team Discord IDs,
+then workload, without overlapping interviewers or self-interviews. These are
+weekly draft suggestions, not dated appointments; no invitations are sent.
 
 ## Contribution expectations
 

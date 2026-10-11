@@ -282,10 +282,20 @@ This file is an array of team profiles sorted by `displayOrder`.
 | `favoriteAnime` | Yes      | string array                                | Favorite titles; empty is valid                        |
 | `extras`        | No       | string array                                | Additional profile section                             |
 | `discordHandle` | No       | string                                      | Public Discord display handle                          |
+| `discordId`     | No       | 17–19 digit string                          | Optional Discord account link for username autofill and interview portfolio preferences |
 
 The team page separates leadership (`top5`, `executive`, and `director`) from
 other profiles. Portfolio navigation chooses a preferred lead using current
 component rules, so preserve consistent portfolio spelling and capitalization.
+
+Use the team admin editor to link a Discord account. The API checks guild
+membership and fills `discordHandle` from the actual username on each profile
+save. Keep `discordId` a string (JSON numbers lose snowflake precision); omit it
+for unlinked cards. This is public team metadata, not a credential. Linking a
+card does not grant admin access. For interview preferences use the exact
+portfolio names Creatives, Events, Marketing, Externals or IT; Top 5 members
+are general interviewers unless another linked leadership card supplies a
+portfolio. Existing unlinked cards and carousel order/behavior are unchanged.
 
 Use unique `displayOrder` values to make order obvious, even though duplicate
 numbers are technically accepted. Confirm permission before publishing names,

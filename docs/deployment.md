@@ -104,6 +104,7 @@ migration before publishing a website build that exposes team applications.
 - [ ] `/account` can log in through Discord, rejects non-members, and logs out.
 - [ ] `/apply` saves a draft, submits, displays history, and withdraws while open.
 - [ ] `/admin/applications` enforces existing Executive/Director admin access and retains question snapshots.
+- [ ] Apply Ibi migration `0014_application_interview_availability.sql` and deploy the API before publishing interview planning. Check direct refresh on `/admin/applications/:windowId/interviews`, own-availability writes, archived read-only behavior, and rejection of non-admins. Team Discord linking requires no additional configuration; it uses the existing guild bot access and GitHub content permissions.
 - [ ] `/admin/members` searches usernames and zIDs, and its API rejects unauthenticated/non-admin requests. Deploy the corresponding Ibi API before the frontend; no migration is required.
 - [ ] Public images and bundled artwork load without 404s.
 - [ ] Event dates, registration state, sponsor terms, and membership links are

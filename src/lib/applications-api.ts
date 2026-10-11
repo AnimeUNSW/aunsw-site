@@ -109,15 +109,26 @@ async function applicationRequest<T>(
       ...(init?.body ? { "Content-Type": "application/json" } : {}),
       ...init?.headers,
     },
+  }).catch((cause: unknown) => {
+    if (init?.signal?.aborted) throw cause
+    throw new Error(
+      "Could not connect to the applications service. Please try again."
+    )
   })
   if (response.status === 401 || response.status === 403) {
     throw new ApplicationAccessError(
       response.status === 401
         ? "Sign in with Discord to continue."
-        : "You must be a current AnimeUNSW Discord member."
+        : path.startsWith("/v1/admin/")
+          ? "The AnimeUNSW Executive or Director role is required."
+          : "You must be a current AnimeUNSW Discord member."
     )
   }
   if (!response.ok) {
+    if (response.status >= 500)
+      throw new Error(
+        "The applications service is temporarily unavailable. Please try again."
+      )
     const payload = (await response.json().catch(() => null)) as {
       detail?: string | { msg?: string }[]
     } | null
@@ -131,6 +142,64 @@ async function applicationRequest<T>(
   }
   if (response.status === 204) return undefined as T
   return response.json() as Promise<T>
+}
+
+export interface Interviewer {
+  discord_id: string
+  name: string
+  username: string
+  portfolios: string[]
+  team_names: string[]
+  linked: boolean
+  slots: string[]
+  updated_at: string | null
+}
+
+export interface InterviewRecommendation {
+  id: string
+  discord_id: string
+  name: string
+  portfolios: string[]
+  status: "recommended" | "unmatched"
+  reason: string | null
+  day: string | null
+  start: string | null
+  end: string | null
+  matched_portfolios: string[]
+  interviewers: Pick<
+    Interviewer,
+    "discord_id" | "name" | "username" | "portfolios"
+  >[]
+}
+
+export interface InterviewPlan {
+  window: ApplicationWindow
+  viewer_discord_id: string
+  timezone: string
+  duration_minutes: number
+  panel_size: number
+  interviewers: Interviewer[]
+  recommendations: InterviewRecommendation[]
+  summary: { applicants: number; recommended: number; unmatched: number }
+}
+
+export function getInterviewPlan(
+  id: string,
+  duration: number,
+  panelSize: number,
+  signal?: AbortSignal
+) {
+  return applicationRequest<InterviewPlan>(
+    `/v1/admin/applications/windows/${encodeURIComponent(id)}/interviews?duration_minutes=${duration}&panel_size=${panelSize}`,
+    { signal }
+  )
+}
+
+export function saveInterviewAvailability(id: string, slots: string[]) {
+  return applicationRequest<{ slots: string[] }>(
+    `/v1/admin/applications/windows/${encodeURIComponent(id)}/interviews/availability`,
+    { method: "PUT", body: JSON.stringify({ slots }) }
+  )
 }
 
 export function getCurrentApplication(signal?: AbortSignal) {
