@@ -4,6 +4,7 @@ import {
   ClipboardListIcon,
   PencilIcon,
   PlusIcon,
+  SearchIcon,
   ShieldAlertIcon,
   Trash2Icon,
   UsersIcon,
@@ -13,6 +14,7 @@ import { Link } from "react-router-dom"
 import { AttendanceUploader } from "@/components/admin/attendance-uploader"
 import { EventEditor } from "@/components/admin/event-editor"
 import { TeamAdmin } from "@/components/admin/team-admin"
+import { MemberSearch } from "@/components/admin/member-search"
 import { ConfirmDialog } from "@/components/shared/confirm-dialog"
 import { PageHeader } from "@/components/shared/page-header"
 import { Badge } from "@/components/ui/badge"
@@ -45,28 +47,38 @@ type PendingRemoval =
 const ADMIN_TOOLS = [
   {
     title: "Events",
+    buttonLabel: "Manage Events",
     description: "Create events, update listings, and manage attendance forms.",
     to: "/admin/events",
     icon: CalendarDaysIcon,
   },
   {
     title: "Meet the Team",
+    buttonLabel: "Manage Meet the Team",
     description: "Add, edit, reorder, or remove committee profiles.",
     to: "/admin/team",
     icon: UsersIcon,
   },
   {
     title: "Team Applications",
+    buttonLabel: "Manage Team Applications",
     description:
       "Edit recruitment forms, publish application windows, and review submissions.",
     to: "/admin/applications",
     icon: ClipboardListIcon,
   },
+  {
+    title: "Members",
+    buttonLabel: "Search members",
+    description: "Find member profiles by Discord username or zID.",
+    to: "/admin/members",
+    icon: SearchIcon,
+  },
 ] as const
 
 const APPLICATION_MANAGER_DISCORD_ID = "419431549797269504"
 
-type AdminView = "dashboard" | "events" | "team"
+type AdminView = "dashboard" | "events" | "team" | "members"
 
 export function AdminPage({ view = "dashboard" }: { view?: AdminView }) {
   const [state, setState] = useState<PageState>({ status: "loading" })
@@ -99,7 +111,7 @@ export function AdminPage({ view = "dashboard" }: { view?: AdminView }) {
         setViewerDiscordId(account.discord_id)
         const events =
           view === "events" ? await getAdminEvents(controller.signal) : []
-        setState({ status: "ready", events })
+        if (!controller.signal.aborted) setState({ status: "ready", events })
       })
       .catch((error: unknown) => {
         if (controller.signal.aborted) return
@@ -239,19 +251,23 @@ export function AdminPage({ view = "dashboard" }: { view?: AdminView }) {
             ? "Manage events"
             : view === "team"
               ? "Manage team"
-              : "Admin dashboard"
+              : view === "members"
+                ? "Search members"
+                : "Admin dashboard"
         }
         description={
           view === "events"
             ? "Create and update event listings, upload attendance forms, and manage attendance records."
             : view === "team"
               ? "Manage the profiles and display order used in Meet the Team."
-              : "Choose an area to manage."
+              : view === "members"
+                ? "Look up stored member details and server activity by Discord username or zID."
+                : "Choose an area to manage."
         }
       />
 
       {state.status === "ready" && view === "dashboard" ? (
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
           {ADMIN_TOOLS.filter(
             (tool) =>
               tool.to !== "/admin/applications" ||
@@ -271,7 +287,7 @@ export function AdminPage({ view = "dashboard" }: { view?: AdminView }) {
                     {tool.description}
                   </p>
                   <Button asChild className="w-full">
-                    <Link to={tool.to}>Manage {tool.title}</Link>
+                    <Link to={tool.to}>{tool.buttonLabel}</Link>
                   </Button>
                 </CardContent>
               </Card>
@@ -465,6 +481,12 @@ export function AdminPage({ view = "dashboard" }: { view?: AdminView }) {
       ) : null}
 
       {state.status === "ready" && view === "team" ? <TeamAdmin /> : null}
+
+      {state.status === "ready" && view === "members" ? (
+        <MemberSearch
+          onAccessDenied={(message) => setState({ status: "denied", message })}
+        />
+      ) : null}
 
       <ConfirmDialog
         open={pendingRemoval !== null}

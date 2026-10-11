@@ -147,21 +147,24 @@ describe("app routes", () => {
     )
   })
 
-  it("blocks a direct admin URL for logged-out visitors", async () => {
-    vi.stubGlobal(
-      "fetch",
-      vi.fn().mockResolvedValue(new Response(null, { status: 401 }))
-    )
+  it.each(["/admin", "/admin/members"])(
+    "blocks a direct admin URL %s for logged-out visitors",
+    async (route) => {
+      vi.stubGlobal(
+        "fetch",
+        vi.fn().mockResolvedValue(new Response(null, { status: 401 }))
+      )
 
-    renderRoute("/admin")
+      renderRoute(route)
 
-    expect(
-      await screen.findByRole("heading", { name: "Access denied" })
-    ).toBeInTheDocument()
-    expect(
-      screen.queryByRole("button", { name: "Add event" })
-    ).not.toBeInTheDocument()
-  })
+      expect(
+        await screen.findByRole("heading", { name: "Access denied" })
+      ).toBeInTheDocument()
+      expect(
+        screen.queryByRole("button", { name: "Add event" })
+      ).not.toBeInTheDocument()
+    }
+  )
 
   it("shows Discord sign in on the public application route", async () => {
     vi.stubGlobal(
@@ -284,6 +287,9 @@ describe("app routes", () => {
       screen.getByRole("link", { name: "Manage Meet the Team" })
     ).toHaveAttribute("href", "/admin/team")
     expect(
+      screen.getByRole("link", { name: "Search members" })
+    ).toHaveAttribute("href", "/admin/members")
+    expect(
       screen.getByRole("link", { name: "Manage Team Applications" })
     ).toHaveAttribute("href", "/admin/applications")
     expect(
@@ -308,6 +314,39 @@ describe("app routes", () => {
     expect(
       screen.getByRole("link", { name: "View Applications" })
     ).toHaveAttribute("href", "/admin/applications/responses")
+  })
+
+  it("renders member search on its own guarded admin page", async () => {
+    mockApplicationAdminRequests()
+    renderRoute("/admin/members")
+    expect(
+      await screen.findByLabelText("Discord username or zID")
+    ).toBeInTheDocument()
+    expect(
+      screen.getByRole("heading", { name: "Search members" })
+    ).toBeInTheDocument()
+    expect(
+      screen.getByRole("link", { name: "Back to dashboard" })
+    ).toHaveAttribute("href", "/admin")
+  })
+
+  it("blocks the member search URL for a signed-in non-admin", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi
+        .fn()
+        .mockImplementation(
+          async () =>
+            new Response(JSON.stringify({ is_admin: false }), { status: 200 })
+        )
+    )
+    renderRoute("/admin/members")
+    expect(
+      await screen.findByRole("heading", { name: "Access denied" })
+    ).toBeInTheDocument()
+    expect(
+      screen.queryByLabelText("Discord username or zID")
+    ).not.toBeInTheDocument()
   })
 
   it("renders the application form editor on its own page", async () => {

@@ -61,6 +61,18 @@ The wildcard route renders an in-app not-found page. It only works when the
 host first serves `index.html`; host-level 404 behavior is covered in
 [deployment.md](deployment.md).
 
+## Admin member lookup
+
+The dashboard links to `/admin/members` via **Search members**. The existing
+admin page checks the viewer's account before mounting `MemberSearch`, which
+uses `GET /v1/admin/members` through the credentialed admin API client.
+The API independently checks live Executive/Director membership on every search;
+client-side visibility is not an authorization boundary. Results are read-only
+and paginated, with contact details, verified identity fields, and server stats.
+Username searches use Discord guild usernames, display names, and nicknames;
+zID searches use Ibi's `users.zid`, including users without website logins.
+No profile data is shipped in the static build or stored in browser persistence.
+
 ## Content subsystem
 
 ### Contracts and validation

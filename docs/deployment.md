@@ -1,9 +1,9 @@
 # Deployment
 
-The repository produces a static Vite SPA. It does not currently contain a
-provider-specific deployment workflow, domain configuration, or CI release
-pipeline. Hosting setup therefore lives outside this repository unless one is
-added later.
+The repository produces a static Vite SPA. `.github/workflows/deploy-pages.yml`
+builds and publishes `main` to GitHub Pages and copies `index.html` to `404.html`
+for direct-route SPA navigation. Authentication and admin APIs are deployed
+separately in the Ibi repository on DigitalOcean.
 
 ## Build artifact
 
@@ -37,7 +37,7 @@ Any static host is suitable if it provides:
 - an SPA rewrite that serves `/index.html` for unknown application paths.
 
 The SPA rewrite is essential for direct visits and refreshes on `/events`,
-`/sponsors`, `/team`, `/info`, `/apply`, and `/admin/applications`. Requests for
+`/sponsors`, `/team`, `/info`, `/apply`, `/admin/members`, and `/admin/applications`. Requests for
 real static files should still return those files or a true 404 rather than HTML.
 
 Conceptually:
@@ -104,6 +104,7 @@ migration before publishing a website build that exposes team applications.
 - [ ] `/account` can log in through Discord, rejects non-members, and logs out.
 - [ ] `/apply` saves a draft, submits, displays history, and withdraws while open.
 - [ ] `/admin/applications` enforces existing Executive/Director admin access and retains question snapshots.
+- [ ] `/admin/members` searches usernames and zIDs, and its API rejects unauthenticated/non-admin requests. Deploy the corresponding Ibi API before the frontend; no migration is required.
 - [ ] Public images and bundled artwork load without 404s.
 - [ ] Event dates, registration state, sponsor terms, and membership links are
       current.

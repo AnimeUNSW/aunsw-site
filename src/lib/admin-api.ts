@@ -1,4 +1,8 @@
-import { API_BASE_URL } from "@/lib/account-api"
+import {
+  API_BASE_URL,
+  type Account,
+  type AccountStats,
+} from "@/lib/account-api"
 import type { Event, TeamProfile } from "@/types/content"
 
 export type EventInput = Omit<Event, "id" | "isRecurring">
@@ -45,6 +49,25 @@ export interface AttendanceRemovalResult {
 
 export class AdminAccessError extends Error {}
 
+export interface AdminMember {
+  discord_id: string
+  username: string | null
+  display_name: string
+  avatar_url: string | null
+  in_server: boolean
+  profile: Account["profile"] & { membership_type: string | null }
+  stats: AccountStats
+}
+
+export interface AdminMemberSearch {
+  query: string
+  page: number
+  page_size: number
+  total_entries: number
+  total_pages: number
+  members: AdminMember[]
+}
+
 async function adminRequest<T>(path: string, init?: RequestInit): Promise<T> {
   const response = await fetch(`${API_BASE_URL}${path}`, {
     ...init,
@@ -54,6 +77,16 @@ async function adminRequest<T>(path: string, init?: RequestInit): Promise<T> {
       ...(init?.body ? { "Content-Type": "application/json" } : {}),
       ...init?.headers,
     },
+  }).catch((error: unknown) => {
+    if (
+      init?.signal?.aborted ||
+      (typeof error === "object" &&
+        error !== null &&
+        "name" in error &&
+        error.name === "AbortError")
+    )
+      throw error
+    throw new Error("Could not connect to the admin service. Please try again.")
   })
 
   if (response.status === 401 || response.status === 403) {
@@ -65,16 +98,28 @@ async function adminRequest<T>(path: string, init?: RequestInit): Promise<T> {
   }
   if (!response.ok) {
     const payload = (await response.json().catch(() => null)) as {
-      detail?: string
+      detail?: string | { msg?: string }[]
     } | null
     throw new Error(
-      payload?.detail || "The event update could not be completed."
+      (typeof payload?.detail === "string"
+        ? payload.detail
+        : payload?.detail?.[0]?.msg) ||
+        "The admin request could not be completed. Please try again."
     )
   }
   if (response.status === 204) {
     return undefined as T
   }
   return response.json() as Promise<T>
+}
+
+export function searchAdminMembers(
+  query: string,
+  page = 1,
+  signal?: AbortSignal
+): Promise<AdminMemberSearch> {
+  const params = new URLSearchParams({ q: query.trim(), page: String(page) })
+  return adminRequest(`/v1/admin/members?${params}`, { signal })
 }
 
 export async function getAdminEvents(
