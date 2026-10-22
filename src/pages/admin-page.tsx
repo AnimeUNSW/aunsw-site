@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import {
   CalendarClockIcon,
   CalendarDaysIcon,
+  ChevronDownIcon,
   ClipboardListIcon,
   ImageIcon,
   MapPinIcon,
@@ -505,21 +506,22 @@ export function AdminPage({ view = "dashboard" }: { view?: AdminView }) {
                             <span>{event.location}</span>
                           </div>
                         </div>
-                        <div className="flex flex-wrap gap-1.5">
-                          <Badge variant="secondary">
-                            {event.attendanceUploads.length} attendance{" "}
-                            {event.attendanceUploads.length === 1
-                              ? "form"
-                              : "forms"}{" "}
-                            · {event.attendanceCount} total attendances
-                          </Badge>
-                        </div>
                         {event.attendanceUploads.length > 0 ? (
-                          <div className="space-y-2 rounded-lg border bg-muted/20 p-3">
-                            <p className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
-                              Attendance history
-                            </p>
-                            <div className="space-y-1.5">
+                          <details className="group rounded-lg border bg-muted/20">
+                            <summary className="flex cursor-pointer list-none items-center justify-between gap-3 rounded-lg px-3 py-2.5 text-sm focus-visible:outline-2 focus-visible:outline-primary">
+                              <span>
+                                {event.attendanceUploads.length} attendance{" "}
+                                {event.attendanceUploads.length === 1
+                                  ? "form"
+                                  : "forms"}{" "}
+                                · {event.attendanceCount} total attendances
+                              </span>
+                              <ChevronDownIcon
+                                className="size-4 shrink-0 text-muted-foreground transition-transform group-open:rotate-180"
+                                aria-hidden
+                              />
+                            </summary>
+                            <div className="space-y-1.5 border-t p-3">
                               {event.attendanceUploads.map((upload) => (
                                 <div
                                   key={upload.id}
@@ -552,8 +554,13 @@ export function AdminPage({ view = "dashboard" }: { view?: AdminView }) {
                                 </div>
                               ))}
                             </div>
-                          </div>
-                        ) : null}
+                          </details>
+                        ) : (
+                          <Badge variant="secondary" className="w-fit">
+                            No attendance forms · {event.attendanceCount} total
+                            attendances
+                          </Badge>
+                        )}
                       </CardContent>
                       <CardFooter className="flex-wrap justify-end gap-2">
                         <AttendanceUploader

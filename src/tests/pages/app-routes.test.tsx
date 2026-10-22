@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest"
-import { screen } from "@testing-library/react"
+import { fireEvent, screen } from "@testing-library/react"
 
 import { AppRoutes } from "@/app/app-routes"
 import { AppShell } from "@/components/layout/app-shell"
@@ -481,7 +481,14 @@ describe("app routes", () => {
                     location: "UNSW Roundhouse",
                     featured: true,
                     attendanceCount: 3,
-                    attendanceUploads: [],
+                    attendanceUploads: [
+                      {
+                        id: "upload-1",
+                        fileName: "movie-night-attendance.csv",
+                        importedAt: "2026-10-29T10:00:00.000Z",
+                        attendanceCount: 3,
+                      },
+                    ],
                   },
                 ],
               }),
@@ -509,6 +516,12 @@ describe("app routes", () => {
     ).toBeInTheDocument()
     expect(screen.getByText("UNSW Roundhouse")).toBeInTheDocument()
     expect(screen.getByText("/events#movie-night")).toBeInTheDocument()
-    expect(screen.getByText(/3 total attendances/)).toBeInTheDocument()
+    const attendanceDisclosure = screen
+      .getByText(/1 attendance form · 3 total attendances/)
+      .closest("details")
+    expect(attendanceDisclosure).not.toHaveAttribute("open")
+    fireEvent.click(screen.getByText(/1 attendance form · 3 total attendances/))
+    expect(attendanceDisclosure).toHaveAttribute("open")
+    expect(screen.getByText("movie-night-attendance.csv")).toBeInTheDocument()
   })
 })
