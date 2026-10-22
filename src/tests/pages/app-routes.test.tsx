@@ -467,10 +467,29 @@ describe("app routes", () => {
         }
         if (url.endsWith("/v1/admin/events")) {
           return Promise.resolve(
-            new Response(JSON.stringify({ events: [] }), {
-              status: 200,
-              headers: { "Content-Type": "application/json" },
-            })
+            new Response(
+              JSON.stringify({
+                events: [
+                  {
+                    id: "movie-night",
+                    slug: "movie-night",
+                    title: "Movie Night",
+                    description: "A relaxed screening with the community.",
+                    category: ["weekly"],
+                    startDateTime: "2026-10-29T07:00:00.000Z",
+                    endDateTime: "2026-10-29T09:00:00.000Z",
+                    location: "UNSW Roundhouse",
+                    featured: true,
+                    attendanceCount: 3,
+                    attendanceUploads: [],
+                  },
+                ],
+              }),
+              {
+                status: 200,
+                headers: { "Content-Type": "application/json" },
+              }
+            )
           )
         }
         return Promise.reject(new Error(`Unexpected request: ${url}`))
@@ -485,5 +504,11 @@ describe("app routes", () => {
     expect(
       screen.getByRole("button", { name: "Add event" })
     ).toBeInTheDocument()
+    expect(
+      screen.getByRole("heading", { name: "Movie Night" })
+    ).toBeInTheDocument()
+    expect(screen.getByText("UNSW Roundhouse")).toBeInTheDocument()
+    expect(screen.getByText("/events#movie-night")).toBeInTheDocument()
+    expect(screen.getByText(/3 total attendances/)).toBeInTheDocument()
   })
 })

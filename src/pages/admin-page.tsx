@@ -1,12 +1,17 @@
 import { useEffect, useState } from "react"
 import {
+  CalendarClockIcon,
   CalendarDaysIcon,
   ClipboardListIcon,
+  ImageIcon,
+  MapPinIcon,
   PencilIcon,
   PlusIcon,
   SearchIcon,
   ShieldAlertIcon,
+  StarIcon,
   Trash2Icon,
+  UserCheckIcon,
   UsersIcon,
 } from "lucide-react"
 import { Link } from "react-router-dom"
@@ -19,7 +24,13 @@ import { ConfirmDialog } from "@/components/shared/confirm-dialog"
 import { PageHeader } from "@/components/shared/page-header"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
 import {
   AdminAccessError,
   createEvent,
@@ -33,6 +44,7 @@ import {
   type EventInput,
 } from "@/lib/admin-api"
 import { getAccount } from "@/lib/account-api"
+import { formatDateTime } from "@/lib/format"
 
 type PageState =
   | { status: "loading" }
@@ -79,6 +91,12 @@ const ADMIN_TOOLS = [
 const APPLICATION_MANAGER_DISCORD_ID = "419431549797269504"
 
 type AdminView = "dashboard" | "events" | "team" | "members"
+
+function eventSchedule(event: AdminEvent) {
+  if (event.startDateTime) return formatDateTime(event.startDateTime)
+  if (event.recurringStartTime) return `Every ${event.recurringStartTime}`
+  return "Schedule to be confirmed"
+}
 
 export function AdminPage({ view = "dashboard" }: { view?: AdminView }) {
   const [state, setState] = useState<PageState>({ status: "loading" })
@@ -329,11 +347,58 @@ export function AdminPage({ view = "dashboard" }: { view?: AdminView }) {
 
       {state.status === "ready" && view === "events" ? (
         <div className="space-y-5">
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <p className="text-sm text-muted-foreground">
-              {state.events.length}{" "}
-              {state.events.length === 1 ? "event" : "events"}
-            </p>
+          <div className="grid gap-3 sm:grid-cols-3">
+            <Card size="sm" className="bg-muted/25">
+              <CardContent className="flex items-center gap-3">
+                <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-primary/10 text-primary">
+                  <CalendarDaysIcon className="size-5" aria-hidden />
+                </span>
+                <div>
+                  <p className="text-2xl font-semibold tabular-nums">
+                    {state.events.length}
+                  </p>
+                  <p className="text-xs text-muted-foreground">Total events</p>
+                </div>
+              </CardContent>
+            </Card>
+            <Card size="sm" className="bg-muted/25">
+              <CardContent className="flex items-center gap-3">
+                <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-primary/10 text-primary">
+                  <StarIcon className="size-5" aria-hidden />
+                </span>
+                <div>
+                  <p className="text-2xl font-semibold tabular-nums">
+                    {state.events.filter((event) => event.featured).length}
+                  </p>
+                  <p className="text-xs text-muted-foreground">Featured</p>
+                </div>
+              </CardContent>
+            </Card>
+            <Card size="sm" className="bg-muted/25">
+              <CardContent className="flex items-center gap-3">
+                <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-primary/10 text-primary">
+                  <UserCheckIcon className="size-5" aria-hidden />
+                </span>
+                <div>
+                  <p className="text-2xl font-semibold tabular-nums">
+                    {state.events.reduce(
+                      (total, event) => total + event.attendanceCount,
+                      0
+                    )}
+                  </p>
+                  <p className="text-xs text-muted-foreground">Attendances</p>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          <div className="flex flex-wrap items-center justify-between gap-3 border-b pb-4">
+            <div>
+              <h2 className="text-lg font-semibold">Event listings</h2>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Changes are published to the website events file.
+              </p>
+            </div>
             <Button
               onClick={() => {
                 setNotice(null)
@@ -362,106 +427,174 @@ export function AdminPage({ view = "dashboard" }: { view?: AdminView }) {
             />
           ) : null}
 
-          <div className="grid gap-3">
+          <div className="grid gap-4">
+            {state.events.length === 0 ? (
+              <Card className="border-dashed bg-muted/20">
+                <CardContent className="flex flex-col items-center gap-3 py-12 text-center">
+                  <span className="grid size-12 place-items-center rounded-2xl bg-primary/10 text-primary">
+                    <CalendarDaysIcon className="size-6" aria-hidden />
+                  </span>
+                  <div>
+                    <h3 className="font-semibold">No events yet</h3>
+                    <p className="mt-1 text-sm text-muted-foreground">
+                      Add an event to publish it on the website.
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            ) : null}
             {state.events.map((event) => (
               <div key={event.id} className="space-y-3">
-                <Card>
-                  <CardHeader className="gap-3 sm:flex-row sm:items-start sm:justify-between">
-                    <div className="space-y-2">
-                      <CardTitle>{event.title}</CardTitle>
-                      <div className="flex flex-wrap gap-1.5">
-                        {event.category.map((category) => (
-                          <Badge key={category} variant="secondary">
-                            {category}
+                <Card className="border-border/70 py-0 shadow-sm transition-shadow hover:shadow-md">
+                  <div className="grid md:grid-cols-[11rem_1fr]">
+                    <div className="min-h-36 overflow-hidden bg-muted/40 md:min-h-full">
+                      {event.image ? (
+                        <img
+                          src={event.image}
+                          alt=""
+                          className="h-full max-h-56 w-full object-cover md:max-h-none"
+                          loading="lazy"
+                        />
+                      ) : (
+                        <div className="flex h-full min-h-36 items-center justify-center bg-gradient-to-br from-primary/10 via-muted/40 to-background text-muted-foreground">
+                          <ImageIcon className="size-7" aria-hidden />
+                          <span className="sr-only">No event image</span>
+                        </div>
+                      )}
+                    </div>
+                    <div className="min-w-0">
+                      <CardHeader className="gap-3 border-b bg-muted/15">
+                        <div className="flex flex-wrap items-start justify-between gap-3">
+                          <div className="min-w-0 space-y-2">
+                            <CardTitle>
+                              <h3 className="text-lg font-semibold">
+                                {event.title}
+                              </h3>
+                            </CardTitle>
+                            <div className="flex flex-wrap gap-1.5">
+                              {event.category.map((category) => (
+                                <Badge key={category} variant="secondary">
+                                  {category}
+                                </Badge>
+                              ))}
+                              {event.featured ? <Badge>Featured</Badge> : null}
+                            </div>
+                          </div>
+                          <Badge variant="outline" className="shrink-0">
+                            /events#{event.slug}
                           </Badge>
-                        ))}
-                        {event.featured ? <Badge>featured</Badge> : null}
-                      </div>
-                      {event.attendanceCount > 0 ? (
-                        <div className="space-y-2">
-                          <Badge variant="outline">
+                        </div>
+                      </CardHeader>
+                      <CardContent className="space-y-4 py-4">
+                        <p className="line-clamp-2 text-sm leading-relaxed text-muted-foreground">
+                          {event.description}
+                        </p>
+                        <div className="grid gap-2 text-sm sm:grid-cols-2">
+                          <div className="flex items-start gap-2">
+                            <CalendarClockIcon
+                              className="mt-0.5 size-4 shrink-0 text-primary"
+                              aria-hidden
+                            />
+                            <span>{eventSchedule(event)}</span>
+                          </div>
+                          <div className="flex items-start gap-2">
+                            <MapPinIcon
+                              className="mt-0.5 size-4 shrink-0 text-primary"
+                              aria-hidden
+                            />
+                            <span>{event.location}</span>
+                          </div>
+                        </div>
+                        <div className="flex flex-wrap gap-1.5">
+                          <Badge variant="secondary">
                             {event.attendanceUploads.length} attendance{" "}
                             {event.attendanceUploads.length === 1
                               ? "form"
                               : "forms"}{" "}
                             · {event.attendanceCount} total attendances
                           </Badge>
-                          <div className="space-y-1.5">
-                            {event.attendanceUploads.map((upload) => (
-                              <div
-                                key={upload.id}
-                                className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground"
-                              >
-                                <span>
-                                  <span className="font-medium text-foreground">
-                                    {upload.fileName}
-                                  </span>{" "}
-                                  {new Intl.DateTimeFormat("en-AU", {
-                                    dateStyle: "medium",
-                                    timeStyle: "short",
-                                  }).format(new Date(upload.importedAt))}{" "}
-                                  · {upload.attendanceCount} attendees
-                                </span>
-                                <Button
-                                  size="sm"
-                                  variant="outline"
-                                  disabled={saving}
-                                  onClick={() =>
-                                    setPendingRemoval({
-                                      kind: "attendance",
-                                      event,
-                                      upload,
-                                    })
-                                  }
-                                >
-                                  Remove form
-                                </Button>
-                              </div>
-                            ))}
-                          </div>
                         </div>
-                      ) : null}
-                      <p className="text-sm text-muted-foreground">
-                        {event.location} · /events#{event.slug}
-                      </p>
+                        {event.attendanceUploads.length > 0 ? (
+                          <div className="space-y-2 rounded-lg border bg-muted/20 p-3">
+                            <p className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+                              Attendance history
+                            </p>
+                            <div className="space-y-1.5">
+                              {event.attendanceUploads.map((upload) => (
+                                <div
+                                  key={upload.id}
+                                  className="flex flex-wrap items-center justify-between gap-2 rounded-md bg-background/70 px-2.5 py-2 text-xs text-muted-foreground"
+                                >
+                                  <span>
+                                    <span className="font-medium text-foreground">
+                                      {upload.fileName}
+                                    </span>{" "}
+                                    {new Intl.DateTimeFormat("en-AU", {
+                                      dateStyle: "medium",
+                                      timeStyle: "short",
+                                    }).format(new Date(upload.importedAt))}{" "}
+                                    · {upload.attendanceCount} attendees
+                                  </span>
+                                  <Button
+                                    size="sm"
+                                    variant="outline"
+                                    disabled={saving}
+                                    onClick={() =>
+                                      setPendingRemoval({
+                                        kind: "attendance",
+                                        event,
+                                        upload,
+                                      })
+                                    }
+                                  >
+                                    Remove form
+                                  </Button>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        ) : null}
+                      </CardContent>
+                      <CardFooter className="flex-wrap justify-end gap-2">
+                        <AttendanceUploader
+                          eventId={event.id}
+                          eventTitle={event.title}
+                          disabled={saving}
+                          onUploaded={(result) =>
+                            addAttendance(event.id, result)
+                          }
+                        />
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => {
+                            setNotice(null)
+                            setEditing(event)
+                            window.requestAnimationFrame(() => {
+                              document
+                                .getElementById(`event-editor-${event.id}`)
+                                ?.scrollIntoView({
+                                  behavior: "smooth",
+                                  block: "start",
+                                })
+                            })
+                          }}
+                        >
+                          <PencilIcon data-icon="inline-start" /> Edit
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="destructive"
+                          disabled={saving}
+                          onClick={() =>
+                            setPendingRemoval({ kind: "event", event })
+                          }
+                        >
+                          <Trash2Icon data-icon="inline-start" /> Remove
+                        </Button>
+                      </CardFooter>
                     </div>
-                    <div className="flex flex-wrap justify-end gap-2">
-                      <AttendanceUploader
-                        eventId={event.id}
-                        eventTitle={event.title}
-                        disabled={saving}
-                        onUploaded={(result) => addAttendance(event.id, result)}
-                      />
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        onClick={() => {
-                          setNotice(null)
-                          setEditing(event)
-                          window.requestAnimationFrame(() => {
-                            document
-                              .getElementById(`event-editor-${event.id}`)
-                              ?.scrollIntoView({
-                                behavior: "smooth",
-                                block: "start",
-                              })
-                          })
-                        }}
-                      >
-                        <PencilIcon data-icon="inline-start" /> Edit
-                      </Button>
-                      <Button
-                        size="sm"
-                        variant="destructive"
-                        disabled={saving}
-                        onClick={() =>
-                          setPendingRemoval({ kind: "event", event })
-                        }
-                      >
-                        <Trash2Icon data-icon="inline-start" /> Remove
-                      </Button>
-                    </div>
-                  </CardHeader>
+                  </div>
                 </Card>
                 {editing !== "new" && editing?.id === event.id ? (
                   <div id={`event-editor-${event.id}`} className="scroll-mt-24">
