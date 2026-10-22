@@ -62,6 +62,10 @@ npm test
 npm run build
 ```
 
+Before publishing, also run `npm run build:pages` and `npm run test:e2e`.
+See `docs/testing.md` for the one-time Playwright browser setup. The GitHub
+workflow runs all gates on PRs and deploys only passing `main` builds.
+
 Report exact outcomes. If the baseline already fails, distinguish pre-existing
 failures from failures introduced by the task. Do not describe a non-zero
 command as passing.

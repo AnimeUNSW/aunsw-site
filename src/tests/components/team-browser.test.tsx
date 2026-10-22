@@ -1,8 +1,8 @@
 import { describe, expect, it, vi, beforeEach, afterEach } from "vitest"
-import { render, screen } from "@testing-library/react"
-import userEvent from "@testing-library/user-event"
+import { act, fireEvent, screen } from "@testing-library/react"
 
 import { TeamBrowser } from "@/components/team/team-browser"
+import { renderWithProviders } from "@/tests/render-with-providers"
 import type { TeamProfile } from "@/types/content"
 
 const AUTOPLAY_MS = 6500
@@ -16,8 +16,8 @@ function makeProfile(id: string): TeamProfile {
     portfolio: `Portfolio ${id}`,
     displayOrder: 0,
     pronouns: "they/them",
-    portraitImage: "",
-    portraitAlt: "",
+    portraitImage: "/favicon.svg",
+    portraitAlt: `Person ${id}`,
     degree: [],
     funFacts: [],
     favoriteAnime: [],
@@ -33,34 +33,43 @@ describe("TeamBrowser autoplay reset", () => {
     vi.useRealTimers()
   })
 
-  it("resets timer when user manually navigates", async () => {
+  it("resets timer when user manually navigates", () => {
     const profiles = [makeProfile("a"), makeProfile("b")]
-    const user = userEvent.setup()
 
-    render(<TeamBrowser profiles={profiles} />)
+    renderWithProviders(<TeamBrowser profiles={profiles} />)
 
     // initially showing first profile
-    expect(screen.getByText(/person a/i)).toBeInTheDocument()
+    expect(
+      screen.getByRole("heading", { name: "Person a" })
+    ).toBeInTheDocument()
 
     // advance most of autoplay interval without flipping
-    vi.advanceTimersByTime(AUTOPLAY_MS - 100)
-    expect(screen.getByText(/person a/i)).toBeInTheDocument()
+    act(() => vi.advanceTimersByTime(AUTOPLAY_MS - 100))
+    expect(
+      screen.getByRole("heading", { name: "Person a" })
+    ).toBeInTheDocument()
 
     // manual "next" click should change profile
-    await user.click(screen.getByRole("button", { name: /next/i }))
-    expect(screen.getByText(/person b/i)).toBeInTheDocument()
+    fireEvent.click(screen.getByRole("button", { name: /next/i }))
+    expect(
+      screen.getByRole("heading", { name: "Person b" })
+    ).toBeInTheDocument()
 
     // if timer hadn't reset, it would flip soonest at 100ms from now
     // with reset it should wait full AUTOPLAY_MS again
-    vi.advanceTimersByTime(AUTOPLAY_MS - 100)
-    expect(screen.getByText(/person b/i)).toBeInTheDocument()
+    act(() => vi.advanceTimersByTime(AUTOPLAY_MS - 100))
+    expect(
+      screen.getByRole("heading", { name: "Person b" })
+    ).toBeInTheDocument()
 
     // now let remaining time pass and expect it to auto-advance
-    vi.advanceTimersByTime(100)
-    expect(screen.getByText(/person a/i)).toBeInTheDocument()
+    act(() => vi.advanceTimersByTime(100))
+    expect(
+      screen.getByRole("heading", { name: "Person a" })
+    ).toBeInTheDocument()
   })
 
-  it("jumps to the portfolio lead when a portfolio chip is clicked", async () => {
+  it("jumps to the portfolio lead when a portfolio chip is clicked", () => {
     const profiles: TeamProfile[] = [
       {
         ...makeProfile("top5"),
@@ -84,12 +93,11 @@ describe("TeamBrowser autoplay reset", () => {
         displayOrder: 2,
       },
     ]
-    const user = userEvent.setup()
 
-    render(<TeamBrowser profiles={profiles} />)
+    renderWithProviders(<TeamBrowser profiles={profiles} />)
 
-    await user.click(screen.getByRole("button", { name: "Creatives" }))
+    fireEvent.click(screen.getByRole("button", { name: "Creatives" }))
 
-    expect(screen.getByText(/eri/i)).toBeInTheDocument()
+    expect(screen.getByRole("heading", { name: "Eri" })).toBeInTheDocument()
   })
 })

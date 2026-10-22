@@ -1,28 +1,30 @@
-name: Deploy website to GitHub Pages
+name: Website checks and deployment
 
 on:
   push:
+    branches: [main]
+  pull_request:
     branches: [main]
   workflow_dispatch:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
-  group: pages
-  cancel-in-progress: true
+  group: website-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 jobs:
-  build:
+  quality:
+    name: Lint, types, unit tests, production build
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: npm
@@ -30,28 +32,105 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build website
-        run: npx vite build
+      - name: Lint
+        run: npm run lint
+
+      - name: Check TypeScript (app, tools, and browser tests)
+        run: npm run typecheck
+
+      - name: Unit and integration tests
+        run: npm test -- --reporter=default --reporter=junit --outputFile=test-results/unit.xml
+        env:
+          TZ: Australia/Sydney
+
+      - name: Build production website and Pages fallback
+        run: npm run build:pages
         env:
           VITE_API_BASE_URL: https://api.animeunsw.net
 
-      - name: Add GitHub Pages direct-route fallback
-        run: cp dist/index.html dist/404.html
+      - name: Save unit test results
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: unit-test-results
+          path: test-results/unit.xml
+          if-no-files-found: ignore
+          retention-days: 14
+
+      - name: Save production build for browser tests
+        uses: actions/upload-artifact@v7
+        with:
+          name: website-dist
+          path: dist
+          if-no-files-found: error
+          retention-days: 7
+
+  browser:
+    name: Browser features (desktop and mobile)
+    needs: quality
+    permissions:
+      contents: read
+      pages: read
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Download the production build
+        uses: actions/download-artifact@v8
+        with:
+          name: website-dist
+          path: dist
+
+      - name: Install test browser
+        run: npx playwright install --with-deps chromium
+
+      - name: Test key website features in the production build
+        run: npm run test:e2e
+
+      - name: Save browser report, failure screenshots, videos, and traces
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: browser-test-results
+          path: |
+            playwright-report
+            test-results
+          if-no-files-found: ignore
+          retention-days: 14
 
       - name: Configure Pages
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         uses: actions/configure-pages@v5
 
       - name: Upload Pages artifact
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@v3
         with:
           path: dist
 
   deploy:
+    name: Deploy tested build to GitHub Pages
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    permissions:
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    needs: build
+    needs: [quality, browser]
+    timeout-minutes: 10
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
