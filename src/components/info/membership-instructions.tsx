@@ -16,6 +16,7 @@ interface MembershipInstructionsProps {
 }
 
 export function MembershipInstructions({ steps }: MembershipInstructionsProps) {
+  const [activeTab, setActiveTab] = useState("join-home")
   const path = steps
 
   if (!path) {
@@ -23,7 +24,6 @@ export function MembershipInstructions({ steps }: MembershipInstructionsProps) {
   }
 
   const tabs = path.tabs ?? []
-  const [activeTab, setActiveTab] = useState("join-home")
 
   return (
     <Card className="border-primary/20 bg-[linear-gradient(160deg,color-mix(in_oklab,var(--color-card)_96%,var(--color-primary)),var(--color-card))]">

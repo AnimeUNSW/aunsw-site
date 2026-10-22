@@ -1,9 +1,19 @@
 # Deployment
 
 The repository produces a static Vite SPA. `.github/workflows/deploy-pages.yml`
-builds and publishes `main` to GitHub Pages and copies `index.html` to `404.html`
-for direct-route SPA navigation. Authentication and admin APIs are deployed
+checks pull requests and publishes successful `main` builds to GitHub Pages.
+It runs lint, TypeScript, unit/integration tests, and desktop/mobile Playwright
+feature tests before deployment. It copies `index.html` to `404.html` for
+direct-route SPA navigation. Authentication and admin APIs are deployed
 separately in the Ibi repository on DigitalOcean.
+
+The browser job downloads the build produced by the quality job. After browser
+tests pass, it uploads that same directory for the deploy job. A failed gate
+prevents publishing; the previous production deployment remains live. PR runs
+have read-only repository permissions and do not upload a Pages artifact or deploy.
+Only the deployment job receives `pages: write` and `id-token: write` permissions.
+Reports and diagnostic artifacts are available on the GitHub Actions run; see
+[testing.md](testing.md) for feature coverage, local reproduction, and boundaries.
 
 ## Build artifact
 
@@ -11,7 +21,7 @@ Create a production build with:
 
 ```bash
 npm ci
-npm run build
+npm run build:pages
 ```
 
 Vite writes the deployable artifact to `dist/`. The directory is generated and
@@ -24,7 +34,8 @@ Preview the artifact locally:
 npm run preview
 ```
 
-`preview` is a verification server, not a production server.
+`preview` is a verification server, not a production server. `npm run test:e2e`
+starts it automatically to exercise the prepared build.
 
 ## Hosting requirements
 
@@ -49,6 +60,11 @@ all other application requests   → serve /index.html with HTTP 200
 
 The React wildcard route then renders the site's not-found page for unknown
 client routes.
+
+GitHub Pages uses the copied `404.html` document to boot React on deep links;
+the host's HTTP status remains 404 even though React renders the requested page.
+The browser suite checks direct route refreshes and that the fallback document
+matches the built index. It does not claim that Pages rewrites deep links to HTTP 200.
 
 ## Base path
 

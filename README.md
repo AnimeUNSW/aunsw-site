@@ -30,8 +30,7 @@ incorrect, update the relevant document in the same change.
 
 ### Prerequisites
 
-- Node.js 20.19+ or 22.12+ (the supported release lines for the installed Vite
-  major version)
+- Node.js 22.13+ on the Node 22 release line (also used by CI)
 - npm, using the committed `package-lock.json`
 
 ```bash
@@ -66,7 +65,8 @@ silently treat a failing baseline as a successful verification.
 - React Router for client-side routes
 - Tailwind CSS 4 for utility styling
 - shadcn/ui and Radix primitives for reusable UI
-- Vitest, Testing Library, and jsdom for tests
+- Vitest, Testing Library, and jsdom for unit/integration tests; Playwright for
+  desktop/mobile browser tests against the production build
 - ESLint and Prettier for static checks and formatting
 
 The `@/` alias resolves to `src/` in both TypeScript and Vite.
@@ -81,6 +81,7 @@ The `@/` alias resolves to `src/` in both TypeScript and Vite.
 | `/team`                         | `src/pages/team-page.tsx`              | Committee and subcommittee carousels                                  |
 | `/info`                         | `src/pages/info-page.tsx`              | Membership, FAQ, Discord, and contacts                                |
 | `/account`                      | `src/pages/account-page.tsx`           | Discord login and personal server statistics                          |
+| `/leaderboard`                  | `src/pages/leaderboard-page.tsx`       | Members-only XP and attendance rankings                               |
 | `/apply`                        | `src/pages/apply-page.tsx`             | Discord-authenticated portfolio applications and submission history   |
 | `/admin`                        | `src/pages/admin-page.tsx`             | Committee administration launcher                                     |
 | `/admin/events`                 | `src/pages/admin-page.tsx`             | Event listings and attendance administration                          |
@@ -140,15 +141,22 @@ not be committed.
 | `npm ci`             | Reproduce the dependency tree from `package-lock.json`                  |
 | `npm run dev`        | Start the Vite development server                                       |
 | `npm run build`      | Type-check project references, then write a production build to `dist/` |
+| `npm run build:pages` | Build production assets and prepare the GitHub Pages SPA fallback       |
 | `npm run preview`    | Serve the existing `dist/` build locally                                |
 | `npm run lint`       | Run ESLint across the repository                                        |
-| `npm run typecheck`  | Run the configured standalone TypeScript check without emitting files   |
+| `npm run typecheck`  | Check application, tooling, and browser-test TypeScript                  |
 | `npm test`           | Run all Vitest tests once                                               |
 | `npm run test:watch` | Run Vitest interactively as files change                                |
+| `npm run test:e2e`   | Test the prepared production build in desktop/mobile Chromium           |
+| `npm run test:e2e:ui` | Open the interactive Playwright runner                                  |
 | `npm run format`     | Format all TypeScript and TSX files with Prettier                       |
 
 `npm run format` does not format Markdown, JSON, or CSS because its package
 script is intentionally restricted to `**/*.{ts,tsx}`.
+
+GitHub Actions runs the quality gates and browser feature tests on pull requests
+and `main`. Deployment is automatic only after every gate passes on `main`.
+See [docs/testing.md](docs/testing.md) for coverage, reports, and local browser setup.
 
 ## Common maintenance paths
 

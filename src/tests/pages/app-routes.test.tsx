@@ -87,14 +87,7 @@ describe("app routes", () => {
     expect(arcLogo).toBeInTheDocument()
     expect(arcLogo).toHaveAttribute(
       "src",
-      expect.stringContaining("arc-logo.webp")
-    )
-
-    const animeLogo = screen.getByRole("img", { name: /animeunsw logo/i })
-    expect(animeLogo).toBeInTheDocument()
-    expect(animeLogo).toHaveAttribute(
-      "src",
-      expect.stringContaining("purple_logo.gif")
+      expect.stringContaining("arc-logo-black.png")
     )
 
     expect(

@@ -20,10 +20,10 @@ describe("FAQAccordion", () => {
     const trigger = screen.getByRole("button", {
       name: new RegExp(firstFaq.question, "i"),
     })
-    // trigger should use pointer cursor so it feels clickable
-    expect(trigger).toHaveStyle({ cursor: "pointer" })
+    expect(trigger).toHaveAttribute("aria-expanded", "false")
     await user.click(trigger)
 
+    expect(trigger).toHaveAttribute("aria-expanded", "true")
     expect(screen.getByText(firstFaq.answer)).toBeVisible()
 
     await user.click(trigger)

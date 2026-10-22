@@ -37,9 +37,10 @@ npm run build
 
 `build` runs TypeScript project references before Vite and is the strongest
 single check for production compilation. It does not replace lint or behavior
-tests. The standalone `typecheck` script invokes the root configuration and may
-not surface every referenced-project error, so do not use it as a substitute
-for `build`.
+tests. The `typecheck` script checks application and Node project references plus
+the Playwright configuration and fixtures. `build:pages` also prepares the Pages
+fallback. For a release, run `npm run build:pages` followed by `npm run test:e2e`;
+the GitHub workflow requires all of these gates before publishing.
 
 When a command fails:
 
