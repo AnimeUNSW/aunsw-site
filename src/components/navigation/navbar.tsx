@@ -34,9 +34,18 @@ export function Navbar({ showAdmin = false }: { showAdmin?: boolean }) {
                     "bg-gradient-to-r from-primary/20 to-accent/20 text-foreground"
                 )}
               >
-                <Link to={item.to} aria-current={isActive ? "page" : undefined}>
-                  {item.label}
-                </Link>
+                {item.external ? (
+                  <a href={item.to} target="_blank" rel="noreferrer">
+                    {item.label}
+                  </a>
+                ) : (
+                  <Link
+                    to={item.to}
+                    aria-current={isActive ? "page" : undefined}
+                  >
+                    {item.label}
+                  </Link>
+                )}
               </NavigationMenuLink>
             </NavigationMenuItem>
           )

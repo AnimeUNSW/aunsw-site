@@ -78,11 +78,27 @@ test("navigation, keyboard theme toggle, and persistence work", async ({
   await expect(page.locator("html")).toHaveClass(/dark/)
   if (isMobile) {
     await page.getByRole("button", { name: "Open navigation menu" }).click()
+    await expect(
+      page
+        .getByRole("dialog")
+        .getByRole("link", { name: "Constitution", exact: true })
+    ).toHaveAttribute(
+      "href",
+      "https://docs.google.com/document/d/1UxDvBf9viiRuanWgl7T0Xz_pI8WR5ZjkE2mKj_sh1Uc/edit?usp=sharing"
+    )
     await page
       .getByRole("dialog")
       .getByRole("link", { name: "Events", exact: true })
       .click()
   } else {
+    await expect(
+      page
+        .getByRole("navigation", { name: "Main", exact: true })
+        .getByRole("link", { name: "Constitution", exact: true })
+    ).toHaveAttribute(
+      "href",
+      "https://docs.google.com/document/d/1UxDvBf9viiRuanWgl7T0Xz_pI8WR5ZjkE2mKj_sh1Uc/edit?usp=sharing"
+    )
     await page
       .getByRole("navigation", { name: "Main", exact: true })
       .getByRole("link", { name: "Events", exact: true })

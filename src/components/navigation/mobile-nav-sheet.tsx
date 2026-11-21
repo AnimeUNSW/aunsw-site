@@ -52,17 +52,28 @@ export function MobileNavSheet({ showAdmin = false }: { showAdmin?: boolean }) {
               return (
                 <li key={item.to}>
                   <SheetClose asChild>
-                    <Link
-                      to={item.to}
-                      className={cn(
-                        "block rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-muted",
-                        isActive &&
-                          "bg-gradient-to-r from-primary/20 to-accent/20 text-foreground"
-                      )}
-                      aria-current={isActive ? "page" : undefined}
-                    >
-                      {item.label}
-                    </Link>
+                    {item.external ? (
+                      <a
+                        href={item.to}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="block rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-muted"
+                      >
+                        {item.label}
+                      </a>
+                    ) : (
+                      <Link
+                        to={item.to}
+                        className={cn(
+                          "block rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-muted",
+                          isActive &&
+                            "bg-gradient-to-r from-primary/20 to-accent/20 text-foreground"
+                        )}
+                        aria-current={isActive ? "page" : undefined}
+                      >
+                        {item.label}
+                      </Link>
+                    )}
                   </SheetClose>
                 </li>
               )
